@@ -9,13 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.mobatia.naisapp.MainActivity">
+        <activity android:name="com.mobatia.naisapp.activity.common.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.common.LoginActivity"/>
+        <activity android:name=".activity.home.HomeActivity"/>
     </application>
 
 </manifest>
