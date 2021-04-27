@@ -6,5 +6,29 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <!--Splash Screen-->
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:splitMotionEvents">false</item>
+        <item name="android:windowEnableSplitTouch">false</item>
+    </style>
 
+    <!--Login Username and Password Style-->
+    <style name="editTextPasswordUsernameStyle" parent="@android:style/Widget.EditText">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:focusable">false</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textCursorDrawable">@drawable/edittext_cursor</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+    </style>
 </resources>
