@@ -7,6 +7,7 @@ import android.os.Handler
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.mobatia.naisapp.R
+import com.mobatia.naisapp.activity.home.HomeActivity
 import com.mobatia.naisapp.constants.PreferenceManager
 
 class SplashActivity :AppCompatActivity() {
