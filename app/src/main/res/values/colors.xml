@@ -9,4 +9,7 @@
     <color name="black">#000000</color>
     <color name="teal">#4dc4cf</color>
 
+    <color name="transparent">#00000000</color>
+
+
 </resources>
