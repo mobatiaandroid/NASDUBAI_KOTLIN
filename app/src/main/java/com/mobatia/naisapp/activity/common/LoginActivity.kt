@@ -6,6 +6,8 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
@@ -17,6 +19,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.common.api.Api
 import com.google.firebase.iid.FirebaseInstanceId
@@ -31,8 +34,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-@Suppress("DEPRECATION")
-class LoginActivity : AppCompatActivity(), View.OnClickListener ,View.OnTouchListener{
+@Suppress("DEPRECATION", "NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+class LoginActivity : AppCompatActivity(), View.OnClickListener, View.OnTouchListener {
 
     lateinit var mContext: Context
     lateinit var dialog: Dialog
@@ -66,7 +69,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener ,View.OnTouchLis
         emailTxt.setOnTouchListener(this)
         passwordEditTxt.setOnTouchListener(this)
         guestImg.setOnClickListener(View.OnClickListener {
-            startActivity(Intent(mContext,HomeActivity::class.java))
+            startActivity(Intent(mContext, HomeActivity::class.java))
         })
         emailHelpImg.setOnClickListener(View.OnClickListener {
             if (CommonMethods.isInternetAvailable(mContext)) {
@@ -103,29 +106,29 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener ,View.OnTouchLis
 
         loginImg.setOnClickListener(View.OnClickListener {
 
-            if(emailTxt.text.toString().trim().equals(""))
-            {
+            if (emailTxt.text.toString().trim().equals("")) {
                 // enter valid email
                 CommonMethods.dialogueWithOk(mContext, "Please enter Email.", "Alert")
 
-            }
-            else
-            {
-                if (passwordEditTxt.text.toString().trim().equals(""))
-                {
+            } else {
+                if (passwordEditTxt.text.toString().trim().equals("")) {
                     //enter password
                     CommonMethods.dialogueWithOk(mContext, "Please enter Password.", "Alert")
-                }
-                else{
+                } else {
                     var emailPattern = CommonMethods.isEmailValid(emailTxt.text.toString().trim())
-                    if (!emailPattern)
-                    {
+                    if (!emailPattern) {
                         //enter valid email
-                        CommonMethods.dialogueWithOk(mContext, "Please enter a valid Email.", "Alert")
-                    }
-                    else{
+                        CommonMethods.dialogueWithOk(
+                            mContext,
+                            "Please enter a valid Email.",
+                            "Alert"
+                        )
+                    } else {
                         if (CommonMethods.isInternetAvailable(mContext)) {
-                            callLoginApi(emailTxt.text.toString().trim(),passwordEditTxt.text.toString().trim())
+                            callLoginApi(
+                                emailTxt.text.toString().trim(),
+                                passwordEditTxt.text.toString().trim()
+                            )
                         } else {
                             CommonMethods.showSuccessInternetAlert(mContext)
                         }
@@ -142,11 +145,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener ,View.OnTouchLis
         dialog = Dialog(mContext, R.style.NewDialog)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_forgot_password)
-        var text_dialog = dialog.findViewById(R.id.text_dialog) as EditText
-        var btn_maybelater = dialog.findViewById(R.id.btn_maybelater) as Button
-        var btn_signup = dialog.findViewById(R.id.btn_signup) as Button
-        btn_maybelater.text = "Maybe later";
-        text_dialog.setOnEditorActionListener { _, actionId, event ->
+        var text_dialog = dialog.findViewById(R.id.text_dialog) as? EditText
+        var btn_maybelater = dialog.findViewById(R.id.btn_maybelater) as? Button
+        var btn_signup = dialog.findViewById(R.id.btn_signup) as? Button
+        btn_maybelater?.text = "Maybe later";
+        text_dialog?.setOnEditorActionListener { _, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 text_dialog.isFocusable = false
                 text_dialog.isFocusableInTouchMode = false
@@ -158,14 +161,14 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener ,View.OnTouchLis
             }
         }
 
-        btn_signup.setOnClickListener()
+        btn_signup?.setOnClickListener()
         {
-            if (text_dialog.text.toString().trim().equals("")) {
+            if (text_dialog?.text.toString().trim().equals("")) {
                 CommonMethods.showErrorAlert(mContext, "Please enter Email.", "Alert")
             } else {
 
                 val emailPattern =
-                    CommonMethods.isEmailValid(text_dialog.text.toString().trim())
+                    CommonMethods.isEmailValid(text_dialog?.text.toString().trim())
                 if (!emailPattern) {
                     CommonMethods.showErrorAlert(
                         mContext,
@@ -174,10 +177,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener ,View.OnTouchLis
                     )
                 } else {
                     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-                    imm?.hideSoftInputFromWindow(text_dialog.windowToken, 0)
+                    imm?.hideSoftInputFromWindow(text_dialog?.windowToken, 0)
                     val internetCheck = CommonMethods.isInternetAvailable(mContext)
                     if (internetCheck) {
-                       // callSignUpApi(text_dialog.text.toString().trim(),dialog,signup_progress)
+                        callSignUpApi(text_dialog?.text.toString().trim(), dialog)
                     } else {
                         CommonMethods.showSuccessInternetAlert(mContext)
                     }
@@ -187,18 +190,76 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener ,View.OnTouchLis
             }
         }
 
-        text_dialog.setOnTouchListener { v, m -> // Perform tasks here
+        text_dialog?.setOnTouchListener { v, m -> // Perform tasks here
             text_dialog.isFocusable = true
             text_dialog.isFocusableInTouchMode = true
             false
         }
 
-        btn_maybelater.setOnClickListener()
+        btn_maybelater?.setOnClickListener()
         {
             dialog.dismiss()
         }
         dialog.show()
 
+    }
+
+    fun callSignUpApi(email: String, dialog: Dialog) {
+        val call: Call<ResponseBody> = ApiClient.getClient.registeruser(
+            email
+        )
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                val responsedata = response.body()
+                try {
+                    val jsonObject = JSONObject(responsedata?.string())
+                    if (jsonObject.has("status")) {
+                        val status: Int = jsonObject.optInt("status")
+                        when (status) {
+                            100 -> {
+                                showSuccessAlertForgot(
+                                    mContext,
+                                    "Password successfully sent to your email. Please check.",
+                                    "Success",
+                                    dialog
+                                )
+
+                            }
+                            103 -> {
+                                showSuccessAlertForgot(mContext, "Invalid email", "Alert", dialog)
+
+                            }
+                            114 -> {
+                                showSuccessAlertForgot(
+                                    mContext,
+                                    "User not found in our database",
+                                    "Alert",
+                                    dialog
+                                )
+
+                            }
+                            121 -> {
+                                showSuccessAlertForgot(
+                                    mContext,
+                                    "The e-mail has already registered",
+                                    "Alert",
+                                    dialog
+                                )
+
+                            }
+                        }
+
+                    }
+                }
+                catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+        })
     }
 
 
@@ -241,7 +302,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener ,View.OnTouchLis
                     imm?.hideSoftInputFromWindow(text_dialog.windowToken, 0)
                     var internetCheck = CommonMethods.isInternetAvailable(mContext)
                     if (internetCheck) {
-                        callForgetPassword(text_dialog.text.toString().trim(),dialog)
+                        callForgetPassword(text_dialog.text.toString().trim(), dialog)
                     } else {
                         CommonMethods.showSuccessInternetAlert(mContext)
                     }
@@ -265,38 +326,70 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener ,View.OnTouchLis
 
     }
 
-     fun callForgetPassword(email: String, dialog: Dialog) {
+    fun callForgetPassword(email: String, dialog: Dialog) {
 
-val  call:Call<ResponseBody> = ApiClient.getClient.forgotpassword(email)
-         call.enqueue(object :Callback<ResponseBody>{
-             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                 Log.e("responseerror:",t.localizedMessage)
-             }
+        val call: Call<ResponseBody> = ApiClient.getClient.forgotpassword(email)
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+            }
 
-             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                 val responsedata = response.body()
-                 if (responsedata!=null){
-                     try {
-                         val jsonObject = JSONObject(responsedata.string())
-                         if (jsonObject.has("status")){
-                             val status : Int=jsonObject.optInt("status")
-                             val message : String=jsonObject.optString("message")
-                             Log.e("forgotpassstatus:", status.toString())
-                             Log.e("forgotpassmessage:", message)
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                val responsedata = response.body()
+                if (responsedata != null) {
+                    try {
+                        val jsonObject = JSONObject(responsedata.string())
+                        if (jsonObject.has("status")) {
+                            val status: Int = jsonObject.optInt("status")
+                            val message: String = jsonObject.optString("message")
+                            Log.e("forgotpassstatus:", status.toString())
+                            Log.e("forgotpassmessage:", message)
 
-                             if (status==100){
-                                 //showSuccessAlertForgot(mContext,"Password successfully sent to your email. Please check.","Alert",dialog)
+                            if (status == 100) {
+                                showSuccessAlertForgot(
+                                    mContext,
+                                    "Password successfully sent to your email. Please check.",
+                                    "Success",
+                                    dialog
+                                )
+                            } else {
+                                showSuccessAlertForgot(mContext, message, "Alert", dialog)
 
-                             }
-                         }
-                     }
-                     catch (e: Exception) {
-                         e.printStackTrace()
-                     }
-                 }
-             }
+                            }
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            }
 
-         })
+        })
+    }
+
+    fun showSuccessAlertForgot(
+        context: Context,
+        message: String,
+        msgHead: String,
+        dialogPassword: Dialog
+    ) {
+        val dialog = Dialog(context)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.alert_dialogue_ok_layout)
+        var iconImageView = dialog.findViewById(R.id.iconImageView) as? ImageView
+        var alertHead = dialog.findViewById(R.id.alertHead) as? TextView
+        var text_dialog = dialog.findViewById(R.id.text_dialog) as? TextView
+        var btn_Ok = dialog.findViewById(R.id.btn_Ok) as? Button
+        text_dialog?.text = message
+        Log.e("printeddata:",message)
+        alertHead?.text = msgHead
+        iconImageView?.setImageResource(R.drawable.exclamationicon)
+        btn_Ok?.setOnClickListener()
+        {
+            dialogPassword.dismiss()
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     override fun onClick(v: View?) {
@@ -312,7 +405,7 @@ val  call:Call<ResponseBody> = ApiClient.getClient.forgotpassword(email)
             imm?.hideSoftInputFromWindow(emailTxt.windowToken, 0)
             val immq = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
             immq?.hideSoftInputFromWindow(passwordEditTxt.windowToken, 0)
-           // SignupDialog(mContext)
+            SignupDialog(mContext)
             val intent = Intent(this, HomeActivity::class.java)
 
             startActivity(intent)
@@ -324,49 +417,51 @@ val  call:Call<ResponseBody> = ApiClient.getClient.forgotpassword(email)
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         when (v) {
             emailTxt -> {
-            when (event!!.action){
-                MotionEvent.ACTION_DOWN -> {
-                    emailTxt?.isFocusable=true
-                    emailTxt?.isFocusableInTouchMode=true
-                }
-                MotionEvent.ACTION_UP -> {
-                    v.performClick()
-                    emailTxt?.isFocusable=true
-                    emailTxt?.isFocusableInTouchMode=true
+                when (event!!.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        emailTxt?.isFocusable = true
+                        emailTxt?.isFocusableInTouchMode = true
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        v.performClick()
+                        emailTxt?.isFocusable = true
+                        emailTxt?.isFocusableInTouchMode = true
+                    }
                 }
             }
-        }
             passwordEditTxt -> {
-            when (event!!.action){
-                MotionEvent.ACTION_DOWN -> {
-                    passwordEditTxt?.isFocusable=true
-                    passwordEditTxt?.isFocusableInTouchMode=true
-                }
-                MotionEvent.ACTION_UP -> {
-                    v.performClick()
-                    passwordEditTxt?.isFocusable=true
-                    passwordEditTxt?.isFocusableInTouchMode=true
+                when (event!!.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        passwordEditTxt?.isFocusable = true
+                        passwordEditTxt?.isFocusableInTouchMode = true
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        v.performClick()
+                        passwordEditTxt?.isFocusable = true
+                        passwordEditTxt?.isFocusableInTouchMode = true
+                    }
                 }
             }
         }
-    }
-    return false
+        return false
     }
 
     @SuppressLint("HardwareIds")
-    fun callLoginApi(email:String, password:String)
-    {
-        var androidID = Settings.Secure.getString(this.contentResolver,
-            Settings.Secure.ANDROID_ID)
-     //   System.out.println("LOGINRESPONSE:"+"email:"+email+"pass:"+password+"devid:  "+androidID+" FCM ID : "+ FirebaseInstanceId.getInstance().token.toString())
+    fun callLoginApi(email: String, password: String) {
+        var androidID = Settings.Secure.getString(
+            this.contentResolver,
+            Settings.Secure.ANDROID_ID
+        )
+        //   System.out.println("LOGINRESPONSE:"+"email:"+email+"pass:"+password+"devid:  "+androidID+" FCM ID : "+ FirebaseInstanceId.getInstance().token.toString())
         val call: Call<ResponseBody> = ApiClient.getClient.login(
-            email,password,2, "123456789",androidID
+            email, password, 2, "123456789", androidID
         )
 
         call.enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Log.e("Failed", t.localizedMessage)
             }
+
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 val responsedata = response.body()
                 Log.e("Response Signup", responsedata.toString())
@@ -374,20 +469,16 @@ val  call:Call<ResponseBody> = ApiClient.getClient.forgotpassword(email)
                     try {
 
                         val jsonObject = JSONObject(responsedata.string())
-                        if(jsonObject.has(JsonConstants.STATUS))
-                        {
-                            val status:Int=jsonObject.optInt(JsonConstants.STATUS)
-                            if (status==100)
-                            {
+                        if (jsonObject.has(JsonConstants.STATUS)) {
+                            val status: Int = jsonObject.optInt(JsonConstants.STATUS)
+                            if (status == 100) {
 
-                            }
-                            else{
+                            } else {
 
                             }
                         }
 
-                    }
-                    catch (e: Exception) {
+                    } catch (e: Exception) {
                         e.printStackTrace()
                     }
                 }

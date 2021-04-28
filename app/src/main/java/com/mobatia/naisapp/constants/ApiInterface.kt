@@ -26,4 +26,11 @@ interface ApiInterface {
     fun forgotpassword(
         @Field("email") email: String
     ): Call<ResponseBody>
+
+    /*************FORGOT PASSWORD****************/
+    @POST("api/v1/parent/auth/register")
+    @FormUrlEncoded
+    fun registeruser(
+        @Field("email") email: String
+    ): Call<ResponseBody>
 }

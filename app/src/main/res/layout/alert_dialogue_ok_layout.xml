@@ -60,20 +60,20 @@
             android:textColor="#ff000000"
             android:textSize="18sp" />
 
-        <com.mobatia.naisapp.customviews.textview.CustomFontTextViewRegularWhite
-
+        <com.mobatia.naisapp.customviews.textview.CustomFontTextViewRegularBlack
             android:id="@+id/text_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/alertHead"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="30dp"
             android:layout_marginLeft="4dp"
+            android:layout_marginTop="15dp"
             android:layout_marginRight="4dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginBottom="30dp"
             android:gravity="center_horizontal"
             android:text="Password Missmatch"
             android:textColor="#ff000000" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
