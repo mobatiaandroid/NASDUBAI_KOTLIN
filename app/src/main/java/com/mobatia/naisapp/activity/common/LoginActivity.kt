@@ -26,7 +26,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var forgotPasswordImg: ImageView
     lateinit var signupImg: ImageView
     lateinit var emailTxt: EditText
-    lateinit var editTextTextPersonName: EditText
+    lateinit var passwordEditTxt: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +40,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         forgotPasswordImg = findViewById(R.id.forgotPasswordImg)
         signupImg = findViewById(R.id.signupImg)
         emailTxt = findViewById(R.id.emailTxt)
+        passwordEditTxt = findViewById(R.id.passwordEditTxt)
         forgotPasswordImg.setOnClickListener(this)
         signupImg.setOnClickListener(this)
     }
@@ -178,14 +179,14 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
             imm?.hideSoftInputFromWindow(emailTxt.windowToken, 0)
             val immq = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-            immq?.hideSoftInputFromWindow(editTextTextPersonName.windowToken, 0)
+            immq?.hideSoftInputFromWindow(passwordEditTxt.windowToken, 0)
             showForgetPassword(mContext)
         }
         if (v == signupImg) {
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
             imm?.hideSoftInputFromWindow(emailTxt.windowToken, 0)
             val immq = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-            immq?.hideSoftInputFromWindow(editTextTextPersonName.windowToken, 0)
+            immq?.hideSoftInputFromWindow(passwordEditTxt.windowToken, 0)
            // SignupDialog(mContext)
             val intent = Intent(this, HomeActivity::class.java)
 

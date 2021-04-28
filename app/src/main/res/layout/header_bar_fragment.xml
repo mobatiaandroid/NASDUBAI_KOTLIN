@@ -9,7 +9,7 @@
     <com.mobatia.naisapp.customviews.textview.CustomFontDJ5TextWhite
         android:id="@+id/titleTextView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:text="Title"
         android:gravity="center"
         android:layout_marginTop="6dp"
