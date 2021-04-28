@@ -4,7 +4,7 @@ class JsonConstants {
 
     companion object{
 
-
+        var STATUS :String = "status"
 
     }
 }
