@@ -7,14 +7,14 @@ import android.util.AttributeSet
 class CustomFontEditTextSemiBoldNoColor : androidx.appcompat.widget.AppCompatEditText{
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
         // ...
-        val type= Typeface.createFromAsset(context.assets,"fonts/SourceSansPro-SemiBold.otf")
+        val type= Typeface.createFromAsset(context.assets,"fonts/SourceSansPro-Semibold.otf")
         this.setTypeface(type)
 
     }
 
     constructor(context: Context, attrs: AttributeSet) : this(context, attrs, 0) {
         val type =
-            Typeface.createFromAsset(context.assets, "fonts/SourceSansPro-SemiBold.otf")
+            Typeface.createFromAsset(context.assets, "fonts/SourceSansPro-Semibold.otf")
         this.setTypeface(type)
        
     }
