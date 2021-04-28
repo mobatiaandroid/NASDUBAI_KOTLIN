@@ -2,8 +2,10 @@ package com.mobatia.naisapp.activity.common
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -17,6 +19,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mobatia.naisapp.R
 import com.mobatia.naisapp.activity.home.HomeActivity
+import com.mobatia.naisapp.constants.CommonMethods
 import com.mobatia.naisapp.constants.InternetCheckClass
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
@@ -24,6 +27,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var mContext: Context
     lateinit var dialog: Dialog
     lateinit var forgotPasswordImg: ImageView
+    lateinit var emailHelpImg: ImageView
     lateinit var signupImg: ImageView
     lateinit var guestImg: ImageView
     lateinit var emailTxt: EditText
@@ -43,10 +47,42 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         signupImg = findViewById(R.id.signupImg)
         emailTxt = findViewById(R.id.emailTxt)
         passwordEditTxt = findViewById(R.id.passwordEditTxt)
+        emailHelpImg = findViewById(R.id.emailHelpImg)
         forgotPasswordImg.setOnClickListener(this)
         signupImg.setOnClickListener(this)
         guestImg.setOnClickListener(View.OnClickListener {
             startActivity(Intent(mContext,HomeActivity::class.java))
+        })
+        emailHelpImg.setOnClickListener(View.OnClickListener {
+            if (CommonMethods.isInternetAvailable(mContext)) {
+                val deliveryAddress =
+                    arrayOf("communications@nasdubai.ae")
+                val emailIntent = Intent(Intent.ACTION_SEND)
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, deliveryAddress)
+                emailIntent.type = "text/plain"
+                emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                val pm: PackageManager = emailHelpImg.context.packageManager
+                val activityList = pm.queryIntentActivities(
+                    emailIntent, 0
+                )
+                for (app in activityList) {
+                    if (app.activityInfo.name.contains("com.google.android.gm")) {
+                        val activity = app.activityInfo
+                        val name = ComponentName(
+                            activity.applicationInfo.packageName, activity.name
+                        )
+                        emailIntent.addCategory(Intent.CATEGORY_LAUNCHER)
+                        emailIntent.flags = (Intent.FLAG_ACTIVITY_NEW_TASK
+                                or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
+                        emailIntent.component = name
+                        emailHelpImg.context.startActivity(emailIntent)
+                        break
+                    }
+                }
+            } else {
+                // No internet alert
+            }
+
         })
 
     }

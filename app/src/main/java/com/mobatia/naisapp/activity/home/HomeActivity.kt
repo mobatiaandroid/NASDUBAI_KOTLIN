@@ -111,7 +111,8 @@ class HomeActivity : AppCompatActivity(), AdapterView.OnItemLongClickListener {
             val itemAtPos = adapterView.getItemAtPosition(position)
             val itemIdAtPos = adapterView.getItemIdAtPosition(position)
             if (PreferenceManager.getUserCode(context).equals("")) {
-                if (position == 0) {
+                if (position == 0)
+                {
                     mFragment = HomeScreenFragment()
                     replaceFragmentsSelected(position)
                 }
