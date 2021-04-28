@@ -18,6 +18,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.common.api.Api
 import com.google.firebase.iid.FirebaseInstanceId
 import com.mobatia.naisapp.R
 import com.mobatia.naisapp.activity.home.HomeActivity
@@ -240,7 +241,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener ,View.OnTouchLis
                     imm?.hideSoftInputFromWindow(text_dialog.windowToken, 0)
                     var internetCheck = CommonMethods.isInternetAvailable(mContext)
                     if (internetCheck) {
-                        // callForgetPassword(text_dialog.text.toString().trim(),dialog,forgot_progress)
+                        callForgetPassword(text_dialog.text.toString().trim(),dialog)
                     } else {
                         CommonMethods.showSuccessInternetAlert(mContext)
                     }
@@ -262,6 +263,40 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener ,View.OnTouchLis
         }
         dialog.show()
 
+    }
+
+     fun callForgetPassword(email: String, dialog: Dialog) {
+
+val  call:Call<ResponseBody> = ApiClient.getClient.forgotpassword(email)
+         call.enqueue(object :Callback<ResponseBody>{
+             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                 Log.e("responseerror:",t.localizedMessage)
+             }
+
+             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                 val responsedata = response.body()
+                 if (responsedata!=null){
+                     try {
+                         val jsonObject = JSONObject(responsedata.string())
+                         if (jsonObject.has("status")){
+                             val status : Int=jsonObject.optInt("status")
+                             val message : String=jsonObject.optString("message")
+                             Log.e("forgotpassstatus:", status.toString())
+                             Log.e("forgotpassmessage:", message)
+
+                             if (status==100){
+                                 //showSuccessAlertForgot(mContext,"Password successfully sent to your email. Please check.","Alert",dialog)
+
+                             }
+                         }
+                     }
+                     catch (e: Exception) {
+                         e.printStackTrace()
+                     }
+                 }
+             }
+
+         })
     }
 
     override fun onClick(v: View?) {
