@@ -127,13 +127,13 @@ class HomeActivity : AppCompatActivity(), AdapterView.OnItemLongClickListener {
 
         }
 
-        supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-        supportActionBar!!.setDisplayShowCustomEnabled(true)
-        supportActionBar!!.setCustomView(R.layout.custom_titlebar)
-        supportActionBar!!.elevation = 0F
+        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar?.setDisplayShowCustomEnabled(true)
+        supportActionBar?.setCustomView(R.layout.custom_titlebar)
+        supportActionBar?.elevation = 0F
 
-        var view = supportActionBar!!.customView
-        toolbar = view.parent as Toolbar
+        var view = supportActionBar?.customView
+        toolbar = view?.parent as Toolbar
         toolbar.setBackgroundColor(resources.getColor(R.color.white))
         toolbar.setContentInsetsAbsolute(0, 0)
 
@@ -196,7 +196,7 @@ class HomeActivity : AppCompatActivity(), AdapterView.OnItemLongClickListener {
                     .add(R.id.frame_container, mFragment!!, "Settings")
                     .addToBackStack("Settings").commit()
 
-                supportActionBar!!.setTitle(R.string.null_value)
+                supportActionBar?.setTitle(R.string.null_value)
                 settings_icon.visibility = View.INVISIBLE
 
             }
@@ -236,7 +236,7 @@ class HomeActivity : AppCompatActivity(), AdapterView.OnItemLongClickListener {
                 .addToBackStack(mListItemArray[position]).commitAllowingStateLoss()
             homelist.setItemChecked(position, true)
             homelist.setSelection(position)
-            supportActionBar!!.setTitle(R.string.null_value)
+            supportActionBar?.setTitle(R.string.null_value)
             if (drawer_layout.isDrawerOpen(linear_layout)) {
                 drawer_layout.closeDrawer(linear_layout)
             }

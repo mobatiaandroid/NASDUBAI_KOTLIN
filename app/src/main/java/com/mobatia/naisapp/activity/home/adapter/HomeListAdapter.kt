@@ -23,8 +23,8 @@ class HomeListAdapter(
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         val inflater = context.layoutInflater
         val rowView = inflater.inflate(R.layout.custom_homelist, null, true)
-        val titleText = rowView.findViewById(R.id.title) as TextView
-        val imageView = rowView.findViewById(R.id.icon) as ImageView
+        val titleText = rowView.findViewById(R.id.listTxtView) as TextView
+        val imageView = rowView.findViewById(R.id.listImg) as ImageView
         titleText.text = title[position]
         imageView.setImageResource(imgid.getResourceId(position, 0))
         return rowView

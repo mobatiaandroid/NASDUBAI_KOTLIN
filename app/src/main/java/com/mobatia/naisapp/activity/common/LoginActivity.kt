@@ -345,7 +345,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener ,View.OnTouchLis
                             if (status==100)
                             {
 
-
                             }
                             else{
 
