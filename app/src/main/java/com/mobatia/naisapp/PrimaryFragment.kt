@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.mobatia.naisapp.constants.InternetCheckClass
 import kotlinx.android.synthetic.main.header_bar_fragment.*
 
 
@@ -40,17 +39,17 @@ class PrimaryFragment : Fragment() {
         mContext = requireContext()
         mTitleTextView = view!!.findViewById(R.id.titleTextView) as TextView
         bannerImagePager = view!!.findViewById(R.id.bannerImagePager) as ImageView
-        primary_recycler = view!!.findViewById(R.id.recyclerView) as RecyclerView
+        primary_recycler = view!!.findViewById(R.id.primaryRecycler) as RecyclerView
         mTitleTextView.text = "Primary"
 
-        primary_recycler.setOnClickListener {
+      /*  primary_recycler.setOnClickListener {
             val internetCheck = InternetCheckClass.isInternetAvailable(mContext)
             if (internetCheck) {
                 getprimarylist()
             } else {
                 InternetCheckClass.showSuccessInternetAlert(mContext)
             }
-        }
+        }*/
     }
 
     private fun getprimarylist() {

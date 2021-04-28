@@ -6,6 +6,7 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
+
 interface ApiInterface {
 
     /*************LOGIN****************/
@@ -17,5 +18,12 @@ interface ApiInterface {
         @Field("devicetype") devicetype: Int,
         @Field("deviceid") fcmid: String,
         @Field("device_identifier") deviceid: String
+    ): Call<ResponseBody>
+
+    /*************FORGOT PASSWORD****************/
+    @POST("api/v1/parent/auth/forgotpassword")
+    @FormUrlEncoded
+    fun forgotpassword(
+        @Field("email") email: String
     ): Call<ResponseBody>
 }

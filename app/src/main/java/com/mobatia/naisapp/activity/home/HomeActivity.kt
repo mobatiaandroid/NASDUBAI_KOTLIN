@@ -2,19 +2,15 @@ package com.mobatia.naisapp.activity.home
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Dialog
 import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.TypedArray
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.view.Window
 import android.view.WindowManager
 import android.widget.*
 import androidx.annotation.RequiresApi
@@ -26,9 +22,6 @@ import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.mobatia.naisapp.R
 import com.mobatia.naisapp.activity.home.adapter.HomeListAdapter
 import com.mobatia.naisapp.constants.AppController
@@ -36,11 +29,7 @@ import com.mobatia.naisapp.constants.MyDragShadowBuilder
 import com.mobatia.naisapp.constants.PreferenceManager
 import com.mobatia.naisapp.fragment.home.HomeScreenFragment
 import com.mobatia.naisapp.fragment.settings.SettingsFragment
-import okhttp3.ResponseBody
-import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+
 
 class HomeActivity : AppCompatActivity(), AdapterView.OnItemLongClickListener {
 
@@ -127,13 +116,14 @@ class HomeActivity : AppCompatActivity(), AdapterView.OnItemLongClickListener {
 
         }
 
-        supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-        supportActionBar!!.setDisplayShowCustomEnabled(true)
-        supportActionBar!!.setCustomView(R.layout.custom_titlebar)
-        supportActionBar!!.elevation = 0F
+
+        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar?.setDisplayShowCustomEnabled(true)
+        supportActionBar?.setCustomView(R.layout.custom_titlebar)
+        supportActionBar?.elevation = 0F
 
         var view = supportActionBar!!.customView
-        toolbar = view.parent as Toolbar
+         toolbar = view.parent as Toolbar
         toolbar.setBackgroundColor(resources.getColor(R.color.white))
         toolbar.setContentInsetsAbsolute(0, 0)
 
