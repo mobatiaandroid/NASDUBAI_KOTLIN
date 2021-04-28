@@ -40,7 +40,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         forgotPasswordImg = findViewById(R.id.forgotPasswordImg)
         signupImg = findViewById(R.id.signupImg)
         emailTxt = findViewById(R.id.emailTxt)
-        editTextTextPersonName = findViewById(R.id.editTextTextPersonName)
         forgotPasswordImg.setOnClickListener(this)
         signupImg.setOnClickListener(this)
     }
