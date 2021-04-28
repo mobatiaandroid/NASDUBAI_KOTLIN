@@ -12,6 +12,7 @@
     <color name="transparent">#00000000</color>
     <color name="grey">#d8d8d8</color>
     <color name="rel_two">#003156</color>
+    <color name="split_bg">#4dc4cf</color>
 
 
 </resources>

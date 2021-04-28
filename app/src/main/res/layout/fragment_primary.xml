@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/relMain"
     android:background="@color/white"
-    tools:context=".activity.home.HomeActivity">
+    tools:context=".PrimaryFragment">
 
     <include
         android:id="@+id/includeRel"
@@ -40,5 +40,4 @@
             app:layout_constraintTop_toBottomOf="@+id/bannerImagePager" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
