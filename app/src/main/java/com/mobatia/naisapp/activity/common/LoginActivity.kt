@@ -358,9 +358,9 @@ val  call:Call<ResponseBody> = ApiClient.getClient.forgotpassword(email)
     {
         var androidID = Settings.Secure.getString(this.contentResolver,
             Settings.Secure.ANDROID_ID)
-        System.out.println("LOGINRESPONSE:"+"email:"+email+"pass:"+password+"devid:  "+androidID+" FCM ID : "+ FirebaseInstanceId.getInstance().token.toString())
+     //   System.out.println("LOGINRESPONSE:"+"email:"+email+"pass:"+password+"devid:  "+androidID+" FCM ID : "+ FirebaseInstanceId.getInstance().token.toString())
         val call: Call<ResponseBody> = ApiClient.getClient.login(
-            email,password,2, FirebaseInstanceId.getInstance().token.toString(),androidID
+            email,password,2, "123456789",androidID
         )
 
         call.enqueue(object : Callback<ResponseBody> {
