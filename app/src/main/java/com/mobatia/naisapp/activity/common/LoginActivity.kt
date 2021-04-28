@@ -7,7 +7,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.view.Window
 import android.view.inputmethod.EditorInfo
@@ -15,19 +17,27 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.iid.FirebaseInstanceId
 import com.mobatia.naisapp.R
 import com.mobatia.naisapp.activity.home.HomeActivity
+import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
-import com.mobatia.naisapp.constants.InternetCheckClass
+import com.mobatia.naisapp.constants.JsonConstants
+import okhttp3.ResponseBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class LoginActivity : AppCompatActivity(), View.OnClickListener {
+@Suppress("DEPRECATION")
+class LoginActivity : AppCompatActivity(), View.OnClickListener ,View.OnTouchListener{
 
     lateinit var mContext: Context
     lateinit var dialog: Dialog
     lateinit var forgotPasswordImg: ImageView
     lateinit var emailHelpImg: ImageView
+    lateinit var loginImg: ImageView
     lateinit var signupImg: ImageView
     lateinit var guestImg: ImageView
     lateinit var emailTxt: EditText
@@ -41,15 +51,19 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun InitUI() {
         forgotPasswordImg = findViewById(R.id.forgotPasswordImg)
         guestImg = findViewById(R.id.guestImg)
         signupImg = findViewById(R.id.signupImg)
         emailTxt = findViewById(R.id.emailTxt)
+        loginImg = findViewById(R.id.loginImg)
         passwordEditTxt = findViewById(R.id.passwordEditTxt)
         emailHelpImg = findViewById(R.id.emailHelpImg)
         forgotPasswordImg.setOnClickListener(this)
         signupImg.setOnClickListener(this)
+        emailTxt.setOnTouchListener(this)
+        passwordEditTxt.setOnTouchListener(this)
         guestImg.setOnClickListener(View.OnClickListener {
             startActivity(Intent(mContext,HomeActivity::class.java))
         })
@@ -85,6 +99,40 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         })
 
+
+        loginImg.setOnClickListener(View.OnClickListener {
+
+            if(emailTxt.text.toString().trim().equals(""))
+            {
+                // enter valid email
+                CommonMethods.dialogueWithOk(mContext, "Please enter Email.", "Alert")
+
+            }
+            else
+            {
+                if (passwordEditTxt.text.toString().trim().equals(""))
+                {
+                    //enter password
+                    CommonMethods.dialogueWithOk(mContext, "Please enter Password.", "Alert")
+                }
+                else{
+                    var emailPattern = CommonMethods.isEmailValid(emailTxt.text.toString().trim())
+                    if (!emailPattern)
+                    {
+                        //enter valid email
+                        CommonMethods.dialogueWithOk(mContext, "Please enter a valid Email.", "Alert")
+                    }
+                    else{
+                        if (CommonMethods.isInternetAvailable(mContext)) {
+                            callLoginApi(emailTxt.text.toString().trim(),passwordEditTxt.text.toString().trim())
+                        } else {
+                            CommonMethods.showSuccessInternetAlert(mContext)
+                        }
+                    }
+                }
+            }
+        })
+
     }
 
     //Signup popup
@@ -112,13 +160,13 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         btn_signup.setOnClickListener()
         {
             if (text_dialog.text.toString().trim().equals("")) {
-                InternetCheckClass.showSuccessAlert(mContext, "Please enter Email.", "Alert")
+                CommonMethods.showErrorAlert(mContext, "Please enter Email.", "Alert")
             } else {
 
                 val emailPattern =
-                    InternetCheckClass.isEmailValid(text_dialog.text.toString().trim())
+                    CommonMethods.isEmailValid(text_dialog.text.toString().trim())
                 if (!emailPattern) {
-                    InternetCheckClass.showSuccessAlert(
+                    CommonMethods.showErrorAlert(
                         mContext,
                         "Please enter a valid Email.",
                         "Alert"
@@ -126,11 +174,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 } else {
                     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
                     imm?.hideSoftInputFromWindow(text_dialog.windowToken, 0)
-                    val internetCheck = InternetCheckClass.isInternetAvailable(mContext)
+                    val internetCheck = CommonMethods.isInternetAvailable(mContext)
                     if (internetCheck) {
                        // callSignUpApi(text_dialog.text.toString().trim(),dialog,signup_progress)
                     } else {
-                        InternetCheckClass.showSuccessInternetAlert(mContext)
+                        CommonMethods.showSuccessInternetAlert(mContext)
                     }
 
 
@@ -177,12 +225,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         btn_signup.setOnClickListener()
         {
             if (text_dialog.text.toString().trim().equals("")) {
-                InternetCheckClass.showSuccessAlert(mContext, "Please enter Email.", "Alert")
+                CommonMethods.showErrorAlert(mContext, "Please enter Email.", "Alert")
             } else {
                 val emailPattern =
-                    InternetCheckClass.isEmailValid(text_dialog.text.toString().trim())
+                    CommonMethods.isEmailValid(text_dialog.text.toString().trim())
                 if (!emailPattern) {
-                    InternetCheckClass.showSuccessAlert(
+                    CommonMethods.showErrorAlert(
                         mContext,
                         "Please enter a valid Email.",
                         "Alert"
@@ -190,11 +238,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 } else {
                     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
                     imm?.hideSoftInputFromWindow(text_dialog.windowToken, 0)
-                    var internetCheck = InternetCheckClass.isInternetAvailable(mContext)
+                    var internetCheck = CommonMethods.isInternetAvailable(mContext)
                     if (internetCheck) {
                         // callForgetPassword(text_dialog.text.toString().trim(),dialog,forgot_progress)
                     } else {
-                        InternetCheckClass.showSuccessInternetAlert(mContext)
+                        CommonMethods.showSuccessInternetAlert(mContext)
                     }
 
 
@@ -235,6 +283,83 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             startActivity(intent)
 
         }
+
+    }
+
+    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+        when (v) {
+            emailTxt -> {
+            when (event!!.action){
+                MotionEvent.ACTION_DOWN -> {
+                    emailTxt?.isFocusable=true
+                    emailTxt?.isFocusableInTouchMode=true
+                }
+                MotionEvent.ACTION_UP -> {
+                    v.performClick()
+                    emailTxt?.isFocusable=true
+                    emailTxt?.isFocusableInTouchMode=true
+                }
+            }
+        }
+            passwordEditTxt -> {
+            when (event!!.action){
+                MotionEvent.ACTION_DOWN -> {
+                    passwordEditTxt?.isFocusable=true
+                    passwordEditTxt?.isFocusableInTouchMode=true
+                }
+                MotionEvent.ACTION_UP -> {
+                    v.performClick()
+                    passwordEditTxt?.isFocusable=true
+                    passwordEditTxt?.isFocusableInTouchMode=true
+                }
+            }
+        }
+    }
+    return false
+    }
+
+    @SuppressLint("HardwareIds")
+    fun callLoginApi(email:String, password:String)
+    {
+        var androidID = Settings.Secure.getString(this.contentResolver,
+            Settings.Secure.ANDROID_ID)
+        System.out.println("LOGINRESPONSE:"+"email:"+email+"pass:"+password+"devid:  "+androidID+" FCM ID : "+ FirebaseInstanceId.getInstance().token.toString())
+        val call: Call<ResponseBody> = ApiClient.getClient.login(
+            email,password,2, FirebaseInstanceId.getInstance().token.toString(),androidID
+        )
+
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.e("Failed", t.localizedMessage)
+            }
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                val responsedata = response.body()
+                Log.e("Response Signup", responsedata.toString())
+                if (responsedata != null) {
+                    try {
+
+                        val jsonObject = JSONObject(responsedata.string())
+                        if(jsonObject.has(JsonConstants.STATUS))
+                        {
+                            val status:Int=jsonObject.optInt(JsonConstants.STATUS)
+                            if (status==100)
+                            {
+
+
+                            }
+                            else{
+
+                            }
+                        }
+
+                    }
+                    catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+
+        })
 
     }
 }

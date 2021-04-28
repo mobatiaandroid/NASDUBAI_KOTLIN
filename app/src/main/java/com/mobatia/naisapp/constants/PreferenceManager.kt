@@ -26,5 +26,24 @@ class PreferenceManager {
             )
             return prefs.getString("user_code", "")
         }
+
+        /*SET FIRE BASE ID*/
+        fun setFcmID(context: Context, id: String) {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME, Context.MODE_PRIVATE
+            )
+            val editor = prefs.edit()
+            editor.putString("firebase id", id)
+            editor.apply()
+        }
+
+        /*GET FIREBASE ID*/
+        fun getFcmID(context: Context): String {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME,
+                Context.MODE_PRIVATE
+            )
+            return prefs.getString("firebase id", "").toString()
+        }
     }
 }

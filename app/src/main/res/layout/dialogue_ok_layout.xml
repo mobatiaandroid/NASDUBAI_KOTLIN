@@ -80,7 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@+id/text_dialog"
+            android:layout_below="@+id/descriptionTxt"
             android:gravity="center_horizontal"
             android:weightSum="100">
             <LinearLayout
