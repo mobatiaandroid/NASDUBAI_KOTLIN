@@ -15,4 +15,109 @@
     <string name="status_126">File size too large( maxsize:2Mb )</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="null_value"></string>
+
+<!--***************** REGISTERED ITEMS AND ICONS******************-->
+
+    <string-array name="navigation_item_reg">
+        <!-- 0 -->
+        <item>Home</item>
+        <!-- 1 -->
+        <item>Calendar</item>
+        <!-- 2 -->
+        <item>Notifications</item>
+        <!-- 3 -->
+        <item>Communications</item>
+        <!-- 4 -->
+        <item>Absences</item>
+        <!-- 5 -->
+        <item>Payments</item>
+        <!-- 6 -->
+        <item>Lunch Box</item>
+        <!-- 7 -->
+        <item>Parent Essentials</item>
+        <!-- 8 -->
+        <item>Early Years</item>
+        <!-- 9 -->
+        <item>Primary</item>
+        <!-- 10 -->
+        <item>Secondary</item>
+        <!-- 11 -->
+        <item>IB Programme</item>
+        <!-- 12 -->
+        <item>University Guidance</item>
+        <!-- 13 -->
+        <item>Sports</item>
+        <!-- 14 -->
+        <item>Performing Arts</item>
+        <!-- 15 -->
+        <item>CCAs</item>
+        <!-- 16 -->
+        <item>Parents\' Association</item>
+        <!-- 17 -->
+        <item>Parent Meetings</item>
+        <!-- 18 -->
+        <item>NAE Programmes</item>
+        <!-- 19 -->
+        <item>Reports</item>
+        <!-- 20 -->
+        <item>Permission Forms</item>
+        <!-- 21 -->
+        <item>Gallery</item>
+        <!-- 22 -->
+        <item>About Us</item>
+        <!-- 23 -->
+        <item>Contact Us</item>
+    </string-array>
+
+    <string-array name="navigation_item_reg_icons">
+        <!-- 0 -->
+        <item>@drawable/home</item>
+        <!-- 1 -->
+        <item>@drawable/calendar</item>
+        <!-- 2 -->
+        <item>@drawable/notif</item>
+        <!-- 3 -->
+        <item>@drawable/communication</item>
+        <!-- 4 -->
+        <item>@drawable/absence</item>
+        <!-- 4 -->
+        <item>@drawable/payment</item>
+        <!-- 5 -->
+        <item>@drawable/lunchbox_sideicon</item>
+        <!-- 6 -->
+        <item>@drawable/parent</item>
+        <!-- 7 -->
+        <item>@drawable/earlyyears</item>
+        <!-- 8 -->
+        <item>@drawable/primary</item>
+        <!-- 9 -->
+        <item>@drawable/secondary</item>
+        <!-- 10 -->
+        <item>@drawable/ib</item>
+        <!-- 11 -->
+        <item>@drawable/university_guidelines</item>
+        <!-- 12 -->
+        <item>@drawable/sports</item>
+        <!-- 13 -->
+        <item>@drawable/arts</item>
+        <!-- 14 -->
+        <item>@drawable/ccas</item>
+        <!-- 15 -->
+        <item>@drawable/parent_association</item>
+        <!-- 16 -->
+        <item>@drawable/parentevening</item>
+        <!-- 17 -->
+        <item>@drawable/naeprogramme</item>
+        <!-- 18 -->
+        <item>@drawable/report_side</item>
+        <!-- 19 -->
+        <item>@drawable/permission_slip</item>
+        <!-- 20 -->
+        <item>@drawable/gallery</item>
+        <!-- 21 -->
+        <item>@drawable/aboutus</item>
+        <!-- 22 -->
+        <item>@drawable/contacts</item>
+    </string-array>
 </resources>

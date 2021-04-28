@@ -25,6 +25,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var dialog: Dialog
     lateinit var forgotPasswordImg: ImageView
     lateinit var signupImg: ImageView
+    lateinit var guestImg: ImageView
     lateinit var emailTxt: EditText
     lateinit var passwordEditTxt: EditText
 
@@ -38,11 +39,16 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun InitUI() {
         forgotPasswordImg = findViewById(R.id.forgotPasswordImg)
+        guestImg = findViewById(R.id.guestImg)
         signupImg = findViewById(R.id.signupImg)
         emailTxt = findViewById(R.id.emailTxt)
         passwordEditTxt = findViewById(R.id.passwordEditTxt)
         forgotPasswordImg.setOnClickListener(this)
         signupImg.setOnClickListener(this)
+        guestImg.setOnClickListener(View.OnClickListener {
+            startActivity(Intent(mContext,HomeActivity::class.java))
+        })
+
     }
 
     //Signup popup
