@@ -22,4 +22,6 @@
     <color name="rel_seven">#ffc20a</color>
     <color name="rel_eight">#8f8c85</color>
     <color name="rel_nine">#ee2953</color>
+    <color name="term_button_bg">#71C7D8</color>
+    <color name="list_bg">#002D4C</color>
 </resources>

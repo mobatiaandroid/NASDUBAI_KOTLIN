@@ -1,5 +1,6 @@
 package com.mobatia.naisapp.constants
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
@@ -15,6 +16,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.mobatia.naisapp.R
 
+@Suppress("DEPRECATION")
 class CommonMethods {
     companion object{
 
@@ -82,27 +84,11 @@ class CommonMethods {
                 dialog.dismiss()
             })
             val btn_Ok=dialog.findViewById<Button>(R.id.btn_Ok)
-            btn_Ok.setOnClickListener(View.OnClickListener {
+            btn_Ok.setOnClickListener {
 
 
-            })
+            }
             dialog.show()
-
-        }
-
-        //Alert forgot password
-
-        fun dialogueForgotPassword()
-        {
-
-
-        }
-
-        // Alert signup
-
-        fun dialogueSignup()
-        {
-
 
         }
 
@@ -138,6 +124,7 @@ class CommonMethods {
             return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
         }
 
+        @SuppressLint("SetTextI18n")
         fun showSuccessInternetAlert(context: Context)
         {
             val dialog = Dialog(context)
@@ -168,13 +155,13 @@ class CommonMethods {
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.setCancelable(false)
             dialog.setContentView(R.layout.alert_dialogue_ok_layout)
-            var iconImageView = dialog.findViewById(R.id.iconImageView) as ImageView
-            var alertHead = dialog.findViewById(R.id.alertHead) as TextView
-            var text_dialog = dialog.findViewById(R.id.text_dialog) as TextView
+            var iconImageView = dialog.findViewById(R.id.iconImageView) as? ImageView
+            var alertHead = dialog.findViewById(R.id.alertHead) as? TextView
+            var text_dialog = dialog.findViewById(R.id.text_dialog) as? TextView
             var btn_Ok = dialog.findViewById(R.id.btn_Ok) as Button
-            text_dialog.text = message
-            alertHead.text = msgHead
-            btn_Ok?.setOnClickListener()
+            text_dialog?.text = message
+            alertHead?.text = msgHead
+            btn_Ok.setOnClickListener()
             {
                 dialog.dismiss()
             }
