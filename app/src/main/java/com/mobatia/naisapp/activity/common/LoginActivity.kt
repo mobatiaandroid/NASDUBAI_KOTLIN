@@ -253,8 +253,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, View.OnTouchLis
                         }
 
                     }
-                }
-                catch (e: Exception) {
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }
@@ -381,7 +380,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, View.OnTouchLis
         var text_dialog = dialog.findViewById(R.id.text_dialog) as? TextView
         var btn_Ok = dialog.findViewById(R.id.btn_Ok) as? Button
         text_dialog?.text = message
-        Log.e("printeddata:",message)
+        Log.e("printeddata:", message)
         alertHead?.text = msgHead
         iconImageView?.setImageResource(R.drawable.exclamationicon)
         btn_Ok?.setOnClickListener()

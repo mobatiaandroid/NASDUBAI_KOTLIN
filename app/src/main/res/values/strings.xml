@@ -17,7 +17,7 @@
 
     <string name="null_value"></string>
 
-<!--***************** REGISTERED ITEMS AND ICONS******************-->
+    <!--***************** REGISTERED ITEMS AND ICONS******************-->
 
     <string-array name="navigation_item_reg">
         <!-- 0 -->
