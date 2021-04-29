@@ -13,13 +13,13 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.mobatia.naisapp.R
 import com.mobatia.naisapp.activity.home.HomeActivity
-import com.mobatia.naisapp.constants.AppController
-import com.mobatia.naisapp.constants.CommonMethods
-import com.mobatia.naisapp.constants.PreferenceManager
+import com.mobatia.naisapp.constants.*
+import com.mobatia.naisapp.fragment.primary.PrimaryFragment
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -126,10 +126,311 @@ class HomeScreenFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
 
+        if (v == relone) {
 
+            INTENT_TAB_ID = PreferenceManager.getButtonOneRegTabID(mContext).toString()
+            CHECKINTENTVALUE(INTENT_TAB_ID)
+        }
+        if (v == reltwo) {
+
+            INTENT_TAB_ID = PreferenceManager.getButtonTwoRegTabID(mContext).toString()
+            CHECKINTENTVALUE(INTENT_TAB_ID)
+        }
+        if (v == relthree) {
+
+            INTENT_TAB_ID = PreferenceManager.getButtonThreeRegTabID(mContext).toString()
+            CHECKINTENTVALUE(INTENT_TAB_ID)
+        }
+        if (v == relfour) {
+
+            INTENT_TAB_ID = PreferenceManager.getButtonFourRegTabID(
+                mContext).toString()
+            CHECKINTENTVALUE(INTENT_TAB_ID)
+        }
+        if (v == relfive) {
+
+            INTENT_TAB_ID = PreferenceManager.getButtonFiveRegTabID(mContext).toString()
+            CHECKINTENTVALUE(INTENT_TAB_ID)
+        }
+        if (v == relsix) {
+
+            INTENT_TAB_ID = PreferenceManager.getButtonSixRegTabID(mContext).toString()
+            CHECKINTENTVALUE(INTENT_TAB_ID)
+        }
+        if (v == relseven) {
+
+            INTENT_TAB_ID = PreferenceManager.getButtonSevenRegTabID(mContext).toString()
+            CHECKINTENTVALUE(INTENT_TAB_ID)
+        }
+        if (v == releight) {
+
+            INTENT_TAB_ID = PreferenceManager.getButtonEightRegTabID(mContext).toString()
+            CHECKINTENTVALUE(INTENT_TAB_ID)
+        }
+        if (v == relnine) {
+
+            INTENT_TAB_ID = PreferenceManager.getButtonNineRegTabID(mContext).toString()
+            CHECKINTENTVALUE(INTENT_TAB_ID)
+        }
     }
 
     private fun getButtonBgAndTextImages() {
+        if (PreferenceManager
+                .getButtonOneRegTextImage(mContext)!!.toInt() != 0
+        ) {
+            relImgone.setImageDrawable(
+                mListImgArrays.getDrawable(
+                    PreferenceManager
+                        .getButtonOneRegTextImage(mContext)!!.toInt()
+                )
+            )
+            var relTwoStr: String? = ""
+            relTwoStr =
+                if (listitems[PreferenceManager
+                        .getButtonOneRegTextImage(mContext)!!.toInt()].equals(
+                        JsonConstants.CCAS,
+                        ignoreCase = true
+                    )
+                ) {
+                    JsonConstants.CCAS
+                }
+                else {
+                    listitems[PreferenceManager
+                        .getButtonOneRegTextImage(mContext)!!.toInt()].toUpperCase()
+                }
+            relTxtone.text = relTwoStr
+            relTxtone.setTextColor(ContextCompat.getColor(mContext, R.color.white))
+            relone.setBackgroundColor(
+                PreferenceManager
+                    .getButtonOneGuestBg(mContext)
+            )
+        }
+        if (PreferenceManager.getButtonTwoRegTextImage(mContext)!!.toInt() != 0
+        ) {
+            relImgtwo.setImageDrawable(
+                mListImgArrays.getDrawable(
+                    PreferenceManager
+                        .getButtonTwoRegTextImage(mContext)!!.toInt()
+                )
+            )
+            var relTwoStr: String? = ""
+            relTwoStr =
+                if (listitems[PreferenceManager
+                        .getButtonTwoRegTextImage(mContext)!!.toInt()].equals(
+                        JsonConstants.CCAS,
+                        ignoreCase = true
+                    )
+                ) {
+                    JsonConstants.CCAS
+                } else {
+                    listitems[PreferenceManager
+                        .getButtonTwoRegTextImage(mContext)!!.toInt()].toUpperCase()
+                }
+            relTxttwo.text = relTwoStr
+            relTxttwo.setTextColor(ContextCompat.getColor(mContext, R.color.white))
+            reltwo.setBackgroundColor(
+                PreferenceManager
+                    .getButtontwoGuestBg(mContext)
+            )
+        }
+        if (PreferenceManager
+                .getButtonThreeRegTextImage(mContext)!!.toInt() != 0
+        ) {
+            relImgthree.setImageDrawable(
+                mListImgArrays.getDrawable(
+                    PreferenceManager
+                        .getButtonThreeRegTextImage(mContext)!!.toInt()
+                )
+            )
+            var relTwoStr: String? = ""
+            relTwoStr = if (listitems[PreferenceManager
+                    .getButtonThreeRegTextImage(mContext)!!.toInt()].equals(
+                    JsonConstants.CCAS,
+                    ignoreCase = true
+                )
+            ) {
+                JsonConstants.CCAS
+            } else {
+                listitems[PreferenceManager
+                    .getButtonThreeRegTextImage(mContext)!!.toInt()].toUpperCase()
+            }
+            relTxtthree.text = relTwoStr
+            relTxtthree.setTextColor(ContextCompat.getColor(mContext, R.color.white))
+            relthree.setBackgroundColor(
+                PreferenceManager
+                    .getButtonthreeGuestBg(mContext)
+            )
+        }
+
+
+        if (PreferenceManager
+                .getButtonFourRegTextImage(mContext)!!.toInt() != 0
+        ) {
+            relImgfour.setImageDrawable(
+                mListImgArrays.getDrawable(
+                    PreferenceManager
+                        .getButtonFourRegTextImage(mContext)!!.toInt()
+                )
+            )
+            var relTwoStr: String? = ""
+            relTwoStr = if (listitems[PreferenceManager
+                    .getButtonFourRegTextImage(mContext)!!.toInt()].equals(
+                    JsonConstants.CCAS,
+                    ignoreCase = true
+                )
+            ) {
+                JsonConstants.CCAS
+            }
+          else {
+                listitems[PreferenceManager
+                    .getButtonFourRegTextImage(mContext)!!.toInt()].toUpperCase()
+            }
+            relTxtfour.text = relTwoStr
+            relTxtfour.setTextColor(ContextCompat.getColor(mContext, R.color.white))
+            relfour.setBackgroundColor(
+                PreferenceManager
+                    .getButtonfourGuestBg(mContext)
+            )
+        }
+
+
+        if (PreferenceManager.getButtonFiveRegTextImage(mContext)!!.toInt() != 0)
+        {
+            relImgfive.setImageDrawable(
+                mListImgArrays.getDrawable(
+                    PreferenceManager
+                        .getButtonFourRegTextImage(mContext)!!.toInt()
+                )
+            )
+            var relTwoStr: String? = ""
+            relTwoStr = if (listitems[PreferenceManager
+                    .getButtonFourRegTextImage(mContext)!!.toInt()].equals(
+                    JsonConstants.CCAS,
+                    ignoreCase = true
+                )
+            ) {
+                JsonConstants.CCAS
+            } else {
+                listitems[PreferenceManager
+                    .getButtonFourRegTextImage(mContext)!!.toInt()].toUpperCase()
+            }
+            relTxtfive.text = relTwoStr
+            relTxtfive.setTextColor(ContextCompat.getColor(mContext, R.color.white))
+            relfive.setBackgroundColor(
+                PreferenceManager
+                    .getButtonfiveGuestBg(mContext)
+            )
+        }
+        if (PreferenceManager.getButtonSixRegTextImage(mContext)!!.toInt() != 0) {
+            relImgsix.setImageDrawable(
+                mListImgArrays.getDrawable(
+                    PreferenceManager
+                        .getButtonSixRegTextImage(mContext)!!.toInt()
+                )
+            )
+            var relTwoStr: String? = ""
+            relTwoStr = if (listitems[PreferenceManager
+                    .getButtonSixRegTextImage(mContext)!!.toInt()].equals(
+                    JsonConstants.CCAS,
+                    ignoreCase = true
+                )
+            ) {
+                JsonConstants .CCAS
+            }  else {
+                listitems[PreferenceManager
+                    .getButtonSixRegTextImage(mContext)!!.toInt()].toUpperCase(Locale.ROOT)
+            }
+            relTxtsix.text = relTwoStr
+            relTxtsix.setTextColor(ContextCompat.getColor(mContext, R.color.white))
+            relsix.setBackgroundColor(
+                PreferenceManager
+                    .getButtonsixGuestBg(mContext)
+            )
+        }
+        if (PreferenceManager
+                .getButtonSevenRegTextImage(mContext)!!.toInt() != 0
+        ) {
+            relImgseven.setImageDrawable(
+                mListImgArrays.getDrawable(
+                    PreferenceManager
+                        .getButtonSevenRegTextImage(mContext)!!.toInt()
+                )
+            )
+            var relTwoStr: String? = ""
+            relTwoStr = if (listitems[PreferenceManager
+                    .getButtonSevenRegTextImage(mContext)!!.toInt()].equals(
+                    JsonConstants.CCAS,
+                    ignoreCase = true
+                )
+            ) {
+                JsonConstants.CCAS
+            } else {
+                listitems[PreferenceManager
+                    .getButtonSevenRegTextImage(mContext)!!.toInt()].toUpperCase()
+            }
+            relTxtseven.text = relTwoStr
+            relTxtseven.setTextColor(ContextCompat.getColor(mContext, R.color.white))
+            relseven.setBackgroundColor(
+                PreferenceManager
+                    .getButtonsevenGuestBg(mContext)
+            )
+        }
+        if (PreferenceManager
+                .getButtonEightRegTextImage(mContext)!!.toInt() != 0
+        ) {
+            relImgeight.setImageDrawable(
+                mListImgArrays.getDrawable(
+                    PreferenceManager
+                        .getButtonEightRegTextImage(mContext)!!.toInt()
+                )
+            )
+            var relTwoStr: String? = ""
+            relTwoStr = if (listitems[PreferenceManager
+                    .getButtonEightRegTextImage(mContext)!!.toInt()].equals(
+                    JsonConstants.CCAS,
+                    ignoreCase = true
+                )
+            ) {
+                JsonConstants.CCAS
+            } else {
+                listitems[PreferenceManager
+                    .getButtonEightRegTextImage(mContext)!!.toInt()].toUpperCase()
+            }
+            relTxteight.text = relTwoStr
+            relTxteight.setTextColor(ContextCompat.getColor(mContext, R.color.white))
+            releight.setBackgroundColor(
+                PreferenceManager
+                    .getButtoneightGuestBg(mContext)
+            )
+        }
+        if (PreferenceManager
+                .getButtonNineRegTextImage(mContext)!!.toInt() != 0
+        ) {
+            relImgnine.setImageDrawable(
+                mListImgArrays.getDrawable(
+                    PreferenceManager
+                        .getButtonNineRegTextImage(mContext)!!.toInt()
+                )
+            )
+            var relTwoStr: String? = ""
+            relTwoStr = if (listitems[PreferenceManager
+                    .getButtonNineRegTextImage(mContext)!!.toInt()].equals(
+                    JsonConstants.CCAS,
+                    ignoreCase = true
+                )
+            ) {
+                JsonConstants.CCAS
+            } else {
+                listitems[PreferenceManager
+                    .getButtonNineRegTextImage(mContext)!!.toInt()].toUpperCase(Locale.ROOT)
+            }
+            reltxtnine.text = relTwoStr
+            reltxtnine.setTextColor(ContextCompat.getColor(mContext, R.color.white))
+            relnine.setBackgroundColor(
+                PreferenceManager
+                    .getButtonnineGuestBg(mContext)
+            )
+        }
 
     }
 
@@ -202,20 +503,266 @@ class HomeScreenFragment : Fragment(), View.OnClickListener {
         }
 
         private fun getButtonDrawablesAndText(touchedView: View, sPosition: Int) {
+            if (sPosition != 0) {
+                if (touchedView == relone) {
+                    relImgone.setImageDrawable(mListImgArrays.getDrawable(sPosition))
+                    val relstring: String
+                    if (listitems[sPosition] == "CCAs") {
+                        relstring = "CCAS"
+                    } else {
+                        relstring = listitems[sPosition].toUpperCase(Locale.getDefault())
+                    }
+                    relTxtone.text = relstring
+                    getTabId(listitems[sPosition])
+                    PreferenceManager.setButtonOneRegTabID(mContext, TAB_ID)
+                    //setBackgroundColorForView(appController.listitemArrays[sPosition], relone)
+                    setBackgroundColorForView(listitems[sPosition], relone)
+                    PreferenceManager.setButtonOneRegTextImage(mContext, sPosition.toString())
+                } else if (touchedView == reltwo) {
+                    relImgtwo.setImageDrawable(mListImgArrays.getDrawable(sPosition))
+                    val relstring: String
+                    if (listitems[sPosition] == "CCAs") {
+                        relstring = "CCAS"
+                    } else {
+                        relstring = listitems[sPosition].toUpperCase(Locale.getDefault())
+                    }
+                    relTxttwo.text = relstring
+                    getTabId(listitems[sPosition])
+                    PreferenceManager.setButtonTwoRegTabID(mContext, TAB_ID)
+                    setBackgroundColorForView(listitems[sPosition], reltwo)
+                    PreferenceManager.setButtonTwoRegTextImage(mContext, sPosition.toString())
+                } else if (touchedView == relthree) {
+                    relImgthree.setImageDrawable(mListImgArrays.getDrawable(sPosition))
+                    val relstring: String
+                    if (listitems[sPosition] == "CCAs") {
+                        relstring = "CCAS"
+                    } else {
+                        relstring = listitems[sPosition].toUpperCase(Locale.getDefault())
+                    }
+                    relTxtthree.text = relstring
+                    getTabId(listitems[sPosition])
+                    PreferenceManager.setButtonThreeRegTabID(mContext, TAB_ID)
+                    setBackgroundColorForView(listitems[sPosition], relthree)
+                    PreferenceManager.setButtonThreeRegTextImage(mContext, sPosition.toString())
+                } else if (touchedView == relfour) {
+                    relImgfour.setImageDrawable(mListImgArrays.getDrawable(sPosition))
+                    val relstring: String
+                    if (listitems[sPosition] == "CCAs") {
+                        relstring = "CCAS"
+                    } else {
+                        relstring = listitems[sPosition].toUpperCase(Locale.getDefault())
+                    }
+                    relTxtfour.text = relstring
+                    getTabId(listitems[sPosition])
+                    PreferenceManager.setButtonFourRegTabID(mContext, TAB_ID)
+                    setBackgroundColorForView(listitems[sPosition], relfour)
+                    PreferenceManager.setButtonFourRegTextImage(mContext, sPosition.toString())
+                } else if (touchedView == relfive) {
+                    relImgfive.setImageDrawable(mListImgArrays.getDrawable(sPosition))
+                    val relstring: String
+                    if (listitems[sPosition] == "CCAs") {
+                        relstring = "CCAS"
+                    } else {
+                        relstring = listitems[sPosition].toUpperCase(Locale.getDefault())
+                    }
+                    relTxtfive.text = relstring
+                    getTabId(listitems[sPosition])
+                    PreferenceManager.setButtonFiveRegTabID(mContext, TAB_ID)
+                    setBackgroundColorForView(listitems[sPosition], relfive)
+                    PreferenceManager.setButtonFiveRegTextImage(mContext, sPosition.toString())
+                } else if (touchedView == relsix) {
+                    relImgsix.setImageDrawable(mListImgArrays.getDrawable(sPosition))
+                    val relstring: String
+                    if (listitems[sPosition] == "CCAs") {
+                        relstring = "CCAS"
+                    }  else {
+                        relstring = listitems[sPosition].toUpperCase(Locale.getDefault())
+                    }
+                    relTxtsix.text = relstring
+                    getTabId(listitems[sPosition])
+                    PreferenceManager.setButtonSixRegTabID(mContext, TAB_ID)
+                    setBackgroundColorForView(listitems[sPosition], relsix)
+                    PreferenceManager.setButtonSixRegTextImage(mContext, sPosition.toString())
+                } else if (touchedView == relseven) {
+                    relImgseven.setImageDrawable(mListImgArrays.getDrawable(sPosition))
+                    val relstring: String
+                    if (listitems[sPosition] == "CCAs") {
+                        relstring = "CCAS"
+                    } else {
+                        relstring = listitems[sPosition].toUpperCase(Locale.getDefault())
+                    }
+                    relTxtseven.text = relstring
+                    getTabId(listitems[sPosition])
+                    PreferenceManager.setButtonSevenRegTabID(mContext, TAB_ID)
+                    setBackgroundColorForView(listitems[sPosition], relseven)
+                    PreferenceManager.setButtonSevenRegTextImage(mContext, sPosition.toString())
+                } else if (touchedView == releight) {
+                    relImgeight.setImageDrawable(mListImgArrays.getDrawable(sPosition))
+                    val relstring: String
+                    if (listitems[sPosition] == "CCAs") {
+                        relstring = "CCAS"
+                    }else {
+                        relstring = listitems[sPosition].toUpperCase(Locale.getDefault())
+                    }
+                    relTxteight.text = relstring
+                    getTabId(listitems[sPosition])
+                    PreferenceManager.setButtonEightRegTabID(mContext, TAB_ID)
+                    setBackgroundColorForView(listitems[sPosition], releight)
+                    PreferenceManager.setButtonEightRegTextImage(mContext, sPosition.toString())
+                } else if (touchedView == relnine) {
+                    relImgnine.setImageDrawable(mListImgArrays.getDrawable(sPosition))
+                    val relstring: String
+                    if (listitems[sPosition] == "CCAs") {
+                        relstring = "CCAS"
+                    }
+                    else {
+                        relstring = listitems[sPosition].toUpperCase(Locale.getDefault())
+                    }
+                    reltxtnine.text = relstring
+                    getTabId(listitems[sPosition])
+                    PreferenceManager.setButtonNineRegTabID(mContext, TAB_ID)
+                    setBackgroundColorForView(listitems[sPosition], relnine)
+                    PreferenceManager.setButtonNineRegTextImage(mContext, sPosition.toString())
+                }
 
+            }
         }
 
         private fun setBackgroundColorForView(s: String, v: View) {
-
+            if (v == relone) {
+                v.setBackgroundColor(ContextCompat.getColor(mContext, R.color.transparent))
+                saveButtonBgColor(v, ContextCompat.getColor(mContext, R.color.transparent))
+            } else if (v == reltwo) {
+                v.setBackgroundColor(ContextCompat.getColor(mContext, R.color.transparent))
+                saveButtonBgColor(v, ContextCompat.getColor(mContext, R.color.transparent))
+            } else if (v == relthree) {
+                v.setBackgroundColor(ContextCompat.getColor(mContext, R.color.transparent))
+                saveButtonBgColor(v, ContextCompat.getColor(mContext, R.color.transparent))
+            } else if (v == relfour) {
+                v.setBackgroundColor(ContextCompat.getColor(mContext, R.color.transparent))
+                saveButtonBgColor(v, ContextCompat.getColor(mContext, R.color.transparent))
+            } else if (v == relfive) {
+                v.setBackgroundColor(ContextCompat.getColor(mContext, R.color.rel_five))
+                saveButtonBgColor(v, ContextCompat.getColor(mContext, R.color.transparent))
+            } else if (v == relsix) {
+                v.setBackgroundColor(ContextCompat.getColor(mContext, R.color.transparent))
+                saveButtonBgColor(v, ContextCompat.getColor(mContext, R.color.transparent))
+            } else if (v == relseven) {
+                v.setBackgroundColor(ContextCompat.getColor(mContext, R.color.transparent))
+                saveButtonBgColor(v, ContextCompat.getColor(mContext, R.color.transparent))
+            } else if (v == releight) {
+                v.setBackgroundColor(ContextCompat.getColor(mContext, R.color.transparent))
+                saveButtonBgColor(v, ContextCompat.getColor(mContext, R.color.transparent))
+            } else if (v == relnine) {
+                v.setBackgroundColor(ContextCompat.getColor(mContext, R.color.transparent))
+                saveButtonBgColor(v, ContextCompat.getColor(mContext, R.color.transparent))
+            }
         }
 
         private fun saveButtonBgColor(v: View, color: Int) {
 
-
+            if (v == relone) {
+                PreferenceManager.setButtonOneGuestBg(mContext, color)
+            } else if (v == reltwo) {
+                PreferenceManager.setButtontwoGuestBg(mContext, color)
+            } else if (v == relthree) {
+                PreferenceManager.setButtonthreeGuestBg(mContext, color)
+            } else if (v == relfour) {
+                PreferenceManager.setButtonfourGuestBg(mContext, color)
+            } else if (v == relfive) {
+                PreferenceManager.setButtonfiveGuestBg(mContext, color)
+            } else if (v == relsix) {
+                PreferenceManager.setButtonsixGuestBg(mContext, color)
+            } else if (v == relseven) {
+                PreferenceManager.setButtonsevenGuestBg(mContext, color)
+            } else if (v == releight) {
+                PreferenceManager.setButtoneightGuestBg(mContext, color)
+            } else if (v == relnine) {
+                PreferenceManager.setButtonnineGuestBg(mContext, color)
+            }
         }
 
         private fun getTabId(textdata: String) {
 
+            when {
+
+                textdata.equals(ClassNameConstants.CALENDAR) -> {
+                    TAB_ID = NasTabConstants.TAB_CALENDAR_REG
+
+                }
+                textdata.equals(ClassNameConstants.NOTIFICATIONS) -> {
+                    TAB_ID = NasTabConstants.TAB_NOTIFICATIONS_REG
+
+                }
+
+                textdata.equals(ClassNameConstants.COMMUNICATIONS, ignoreCase = true) -> {
+                    TAB_ID = NasTabConstants.TAB_COMMUNICATIONS_REG
+
+                }
+                textdata.equals(ClassNameConstants.ABSENCE, ignoreCase = true) -> {
+                    TAB_ID = NasTabConstants.TAB_ABSENSE_REG
+                }
+                textdata.equals(ClassNameConstants.PAYMENT, ignoreCase = true) -> {
+                    TAB_ID = NasTabConstants.TAB_TRIPS_REG
+                }
+                textdata.equals(ClassNameConstants.CANTEEN, ignoreCase = true) -> {
+                    TAB_ID = NasTabConstants.TAB_CANTEEN_REG
+                }
+                textdata.equals(ClassNameConstants.PARENT_ESSENTIALS, ignoreCase = true) -> {
+                    TAB_ID = NasTabConstants.TAB_PARENT_ESSENTIALS_REG
+                }
+                textdata.equals(ClassNameConstants.EARLY_YEARS, ignoreCase = true) -> {
+                    TAB_ID = NasTabConstants.TAB_EARLYYEARS_REG
+                }
+                textdata.equals(ClassNameConstants.PRIMARY, ignoreCase = true) -> {
+                    TAB_ID = NasTabConstants.TAB_PRIMARY_REG
+                }
+                textdata.equals(ClassNameConstants.SECONDARY, ignoreCase = true) -> {
+                    TAB_ID = NasTabConstants.TAB_SECONDARY_REG
+                }
+
+                textdata.equals(ClassNameConstants.IB_PROGRAMME, ignoreCase = true) -> {
+                    TAB_ID = NasTabConstants.TAB_IB_PROGRAMME_REG
+
+                }
+                textdata.equals(ClassNameConstants.SPORTS, ignoreCase = true) -> {
+                    TAB_ID = NasTabConstants.TAB_SPORTS_REG
+
+                }
+                textdata.equals(ClassNameConstants.PERFORMING_ARTS, ignoreCase = true) -> {
+                    TAB_ID = NasTabConstants.TAB_PERFORMING_ARTS_REG
+
+                }
+                textdata.equals(ClassNameConstants.CCAS, ignoreCase = true) -> {
+                    TAB_ID = NasTabConstants.TAB_CCAS_REG
+
+                }
+                textdata.equals(ClassNameConstants.PARENTS_ASSOCIATION, ignoreCase = true) -> {
+                TAB_ID = NasTabConstants.TAB_PARENTS_ASSOCIATION_REG
+                }
+               textdata.equals(ClassNameConstants.PARENT_EVENING, ignoreCase = true) -> {
+                TAB_ID = NasTabConstants.TAB_PARENTS_MEETING_REG
+                }
+                textdata.equals(ClassNameConstants.NAE_PROGRAMMES, ignoreCase = true) -> {
+                TAB_ID = NasTabConstants.TAB_NAE_PROGRAMMES_REG
+                }
+                textdata.equals(ClassNameConstants.REPORT, ignoreCase = true) -> {
+                TAB_ID = NasTabConstants.TAB_REPORT_REG
+                }
+                textdata.equals(ClassNameConstants.PERMISSSION_SLIPS, ignoreCase = true) -> {
+                TAB_ID = NasTabConstants.TAB_PERMISSION_SLIP_REG
+                }
+                textdata.equals(ClassNameConstants.GALLERY, ignoreCase = true) -> {
+                TAB_ID = NasTabConstants.TAB_GALLERY_REG
+                }
+                textdata.equals(ClassNameConstants.ABOUT_US, ignoreCase = true) -> {
+                TAB_ID = NasTabConstants.TAB_ABOUT_US_REG
+                }
+                textdata.equals(ClassNameConstants.CONTACT_US, ignoreCase = true) -> {
+                TAB_ID = NasTabConstants.TAB_CONTACT_US_REG
+                }
+
+            }
 
         }
 
@@ -365,6 +912,12 @@ class HomeScreenFragment : Fragment(), View.OnClickListener {
     private fun CHECKINTENTVALUE(intentTabId: String) {
         TAB_ID = intentTabId
         var mFragment: Fragment? = null
+        when (intentTabId) {
+            NasTabConstants.TAB_PRIMARY_REG -> {
+                mFragment = PrimaryFragment()
+                fragmentIntent(mFragment)
+            }
+        }
 
     }
 

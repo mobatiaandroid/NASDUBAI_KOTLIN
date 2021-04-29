@@ -1,14 +1,12 @@
-package com.mobatia.naisapp.activity
+package com.mobatia.naisapp.activity.primary
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,9 +16,7 @@ import com.mobatia.naisapp.constants.PdfReaderActivity
 import com.mobatia.naisapp.constants.WebviewLoader
 import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
 import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
-import com.mobatia.naisapp.fragment.primary.adapter.PrimaryAdapter
 import com.mobatia.naisapp.fragment.primary.adapter.PrimaryDetailsAdapter
-import com.mobatia.naisapp.fragment.primary.model.Departmentprimary
 import com.mobatia.naisapp.fragment.primary.model.PrimaryDetailData
 import com.mobatia.naisapp.fragment.primary.model.Primarydetailsresponse
 import retrofit2.Call

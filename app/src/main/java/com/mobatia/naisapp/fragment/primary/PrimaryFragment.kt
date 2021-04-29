@@ -13,9 +13,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.mobatia.naisapp.R
-import com.mobatia.naisapp.activity.PrimaryDetail
+import com.mobatia.naisapp.activity.primary.PrimaryDetail
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
 import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
@@ -35,6 +34,7 @@ class PrimaryFragment : Fragment() {
     lateinit var primary_recycler: RecyclerView
     lateinit var progress:ProgressBar
     private lateinit var linearLayoutManager: LinearLayoutManager
+    var primarylistAPI = ArrayList<Departmentprimary>()
     var primarylist = ArrayList<Departmentprimary>()
 
 
@@ -65,10 +65,19 @@ class PrimaryFragment : Fragment() {
 
         primary_recycler.addOnItemClickListener(object : OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
-                val intent = Intent(activity, PrimaryDetail::class.java)
-                intent.putExtra("id", primarylist[position].id.toString())
-                intent.putExtra("title",primarylist[position].submenu)
-                activity?.startActivity(intent)
+
+                if (position==0)
+                {
+                    //Comming up activity
+                }
+                else
+                {
+                    val intent = Intent(activity, PrimaryDetail::class.java)
+                    intent.putExtra("id", primarylist[position].id.toString())
+                    intent.putExtra("title",primarylist[position].submenu)
+                    activity?.startActivity(intent)
+                }
+
             }
 
         })
@@ -76,6 +85,7 @@ class PrimaryFragment : Fragment() {
 
     private fun getprimarylist() {
          primarylist = ArrayList()
+         primarylistAPI = ArrayList()
         progress.visibility = View.VISIBLE
         val call: Call<Primaryresponse> = ApiClient.getClient.primarylist()
         call.enqueue(object : Callback<Primaryresponse> {
@@ -91,7 +101,19 @@ class PrimaryFragment : Fragment() {
                 progress.visibility = View.GONE
 
                 if (response.body()!!.status==100){
-                    primarylist.addAll(response.body()!!.data.departmentprimary)
+                    primarylistAPI.addAll(response.body()!!.data.departmentprimary)
+                    for (i in primarylistAPI.indices)
+                    {
+                      if (i==0)
+                      {
+                          var model=Departmentprimary(0,"Coming Up")
+                          primarylist.add(model)
+                      }
+                        else{
+                          var model=Departmentprimary(primarylistAPI.get(i).id,primarylistAPI.get(i).submenu)
+                          primarylist.add(model)
+                      }
+                    }
                     val primaryadapter = PrimaryAdapter(primarylist)
                     primary_recycler.adapter = primaryadapter
 
@@ -101,7 +123,7 @@ class PrimaryFragment : Fragment() {
                             Glide.with(it)
                                 .load(bannerstring)
                                 .into(bannerImagePager)
-                        }
+                        }!!
                     }else{
                         bannerImagePager.setBackgroundResource(R.drawable.default_banner)
 

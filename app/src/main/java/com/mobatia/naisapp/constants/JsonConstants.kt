@@ -6,6 +6,7 @@ class JsonConstants {
 
         var STATUS :String = "status"
         var MESSAGE :String = "message"
+        var CCAS = "CCA"
 
     }
 }

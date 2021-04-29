@@ -1,6 +1,7 @@
 package com.mobatia.naisapp.constants
 
 import android.content.Context
+import com.mobatia.naisapp.R
 
 class PreferenceManager {
 
@@ -128,7 +129,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_two_reg_tab_id", "1")
+            return prefs.getString("button_two_reg_tab_id", "2")
         }
         fun setButtonTwoRegTextImage(context: Context, id: String?) {
             val prefs = context.getSharedPreferences(
@@ -144,7 +145,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_two_reg_text_image", "1")
+            return prefs.getString("button_two_reg_text_image", "2")
         }
 
         /*GUEST Teal 2*/
@@ -160,7 +161,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_two_guest_tab_id", "1")
+            return prefs.getString("button_two_guest_tab_id", "2")
         }
         fun setButtonTwoGuestTextImage(context: Context, id: String?) {
             val prefs = context.getSharedPreferences(
@@ -176,7 +177,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_two_guest_text_image", "1")
+            return prefs.getString("button_two_guest_text_image", "2")
         }
 
 
@@ -195,7 +196,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_three_reg_tab_id", "1")
+            return prefs.getString("button_three_reg_tab_id", "3")
         }
         fun setButtonThreeRegTextImage(context: Context, id: String?) {
             val prefs = context.getSharedPreferences(
@@ -211,7 +212,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_three_reg_text_image", "1")
+            return prefs.getString("button_three_reg_text_image", "3")
         }
 
         /*GUEST Teal 3*/
@@ -227,7 +228,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_three_guest_tab_id", "1")
+            return prefs.getString("button_three_guest_tab_id", "3")
         }
         fun setButtonThreeGuestTextImage(context: Context, id: String?) {
             val prefs = context.getSharedPreferences(
@@ -243,7 +244,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_three_guest_text_image", "1")
+            return prefs.getString("button_three_guest_text_image", "3")
         }
 
 
@@ -260,7 +261,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_four_reg_tab_id", "1")
+            return prefs.getString("button_four_reg_tab_id", "4")
         }
         fun setButtonFourRegTextImage(context: Context, id: String?) {
             val prefs = context.getSharedPreferences(
@@ -276,7 +277,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_four_reg_text_image", "1")
+            return prefs.getString("button_four_reg_text_image", "4")
         }
 
         /*GUEST Teal 3*/
@@ -292,7 +293,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_four_guest_tab_id", "1")
+            return prefs.getString("button_four_guest_tab_id", "4")
         }
         fun setButtonFourGuestTextImage(context: Context, id: String?) {
             val prefs = context.getSharedPreferences(
@@ -308,7 +309,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_four_guest_text_image", "1")
+            return prefs.getString("button_four_guest_text_image", "4")
         }
 
 
@@ -325,7 +326,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_five_reg_tab_id", "1")
+            return prefs.getString("button_five_reg_tab_id", "5")
         }
         fun setButtonFiveRegTextImage(context: Context, id: String?) {
             val prefs = context.getSharedPreferences(
@@ -341,7 +342,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_five_reg_text_image", "1")
+            return prefs.getString("button_five_reg_text_image", "5")
         }
 
         /*GUEST Teal 3*/
@@ -357,7 +358,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_five_guest_tab_id", "1")
+            return prefs.getString("button_five_guest_tab_id", "5")
         }
         fun setButtonFiveGuestTextImage(context: Context, id: String?) {
             val prefs = context.getSharedPreferences(
@@ -373,7 +374,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_five_guest_text_image", "1")
+            return prefs.getString("button_five_guest_text_image", "5")
         }
 
 
@@ -390,7 +391,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_six_reg_tab_id", "1")
+            return prefs.getString("button_six_reg_tab_id", "6")
         }
         fun setButtonSixRegTextImage(context: Context, id: String?) {
             val prefs = context.getSharedPreferences(
@@ -406,7 +407,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_six_reg_text_image", "1")
+            return prefs.getString("button_six_reg_text_image", "6")
         }
 
         /*GUEST Teal 3*/
@@ -422,7 +423,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_six_guest_tab_id", "1")
+            return prefs.getString("button_six_guest_tab_id", "6")
         }
         fun setButtonSixGuestTextImage(context: Context, id: String?) {
             val prefs = context.getSharedPreferences(
@@ -438,7 +439,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_six_guest_text_image", "1")
+            return prefs.getString("button_six_guest_text_image", "6")
         }
 
         /*REG Teal 7*/
@@ -454,7 +455,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_seven_reg_tab_id", "1")
+            return prefs.getString("button_seven_reg_tab_id", "7")
         }
         fun setButtonSevenRegTextImage(context: Context, id: String?) {
             val prefs = context.getSharedPreferences(
@@ -470,7 +471,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_seven_reg_text_image", "1")
+            return prefs.getString("button_seven_reg_text_image", "7")
         }
 
         /*GUEST Teal 3*/
@@ -486,7 +487,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_seven_guest_tab_id", "1")
+            return prefs.getString("button_seven_guest_tab_id", "7")
         }
         fun setButtonSevenGuestTextImage(context: Context, id: String?) {
             val prefs = context.getSharedPreferences(
@@ -502,7 +503,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_seven_guest_text_image", "1")
+            return prefs.getString("button_seven_guest_text_image", "7")
         }
 
 
@@ -519,7 +520,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_three_reg_tab_id", "1")
+            return prefs.getString("button_three_reg_tab_id", "8")
         }
         fun setButtonEightRegTextImage(context: Context, id: String?) {
             val prefs = context.getSharedPreferences(
@@ -535,7 +536,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_eight_reg_text_image", "1")
+            return prefs.getString("button_eight_reg_text_image", "8")
         }
 
         /*GUEST Teal 8*/
@@ -551,7 +552,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_eight_guest_tab_id", "1")
+            return prefs.getString("button_eight_guest_tab_id", "8")
         }
         fun setButtonEightGuestTextImage(context: Context, id: String?) {
             val prefs = context.getSharedPreferences(
@@ -567,7 +568,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_eight_guest_text_image", "1")
+            return prefs.getString("button_eight_guest_text_image", "8")
         }
 
         /*REG Teal 9*/
@@ -583,7 +584,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_nine_reg_tab_id", "1")
+            return prefs.getString("button_nine_reg_tab_id", "9")
         }
         fun setButtonNineRegTextImage(context: Context, id: String?) {
             val prefs = context.getSharedPreferences(
@@ -599,7 +600,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_nine_reg_text_image", "1")
+            return prefs.getString("button_nine_reg_text_image", "9")
         }
 
         /*GUEST Teal 3*/
@@ -615,7 +616,7 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_nine_guest_tab_id", "1")
+            return prefs.getString("button_nine_guest_tab_id", "9")
         }
         fun setButtonNineGuestTextImage(context: Context, id: String?) {
             val prefs = context.getSharedPreferences(
@@ -631,7 +632,188 @@ class PreferenceManager {
                 PREFSNAME,
                 Context.MODE_PRIVATE
             )
-            return prefs.getString("button_nine_guest_text_image", "1")
+            return prefs.getString("button_nine_guest_text_image", "9")
         }
+
+        fun setButtonOneGuestBg(context: Context, color: Int) {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME, Context.MODE_PRIVATE
+            )
+            val editor = prefs.edit()
+            editor.putInt("buttononeguestbg", color)
+            editor.apply()
+        }
+
+        fun getButtonOneGuestBg(context: Context): Int {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME,
+                Context.MODE_PRIVATE
+            )
+            return prefs.getInt(
+                "buttononeguestbg", context.resources
+                    .getColor(R.color.transparent)
+            )
+        }
+
+        fun setButtontwoGuestBg(context: Context, color: Int) {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME, Context.MODE_PRIVATE
+            )
+            val editor = prefs.edit()
+            editor.putInt("buttontwoguestbg", color)
+            editor.apply()
+        }
+
+        fun getButtontwoGuestBg(context: Context): Int {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME,
+                Context.MODE_PRIVATE
+            )
+            return prefs.getInt(
+                "buttontwoguestbg", context.resources
+                    .getColor(R.color.transparent)
+            )
+        }
+
+        fun setButtonthreeGuestBg(context: Context, color: Int) {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME, Context.MODE_PRIVATE
+            )
+            val editor = prefs.edit()
+            editor.putInt("buttonthreeguestbg", color)
+            editor.apply()
+        }
+
+        fun getButtonthreeGuestBg(context: Context): Int {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME,
+                Context.MODE_PRIVATE
+            )
+            return prefs.getInt(
+                "buttonthreeguestbg", context.resources
+                    .getColor(R.color.transparent)
+            )
+        }
+
+        fun setButtonfourGuestBg(context: Context, color: Int) {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME, Context.MODE_PRIVATE
+            )
+            val editor = prefs.edit()
+            editor.putInt("buttonfourguestbg", color)
+            editor.apply()
+        }
+
+        fun getButtonfourGuestBg(context: Context): Int {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME,
+                Context.MODE_PRIVATE
+            )
+            return prefs.getInt(
+                "buttonfourguestbg", context.resources
+                    .getColor(R.color.transparent)
+            )
+        }
+
+        fun setButtonfiveGuestBg(context: Context, color: Int) {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME, Context.MODE_PRIVATE
+            )
+            val editor = prefs.edit()
+            editor.putInt("buttonfiveguestbg", color)
+            editor.apply()
+        }
+
+        fun getButtonfiveGuestBg(context: Context): Int {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME,
+                Context.MODE_PRIVATE
+            )
+            return prefs.getInt(
+                "buttonfiveguestbg", context.resources
+                    .getColor(R.color.transparent)
+            )
+        }
+
+        fun setButtonsixGuestBg(context: Context, color: Int) {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME, Context.MODE_PRIVATE
+            )
+            val editor = prefs.edit()
+            editor.putInt("buttonsixguestbg", color)
+            editor.apply()
+        }
+
+        fun getButtonsixGuestBg(context: Context): Int {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME,
+                Context.MODE_PRIVATE
+            )
+            return prefs.getInt(
+                "buttonsixguestbg", context.resources
+                    .getColor(R.color.transparent)
+            )
+        }
+
+        fun setButtonsevenGuestBg(context: Context, color: Int) {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME, Context.MODE_PRIVATE
+            )
+            val editor = prefs.edit()
+            editor.putInt("buttonsevenguestbg", color)
+            editor.apply()
+        }
+
+        fun getButtonsevenGuestBg(context: Context): Int {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME,
+                Context.MODE_PRIVATE
+            )
+            return prefs.getInt(
+                "buttonsevenguestbg", context.resources
+                    .getColor(R.color.transparent)
+            )
+        }
+
+        fun setButtoneightGuestBg(context: Context, color: Int) {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME, Context.MODE_PRIVATE
+            )
+            val editor = prefs.edit()
+            editor.putInt("buttoneightguestbg", color)
+            editor.apply()
+        }
+
+        fun getButtoneightGuestBg(context: Context): Int {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME,
+                Context.MODE_PRIVATE
+            )
+            return prefs.getInt(
+                "buttoneightguestbg", context.resources
+                    .getColor(R.color.transparent)
+            )
+        }
+
+        fun setButtonnineGuestBg(context: Context, color: Int) {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME, Context.MODE_PRIVATE
+            )
+            val editor = prefs.edit()
+            editor.putInt("buttonnineguestbg", color)
+            editor.apply()
+        }
+
+        fun getButtonnineGuestBg(context: Context): Int {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME,
+                Context.MODE_PRIVATE
+            )
+            return prefs.getInt(
+                "buttonnineguestbg", context.resources
+                    .getColor(R.color.transparent)
+            )
+        }
+
     }
 }
