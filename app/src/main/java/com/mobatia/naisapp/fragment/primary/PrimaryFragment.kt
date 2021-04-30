@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mobatia.naisapp.R
+import com.mobatia.naisapp.activity.Comingup.PrimaryComingUp
 import com.mobatia.naisapp.activity.primary.PrimaryDetail
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
@@ -75,7 +76,8 @@ class PrimaryFragment : Fragment() {
 
                 if (position==0)
                 {
-                    //Comming up activity
+                    val intent = Intent(activity, PrimaryComingUp::class.java)
+                    activity?.startActivity(intent)
                 }
                 else
                 {

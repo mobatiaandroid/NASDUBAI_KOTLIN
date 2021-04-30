@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobatia.naisapp.R
+import com.mobatia.naisapp.activity.home.HomeActivity
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
 import com.mobatia.naisapp.constants.PdfReaderActivity
@@ -34,6 +35,7 @@ class PrimaryDetail : AppCompatActivity() {
     lateinit var linearLayoutManager: LinearLayoutManager
     lateinit var progress: ProgressBar
     lateinit var back: ImageView
+    lateinit var logoclick:ImageView
     var primarydetaillist = ArrayList<PrimaryDetailData>()
 
 
@@ -44,7 +46,12 @@ class PrimaryDetail : AppCompatActivity() {
         back.setOnClickListener {
             finish()
         }
+        logoclick.setOnClickListener {
+            val mIntent = Intent(mContext, HomeActivity::class.java)
+            mIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
+            startActivity(mIntent)
+        }
     }
 
 
@@ -55,6 +62,7 @@ class PrimaryDetail : AppCompatActivity() {
         linearLayoutManager = LinearLayoutManager(mContext)
         titleTextView = findViewById(R.id.titleTextView)
         back = findViewById(R.id.back)
+        logoclick = findViewById(R.id.logoclick)
         primaryRecyclerdetails = findViewById(R.id.primaryRecyclerdetails)
         progress = findViewById(R.id.progress)
         primaryRecyclerdetails.layoutManager = linearLayoutManager

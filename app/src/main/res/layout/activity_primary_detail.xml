@@ -31,6 +31,14 @@
         app:layout_constraintBottom_toTopOf="@+id/titleTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/titleTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/logoclick"
+        />
     <!--    <ImageView-->
     <!--        android:id="@+id/logoClickImgView"-->
     <!--        android:layout_width="wrap_content"-->

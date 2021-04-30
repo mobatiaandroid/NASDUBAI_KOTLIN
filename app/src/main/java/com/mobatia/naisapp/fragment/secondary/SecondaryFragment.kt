@@ -14,14 +14,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mobatia.naisapp.R
-import com.mobatia.naisapp.activity.primary.PrimaryDetail
+import com.mobatia.naisapp.activity.Comingup.PrimaryComingUp
+import com.mobatia.naisapp.activity.Comingup.SecondaryComingUp
 import com.mobatia.naisapp.activity.secondarydetail.Secondarydetails
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
 import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
 import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
-import com.mobatia.naisapp.fragment.primary.adapter.PrimaryAdapter
-import com.mobatia.naisapp.fragment.primary.model.Departmentprimary
 import com.mobatia.naisapp.fragment.secondary.adapter.SecondaryAdapter
 import com.mobatia.naisapp.fragment.secondary.model.Departmentsecondary
 import com.mobatia.naisapp.fragment.secondary.model.Secondaryresponse
@@ -76,7 +75,8 @@ class SecondaryFragment : Fragment() {
 
                 if (position==0)
                 {
-                    //Comming up activity
+                    val intent = Intent(activity, SecondaryComingUp::class.java)
+                    activity?.startActivity(intent)
                 }
                 else
                 {

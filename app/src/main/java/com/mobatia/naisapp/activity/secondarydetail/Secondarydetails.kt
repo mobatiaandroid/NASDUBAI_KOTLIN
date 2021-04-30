@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobatia.naisapp.R
+import com.mobatia.naisapp.activity.home.HomeActivity
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
 import com.mobatia.naisapp.constants.PdfReaderActivity
@@ -36,6 +37,7 @@ class Secondarydetails : AppCompatActivity() {
     lateinit var linearLayoutManager: LinearLayoutManager
     lateinit var progress: ProgressBar
     lateinit var back: ImageView
+    lateinit var logoclick:ImageView
     var secondarydetaillist = ArrayList<SecondaryDetailData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +56,7 @@ class Secondarydetails : AppCompatActivity() {
         linearLayoutManager = LinearLayoutManager(mContext)
         titleTextView = findViewById(R.id.titleTextView)
         back = findViewById(R.id.back)
+        logoclick = findViewById(R.id.logoclick)
         secondaryRecyclerdetails = findViewById(R.id.secondaryRecyclerdetails)
         progress = findViewById(R.id.progress)
         secondaryRecyclerdetails.layoutManager = linearLayoutManager
@@ -63,6 +66,12 @@ class Secondarydetails : AppCompatActivity() {
             secondarydetailslist()
         } else {
             CommonMethods.showSuccessInternetAlert(mContext)
+        }
+        logoclick.setOnClickListener {
+            val mIntent = Intent(mContext, HomeActivity::class.java)
+            mIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
+            startActivity(mIntent)
         }
 
 

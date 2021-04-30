@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mobatia.naisapp.R
+import com.mobatia.naisapp.activity.Comingup.IB_ProgrammeComingUp
+import com.mobatia.naisapp.activity.Comingup.SecondaryComingUp
 import com.mobatia.naisapp.activity.IBProgramme_Details.IBDetail
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
@@ -73,7 +75,8 @@ class IBProgrammeFragment : Fragment() {
             override fun onItemClicked(position: Int, view: View) {
 
                 if (position == 0) {
-                    //Comming up activity
+                    val intent = Intent(activity, IB_ProgrammeComingUp::class.java)
+                    activity?.startActivity(intent)
                 } else {
                     val intent = Intent(activity, IBDetail::class.java)
                     intent.putExtra("id", ibProgrammelist[position].id.toString())
