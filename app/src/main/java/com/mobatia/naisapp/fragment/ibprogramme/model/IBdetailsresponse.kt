@@ -1,11 +1,12 @@
-package com.mobatia.naisapp.fragment.primary.model
+package com.mobatia.naisapp.fragment.ibprogramme.model
 
 import com.google.gson.annotations.SerializedName
+import com.mobatia.naisapp.fragment.primary.model.PrimaryDetailData
 
-data class Primarydetailsresponse (
+data class IBdetailsresponse (
     @SerializedName("status") val status: Int,
     @SerializedName("message") val message: String,
-    @SerializedName("data") val data: List<PrimaryDetailData>)
+    @SerializedName("data") val data: List<IBDetailData>)
 
 
 //@SerializedName("validation_errors") val validation_errors: StudentInfoResponseArray)

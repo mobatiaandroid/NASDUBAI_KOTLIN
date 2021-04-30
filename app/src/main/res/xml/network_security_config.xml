@@ -2,5 +2,7 @@
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">naiscore.mobatia.in</domain>
+        <domain includeSubdomains="true">www.nordangliaeducation.com</domain>
+
     </domain-config>
 </network-security-config>

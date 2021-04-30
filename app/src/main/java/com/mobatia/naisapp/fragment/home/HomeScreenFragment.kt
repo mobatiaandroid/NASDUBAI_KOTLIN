@@ -19,7 +19,9 @@ import androidx.viewpager.widget.ViewPager
 import com.mobatia.naisapp.R
 import com.mobatia.naisapp.activity.home.HomeActivity
 import com.mobatia.naisapp.constants.*
+import com.mobatia.naisapp.fragment.ibprogramme.IBProgrammeFragment
 import com.mobatia.naisapp.fragment.primary.PrimaryFragment
+import com.mobatia.naisapp.fragment.secondary.SecondaryFragment
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -915,6 +917,14 @@ class HomeScreenFragment : Fragment(), View.OnClickListener {
         when (intentTabId) {
             NasTabConstants.TAB_PRIMARY_REG -> {
                 mFragment = PrimaryFragment()
+                fragmentIntent(mFragment)
+            }
+            NasTabConstants.TAB_SECONDARY_REG -> {
+                mFragment = SecondaryFragment()
+                fragmentIntent(mFragment)
+            }
+            NasTabConstants.TAB_IB_PROGRAMME_REG -> {
+                mFragment = IBProgrammeFragment()
                 fragmentIntent(mFragment)
             }
         }

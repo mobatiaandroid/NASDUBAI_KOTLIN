@@ -1,4 +1,4 @@
-package com.mobatia.naisapp.activity.primary
+package com.mobatia.naisapp.activity.IBProgramme_Details
 
 import android.content.Context
 import android.content.Intent
@@ -17,15 +17,15 @@ import com.mobatia.naisapp.constants.PdfReaderActivity
 import com.mobatia.naisapp.constants.WebviewLoader
 import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
 import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
-import com.mobatia.naisapp.fragment.primary.adapter.PrimaryDetailsAdapter
-import com.mobatia.naisapp.fragment.primary.model.PrimaryDetailData
-import com.mobatia.naisapp.fragment.primary.model.Primarydetailsresponse
+import com.mobatia.naisapp.fragment.ibprogramme.adapter.IBDetailsAdapter
+import com.mobatia.naisapp.fragment.ibprogramme.model.IBDetailData
+import com.mobatia.naisapp.fragment.ibprogramme.model.IBdetailsresponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class PrimaryDetail : AppCompatActivity() {
+class IBDetail : AppCompatActivity() {
     lateinit var mContext: Context
     var id: String = ""
     var title: String = ""
@@ -34,7 +34,7 @@ class PrimaryDetail : AppCompatActivity() {
     lateinit var linearLayoutManager: LinearLayoutManager
     lateinit var progress: ProgressBar
     lateinit var back: ImageView
-    var primarydetaillist = ArrayList<PrimaryDetailData>()
+    var ibdetaillist = ArrayList<IBDetailData>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +61,7 @@ class PrimaryDetail : AppCompatActivity() {
         titleTextView.text = title
 
         if (CommonMethods.isInternetAvailable(mContext)) {
-            primarydetailslist()
+            ibdetailslist()
         } else {
             CommonMethods.showSuccessInternetAlert(mContext)
         }
@@ -70,16 +70,16 @@ class PrimaryDetail : AppCompatActivity() {
         primaryRecyclerdetails.addOnItemClickListener(object : OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
 
-                val urltype = primarydetaillist[position].file
+                val urltype = ibdetaillist[position].file
                 if (urltype.contains("pdf")) {
-                    val intent = Intent(this@PrimaryDetail, PdfReaderActivity::class.java)
-                    intent.putExtra("pdf_url", primarydetaillist[position].file)
-                    intent.putExtra("pdf_title", primarydetaillist[position].title)
-                    this@PrimaryDetail.startActivity(intent)
+                    val intent = Intent(this@IBDetail, PdfReaderActivity::class.java)
+                    intent.putExtra("pdf_url", ibdetaillist[position].file)
+                    intent.putExtra("pdf_title", ibdetaillist[position].title)
+                    this@IBDetail.startActivity(intent)
                 } else {
-                    val intent = Intent(this@PrimaryDetail, WebviewLoader::class.java)
-                    intent.putExtra("webview_url", primarydetaillist[position].file)
-                    this@PrimaryDetail.startActivity(intent)
+                    val intent = Intent(this@IBDetail, WebviewLoader::class.java)
+                    intent.putExtra("webview_url", ibdetaillist[position].file)
+                    this@IBDetail.startActivity(intent)
                 }
 
             }
@@ -87,24 +87,24 @@ class PrimaryDetail : AppCompatActivity() {
         })
     }
 
-    private fun primarydetailslist() {
-        primarydetaillist = ArrayList()
+    private fun ibdetailslist() {
+        ibdetaillist = ArrayList()
         progress.visibility = View.VISIBLE
-        val call: Call<Primarydetailsresponse> = ApiClient.getClient.primarydetails(id.toInt(), 1)
-        call.enqueue(object : Callback<Primarydetailsresponse> {
-            override fun onFailure(call: Call<Primarydetailsresponse>, t: Throwable) {
+        val call: Call<IBdetailsresponse> = ApiClient.getClient.ibdetails(id.toInt(), 1)
+        call.enqueue(object : Callback<IBdetailsresponse> {
+            override fun onFailure(call: Call<IBdetailsresponse>, t: Throwable) {
                 progress.visibility = View.GONE
             }
 
             override fun onResponse(
-                call: Call<Primarydetailsresponse>,
-                response: Response<Primarydetailsresponse>
+                call: Call<IBdetailsresponse>,
+                response: Response<IBdetailsresponse>
             ) {
                 progress.visibility = View.GONE
                 if (response.body()!!.status == 100) {
-                    primarydetaillist.addAll(response.body()!!.data)
-                    val primaryadapter = PrimaryDetailsAdapter(primarydetaillist)
-                    primaryRecyclerdetails.adapter = primaryadapter
+                    ibdetaillist.addAll(response.body()!!.data)
+                    val ib_detailsadapter = IBDetailsAdapter(ibdetaillist)
+                    primaryRecyclerdetails.adapter = ib_detailsadapter
                 }
                 else {
                     if (response.body()!!.status == 101) {

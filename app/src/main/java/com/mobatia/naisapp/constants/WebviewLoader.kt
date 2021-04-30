@@ -6,6 +6,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -46,6 +47,7 @@ class WebviewLoader : AppCompatActivity() {
         }
 
         webview.loadUrl(urltoshow)
+        Log.e("LOADINGURL==>",urltoshow)
 
         val li: LayoutInflater = layoutInflater
         val layout: View = li.inflate(
