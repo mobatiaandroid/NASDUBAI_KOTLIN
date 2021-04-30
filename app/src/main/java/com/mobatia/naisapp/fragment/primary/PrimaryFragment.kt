@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.mobatia.naisapp.R
 import com.mobatia.naisapp.activity.primary.PrimaryDetail
 import com.mobatia.naisapp.constants.ApiClient
@@ -102,7 +103,7 @@ class PrimaryFragment : Fragment() {
 
                 if (response.body()!!.status==100){
                     primarylistAPI.addAll(response.body()!!.data.departmentprimary)
-                    for (i in primarylistAPI.indices)
+                    for (i in 0.. primarylistAPI.size)
                     {
                       if (i==0)
                       {
@@ -110,7 +111,7 @@ class PrimaryFragment : Fragment() {
                           primarylist.add(model)
                       }
                         else{
-                          var model=Departmentprimary(primarylistAPI.get(i).id,primarylistAPI.get(i).submenu)
+                          var model=Departmentprimary(primarylistAPI.get(i-1).id,primarylistAPI.get(i-1).submenu)
                           primarylist.add(model)
                       }
                     }
