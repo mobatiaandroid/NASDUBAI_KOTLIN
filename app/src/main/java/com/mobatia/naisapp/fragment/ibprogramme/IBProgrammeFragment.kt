@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.mobatia.naisapp.R
 import com.mobatia.naisapp.activity.primary.PrimaryDetail
 import com.mobatia.naisapp.constants.ApiClient
@@ -103,7 +104,7 @@ class IBProgrammeFragment: Fragment() {
                 if (response.body()!!.status==100)
                 {
                     ibProgrammeListAPI.addAll(response.body()!!.data.departmentprimary)
-                    for (i in ibProgrammeListAPI.indices)
+                    for (i in 0.. ibProgrammeListAPI.size)
                     {
                         if (i==0)
                         {
@@ -111,7 +112,7 @@ class IBProgrammeFragment: Fragment() {
                             ibProgrammelist.add(model)
                         }
                         else{
-                            var model= Departmentprimary(ibProgrammeListAPI.get(i).id,ibProgrammeListAPI.get(i).submenu)
+                            var model= Departmentprimary(ibProgrammeListAPI.get(i-1).id,ibProgrammeListAPI.get(i-1).submenu)
                             ibProgrammelist.add(model)
                         }
                     }

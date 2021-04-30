@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.mobatia.naisapp.R
 import com.mobatia.naisapp.activity.primary.PrimaryDetail
 import com.mobatia.naisapp.constants.ApiClient
