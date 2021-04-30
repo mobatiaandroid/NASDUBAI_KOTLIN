@@ -103,7 +103,7 @@ class PrimaryFragment : Fragment() {
 
                 if (response.body()!!.status==100){
                     primarylistAPI.addAll(response.body()!!.data.departmentprimary)
-                    for (i in primarylistAPI.indices)
+                    for (i in 0.. primarylistAPI.size)
                     {
                       if (i==0)
                       {
@@ -111,7 +111,7 @@ class PrimaryFragment : Fragment() {
                           primarylist.add(model)
                       }
                         else{
-                          var model=Departmentprimary(primarylistAPI.get(i).id,primarylistAPI.get(i).submenu)
+                          var model=Departmentprimary(primarylistAPI.get(i-1).id,primarylistAPI.get(i-1).submenu)
                           primarylist.add(model)
                       }
                     }
