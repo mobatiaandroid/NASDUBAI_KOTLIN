@@ -1,4 +1,4 @@
-package com.mobatia.naisapp.activity.IBProgramme_Details
+package com.mobatia.naisapp.activity.ibprogramme_details
 
 import android.content.Context
 import android.content.Intent

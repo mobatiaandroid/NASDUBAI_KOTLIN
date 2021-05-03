@@ -1,4 +1,4 @@
-package com.mobatia.naisapp.activity.Comingup
+package com.mobatia.naisapp.activity.comingup
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -24,7 +24,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PrimaryComingUp : AppCompatActivity() {
+class IB_ProgrammeComingUp : AppCompatActivity() {
     lateinit var mContext: Context
 
     lateinit var titleTextView: TextView
@@ -33,7 +33,7 @@ class PrimaryComingUp : AppCompatActivity() {
     lateinit var progress: ProgressBar
     lateinit var back: ImageView
     lateinit var logoclick:ImageView
-    var primarycominguplist = ArrayList<Primarycomingup>()
+    var ibprogrammecominguplist = ArrayList<Primarycomingup>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,14 +98,14 @@ class PrimaryComingUp : AppCompatActivity() {
                         "}" +
                         "</style>\n" + "</head>" +
                         "<body>" +
-                        "<p class='title'>" + primarycominguplist[position].title + "</p>"
-                if (primarycominguplist[position].image.isNotEmpty()) {
+                        "<p class='title'>" + ibprogrammecominguplist[position].title + "</p>"
+                if (ibprogrammecominguplist[position].image.isNotEmpty()) {
                     webViewComingUpDetail =
-                        "$webViewComingUpDetail<center><img src='" + primarycominguplist[position].image + "'width='100%', height='auto'>"
+                        "$webViewComingUpDetail<center><img src='" + ibprogrammecominguplist[position].image + "'width='100%', height='auto'>"
 
                 }
                 webViewComingUpDetail =
-                    "$webViewComingUpDetail<p class='description'>" + primarycominguplist[position].description + "</p>" +
+                    "$webViewComingUpDetail<p class='description'>" + ibprogrammecominguplist[position].description + "</p>" +
                             "</body>\n</html>"
 
                 val mIntent = Intent(mContext, ComingUpDetailViewActivity::class.java)
@@ -120,9 +120,9 @@ class PrimaryComingUp : AppCompatActivity() {
     }
 
     private fun cominguplist() {
-        primarycominguplist = ArrayList()
+        ibprogrammecominguplist = ArrayList()
         progress.visibility = View.VISIBLE
-        val call: Call<Primarycomingupresponse> = ApiClient.getClient.primarycomingup(2)
+        val call: Call<Primarycomingupresponse> = ApiClient.getClient.ibprogrammecomingup(2)
         call.enqueue(object : Callback<Primarycomingupresponse> {
             override fun onFailure(call: Call<Primarycomingupresponse>, t: Throwable) {
                 progress.visibility = View.GONE
@@ -134,9 +134,9 @@ class PrimaryComingUp : AppCompatActivity() {
             ) {
                 progress.visibility = View.GONE
                 if (response.body()!!.status == 100) {
-                    primarycominguplist.addAll(response.body()!!.data)
-                    val primarycomingupadapter = ComingupAdapter(primarycominguplist)
-                    comingsoonrecycler.adapter = primarycomingupadapter
+                    ibprogrammecominguplist.addAll(response.body()!!.data)
+                    val Ibprogrammecomingupadapter = ComingupAdapter(ibprogrammecominguplist)
+                    comingsoonrecycler.adapter = Ibprogrammecomingupadapter
                 } else {
                     if (response.body()!!.status == 101) {
                         CommonMethods.showErrorAlert(mContext, "Some error occured", "Alert")

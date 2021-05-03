@@ -6,14 +6,13 @@ import com.mobatia.naisapp.fragment.ibprogramme.model.ibprogrammeresponse
 import com.mobatia.naisapp.fragment.primary.model.Primarydetailsresponse
 import com.mobatia.naisapp.fragment.primary.model.Primaryresponse
 import com.mobatia.naisapp.fragment.primary.model.comingup.Primarycomingupresponse
+import com.mobatia.naisapp.fragment.reports.model.ReportApiModel
+import com.mobatia.naisapp.fragment.reports.model.ReportListModel
 import com.mobatia.naisapp.fragment.secondary.model.Secondarydetailsresponse
 import com.mobatia.naisapp.fragment.secondary.model.Secondaryresponse
 import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 
 interface ApiInterface {
@@ -99,4 +98,13 @@ interface ApiInterface {
     fun ibprogrammecomingup(
         @Field("page_number") page_number: Int
     ): Call<Primarycomingupresponse>
+
+    /******************Reports*************************/
+    /*************Report List****************/
+    @POST("api/v1/parent/student_reports")
+    @Headers("Content-Type: application/json")
+    fun reportList(
+        @Body reportListModel: ReportApiModel,
+        @Header("Authorization") token:String
+    ): Call<ReportListModel>
 }

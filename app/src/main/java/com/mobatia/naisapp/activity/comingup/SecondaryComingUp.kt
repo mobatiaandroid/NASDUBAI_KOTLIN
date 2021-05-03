@@ -1,4 +1,4 @@
-package com.mobatia.naisapp.activity.Comingup
+package com.mobatia.naisapp.activity.comingup
 
 import android.annotation.SuppressLint
 import android.content.Context

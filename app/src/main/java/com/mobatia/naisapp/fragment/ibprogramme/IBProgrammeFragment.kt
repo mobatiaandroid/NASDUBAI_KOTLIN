@@ -15,9 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mobatia.naisapp.R
-import com.mobatia.naisapp.activity.Comingup.IB_ProgrammeComingUp
-import com.mobatia.naisapp.activity.Comingup.SecondaryComingUp
-import com.mobatia.naisapp.activity.IBProgramme_Details.IBDetail
+import com.mobatia.naisapp.activity.comingup.IB_ProgrammeComingUp
+import com.mobatia.naisapp.activity.ibprogramme_details.IBDetail
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
 import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
@@ -25,7 +24,6 @@ import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
 import com.mobatia.naisapp.fragment.ibprogramme.adapter.IB_ProgrammeAdapter
 import com.mobatia.naisapp.fragment.ibprogramme.model.Department_Ibprogramme
 import com.mobatia.naisapp.fragment.ibprogramme.model.ibprogrammeresponse
-import com.mobatia.naisapp.fragment.primary.model.Departmentprimary
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

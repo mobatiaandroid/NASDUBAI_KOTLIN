@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mobatia.naisapp.R
-import com.mobatia.naisapp.activity.Comingup.PrimaryComingUp
+import com.mobatia.naisapp.activity.comingup.PrimaryComingUp
 import com.mobatia.naisapp.activity.primary.PrimaryDetail
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods

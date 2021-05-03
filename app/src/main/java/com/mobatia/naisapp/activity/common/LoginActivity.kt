@@ -469,17 +469,16 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, View.OnTouchLis
                 if (responsedata != null) {
                     try {
                         val status=responsedata.status
+                        Log.e("STATUS", status.toString())
                         if (status==100)
                         {
-                            PreferenceManager.setUserCode(mContext,responsedata.token)
-                            PreferenceManager.setUserEmail(mContext,responsedata.data.email)
-
-                            dialogueWithOk(mContext,"Successfully Logged in","Alert")
-
+                            PreferenceManager.setUserCode(mContext,responsedata.data.token)
+                            PreferenceManager.setUserEmail(mContext,responsedata.data.user_details.email)
+                            dialogueWithOk(mContext,"Successfully Logged in","Alert","success")
                         }
                         else
                         {
-
+                            dialogueWithOk(mContext,responsedata.message,"Alert","error")
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()
@@ -492,7 +491,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, View.OnTouchLis
     }
 
 
-    fun dialogueWithOk(context: Context,title:String,description:String)
+    fun dialogueWithOk(context: Context,title:String,description:String,action:String)
     {
         val dialog = Dialog(context)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -507,9 +506,16 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, View.OnTouchLis
         descriptionTxt.text=title
         iconImageView.setImageResource(R.drawable.exclamationicon)
         btn_Ok.setOnClickListener(View.OnClickListener {
-            startActivity(Intent(context,HomeActivity::class.java))
-            dialog.dismiss()
-            finish()
+            if(action.equals("success"))
+            {
+                startActivity(Intent(context,HomeActivity::class.java))
+                dialog.dismiss()
+                finish()
+            }
+            else{
+                dialog.dismiss()
+            }
+
 
         })
         dialog.show()
