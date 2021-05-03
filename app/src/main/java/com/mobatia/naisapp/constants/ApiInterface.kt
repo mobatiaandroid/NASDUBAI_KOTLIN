@@ -5,6 +5,7 @@ import com.mobatia.naisapp.activity.common.studentlist.model.StudentListModel
 import com.mobatia.naisapp.fragment.early_years.model.Earlyyearsresponse
 import com.mobatia.naisapp.fragment.ibprogramme.model.IBdetailsresponse
 import com.mobatia.naisapp.fragment.ibprogramme.model.ibprogrammeresponse
+import com.mobatia.naisapp.fragment.performing_arts.model.Performingarts_bannerresponse
 import com.mobatia.naisapp.fragment.primary.model.Primarydetailsresponse
 import com.mobatia.naisapp.fragment.primary.model.Primaryresponse
 import com.mobatia.naisapp.fragment.primary.model.comingup.Primarycomingupresponse
@@ -134,4 +135,8 @@ interface ApiInterface {
     fun studentList(
         @Header("Authorization") token:String
     ): Call<StudentListModel>
+
+    /*************PERFORMING ARTS BANNER****************/
+    @GET("api/v1/parent/performing_arts/banner")
+    fun performiong_arts(): Call<Performingarts_bannerresponse>
 }

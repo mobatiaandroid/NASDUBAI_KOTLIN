@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobatia.naisapp.R
+import com.mobatia.naisapp.activity.comingup.ComingUpDetailViewActivity
 import com.mobatia.naisapp.activity.home.HomeActivity
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
