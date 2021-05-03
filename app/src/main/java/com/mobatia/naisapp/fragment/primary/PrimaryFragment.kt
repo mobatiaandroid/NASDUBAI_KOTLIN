@@ -32,10 +32,10 @@ import retrofit2.Response
 class PrimaryFragment : Fragment() {
     lateinit var mContext: Context
 
-     lateinit var titleTextView: TextView
+    lateinit var titleTextView: TextView
     lateinit var bannerImagePager: ImageView
     lateinit var primary_recycler: RecyclerView
-    lateinit var progress:ProgressBar
+    lateinit var progress: ProgressBar
     private lateinit var linearLayoutManager: LinearLayoutManager
     var primarylistAPI = ArrayList<Departmentprimary>()
     var primarylist = ArrayList<Departmentprimary>()
@@ -74,16 +74,13 @@ class PrimaryFragment : Fragment() {
         primary_recycler.addOnItemClickListener(object : OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
 
-                if (position==0)
-                {
+                if (position == 0) {
                     val intent = Intent(activity, PrimaryComingUp::class.java)
                     activity?.startActivity(intent)
-                }
-                else
-                {
+                } else {
                     val intent = Intent(activity, PrimaryDetail::class.java)
                     intent.putExtra("id", primarylist[position].id.toString())
-                    intent.putExtra("title",primarylist[position].submenu)
+                    intent.putExtra("title", primarylist[position].submenu)
                     activity?.startActivity(intent)
                 }
 
@@ -93,8 +90,8 @@ class PrimaryFragment : Fragment() {
     }
 
     private fun getprimarylist() {
-         primarylist = ArrayList()
-         primarylistAPI = ArrayList()
+        primarylist = ArrayList()
+        primarylistAPI = ArrayList()
         progress.visibility = View.VISIBLE
         val call: Call<Primaryresponse> = ApiClient.getClient.primarylist()
         call.enqueue(object : Callback<Primaryresponse> {
@@ -109,36 +106,43 @@ class PrimaryFragment : Fragment() {
             ) {
                 progress.visibility = View.GONE
 
-                if (response.body()!!.status==100){
+                if (response.body()!!.status == 100) {
                     primarylistAPI.addAll(response.body()!!.data.departmentprimary)
-                    for (i in 0.. primarylistAPI.size)
-                    {
-                      if (i==0)
-                      {
-                          var model=Departmentprimary(0,"Coming Up")
-                          primarylist.add(model)
-                      }
-                        else{
-                          var model=Departmentprimary(primarylistAPI.get(i-1).id,primarylistAPI.get(i-1).submenu)
-                          primarylist.add(model)
-                      }
+                    for (i in 0..primarylistAPI.size) {
+                        if (i == 0) {
+                            var model = Departmentprimary(0, "Coming Up")
+                            primarylist.add(model)
+                        } else {
+                            var model = Departmentprimary(
+                                primarylistAPI.get(i - 1).id,
+                                primarylistAPI.get(i - 1).submenu
+                            )
+                            primarylist.add(model)
+                        }
                     }
-                    val primaryadapter = PrimaryAdapter(primarylist)
-                    primary_recycler.adapter = primaryadapter
+
+                    if (primarylistAPI.size > 0) {
+                        primary_recycler.visibility = View.VISIBLE
+                        val primaryadapter = PrimaryAdapter(primarylist)
+                        primary_recycler.adapter = primaryadapter
+                    } else {
+                        primary_recycler.visibility = View.GONE
+                        CommonMethods.NodataAlert(mContext, "No Data Available.", "Alert")
+                    }
+
 
                     val bannerstring = response.body()!!.data.banner_image
-                    if (bannerstring.isNotEmpty()){
+                    if (bannerstring.isNotEmpty()) {
                         context?.let {
                             Glide.with(it)
                                 .load(bannerstring)
                                 .into(bannerImagePager)
                         }!!
-                    }else{
+                    } else {
                         bannerImagePager.setBackgroundResource(R.drawable.default_banner)
 
                     }
-                }
-                else {
+                } else {
                     if (response.body()!!.status == 101) {
                         CommonMethods.showErrorAlert(mContext, "Some error occured", "Alert")
                     }

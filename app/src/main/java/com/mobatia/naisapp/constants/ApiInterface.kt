@@ -1,18 +1,19 @@
 package com.mobatia.naisapp.constants
 
-import com.mobatia.naisapp.activity.common.model.LoginResponse
+import com.mobatia.naisapp.fragment.early_years.model.Earlyyearsresponse
 import com.mobatia.naisapp.fragment.ibprogramme.model.IBdetailsresponse
 import com.mobatia.naisapp.fragment.ibprogramme.model.ibprogrammeresponse
 import com.mobatia.naisapp.fragment.primary.model.Primarydetailsresponse
 import com.mobatia.naisapp.fragment.primary.model.Primaryresponse
 import com.mobatia.naisapp.fragment.primary.model.comingup.Primarycomingupresponse
-import com.mobatia.naisapp.fragment.reports.model.ReportApiModel
-import com.mobatia.naisapp.fragment.reports.model.ReportListModel
 import com.mobatia.naisapp.fragment.secondary.model.Secondarydetailsresponse
 import com.mobatia.naisapp.fragment.secondary.model.Secondaryresponse
 import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.http.*
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
+import retrofit2.http.POST
 
 
 interface ApiInterface {
@@ -26,7 +27,7 @@ interface ApiInterface {
         @Field("devicetype") devicetype: Int,
         @Field("deviceid") fcmid: String,
         @Field("device_identifier") deviceid: String
-    ): Call<LoginResponse>
+    ): Call<ResponseBody>
 
     /*************FORGOT PASSWORD****************/
     @POST("api/v1/parent/auth/forgotpassword")
@@ -99,12 +100,22 @@ interface ApiInterface {
         @Field("page_number") page_number: Int
     ): Call<Primarycomingupresponse>
 
-    /******************Reports*************************/
-    /*************Report List****************/
-    @POST("api/v1/parent/student_reports")
-    @Headers("Content-Type: application/json")
-    fun reportList(
-        @Body reportListModel: ReportApiModel,
-        @Header("Authorization") token:String
-    ): Call<ReportListModel>
+    /*************EARLY YEARS****************/
+    @GET("api/v1/parent/department_early_years")
+    fun earlyyearslist(): Call<Earlyyearsresponse>
+
+    /*************IB PROGRAMME DETAIL****************/
+    @POST("api/v1/parent/department_early_year/detail")
+    @FormUrlEncoded
+    fun earlydetails(
+        @Field("department_early_year_id") department_early_year_id: Int,
+        @Field("page_number") page_number: Int
+    ): Call<IBdetailsresponse>
+
+    /*************EARLY YEARS COMING UP****************/
+    @POST("api/v1/parent/early_years_coming_up")
+    @FormUrlEncoded
+    fun early_yearscomingup(
+        @Field("page_number") page_number: Int
+    ): Call<Primarycomingupresponse>
 }

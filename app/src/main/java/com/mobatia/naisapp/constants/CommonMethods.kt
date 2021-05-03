@@ -170,6 +170,27 @@ class CommonMethods {
             }
             dialog.show()
         }
+
+        //No DATA ALERT!!!
+        fun NodataAlert(context: Context,message : String,msgHead : String)
+        {
+            val dialog = Dialog(context)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.setCancelable(false)
+            dialog.setContentView(R.layout.alert_dialogue_ok_layout)
+            var iconImageView = dialog.findViewById(R.id.iconImageView) as? ImageView
+            var alertHead = dialog.findViewById(R.id.alertHead) as? TextView
+            var text_dialog = dialog.findViewById(R.id.text_dialog) as? TextView
+            var btn_Ok = dialog.findViewById(R.id.btn_Ok) as Button
+            text_dialog?.text = message
+            alertHead?.text = msgHead
+            btn_Ok.setOnClickListener()
+            {
+                dialog.dismiss()
+            }
+            dialog.show()
+        }
         // Converting date to dd-MMM-yy format
 
         fun dateParsingTo_dd_MMM_yyyy(date: String?): String? {

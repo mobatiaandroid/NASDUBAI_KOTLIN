@@ -56,29 +56,41 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.ibprogramme_details.IBDetail"
+            android:name=".activity.IBProgramme_Details.IBDetail"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.comingup.PrimaryComingUp"
+            android:name=".activity.Comingup.PrimaryComingUp"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <activity
-            android:name=".activity.comingup.SecondaryComingUp"
+            android:name=".activity.Comingup.SecondaryComingUp"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <activity
-            android:name=".activity.comingup.IB_ProgrammeComingUp"
+            android:name=".activity.Comingup.IB_ProgrammeComingUp"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
-        <activity android:name=".activity.comingup.ComingUpDetailViewActivity"
+        <activity
+            android:name=".activity.early_yearsdetails.Early_yearsDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <activity
+            android:name=".activity.Comingup.Early_yearsComingUp"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <activity android:name=".activity.Comingup.ComingUpDetailViewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
