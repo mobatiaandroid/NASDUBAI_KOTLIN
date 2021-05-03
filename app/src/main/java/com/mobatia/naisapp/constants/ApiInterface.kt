@@ -1,5 +1,6 @@
 package com.mobatia.naisapp.constants
 
+import com.mobatia.naisapp.fragment.early_years.model.Earlyyearsresponse
 import com.mobatia.naisapp.fragment.ibprogramme.model.IBdetailsresponse
 import com.mobatia.naisapp.fragment.ibprogramme.model.ibprogrammeresponse
 import com.mobatia.naisapp.fragment.primary.model.Primarydetailsresponse
@@ -96,6 +97,25 @@ interface ApiInterface {
     @POST("api/v1/parent/ib_programmes_coming_up")
     @FormUrlEncoded
     fun ibprogrammecomingup(
+        @Field("page_number") page_number: Int
+    ): Call<Primarycomingupresponse>
+
+    /*************EARLY YEARS****************/
+    @GET("api/v1/parent/department_early_years")
+    fun earlyyearslist(): Call<Earlyyearsresponse>
+
+    /*************IB PROGRAMME DETAIL****************/
+    @POST("api/v1/parent/department_early_year/detail")
+    @FormUrlEncoded
+    fun earlydetails(
+        @Field("department_early_year_id") department_early_year_id: Int,
+        @Field("page_number") page_number: Int
+    ): Call<IBdetailsresponse>
+
+    /*************EARLY YEARS COMING UP****************/
+    @POST("api/v1/parent/early_years_coming_up")
+    @FormUrlEncoded
+    fun early_yearscomingup(
         @Field("page_number") page_number: Int
     ): Call<Primarycomingupresponse>
 }

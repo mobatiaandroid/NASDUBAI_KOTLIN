@@ -1,4 +1,4 @@
-package com.mobatia.naisapp.fragment.secondary
+package com.mobatia.naisapp.fragment.early_years
 
 import android.content.Context
 import android.content.Intent
@@ -14,41 +14,45 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mobatia.naisapp.R
-import com.mobatia.naisapp.activity.Comingup.PrimaryComingUp
+import com.mobatia.naisapp.activity.Comingup.Early_yearsComingUp
 import com.mobatia.naisapp.activity.Comingup.SecondaryComingUp
+import com.mobatia.naisapp.activity.early_yearsdetails.Early_yearsDetail
 import com.mobatia.naisapp.activity.secondarydetail.Secondarydetails
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
 import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
 import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
+import com.mobatia.naisapp.fragment.early_years.adapter.EarlyyearsAdapter
+import com.mobatia.naisapp.fragment.early_years.model.Earlyyearsresponse
+import com.mobatia.naisapp.fragment.early_years.model.department_Earlyyears
+import com.mobatia.naisapp.fragment.primary.adapter.PrimaryAdapter
 import com.mobatia.naisapp.fragment.secondary.adapter.SecondaryAdapter
 import com.mobatia.naisapp.fragment.secondary.model.Departmentsecondary
-import com.mobatia.naisapp.fragment.secondary.model.Secondaryresponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SecondaryFragment : Fragment() {
+class EarlyyearsFragment : Fragment() {
     lateinit var mContext: Context
     lateinit var titleTextView: TextView
     lateinit var bannerImagePager: ImageView
-    lateinit var secondary_recycler: RecyclerView
+    lateinit var earlyyearsRecycler: RecyclerView
     lateinit var progress: ProgressBar
     private lateinit var linearLayoutManager: LinearLayoutManager
-    var secondarylistAPI = ArrayList<Departmentsecondary>()
-    var secondarylist = ArrayList<Departmentsecondary>()
-
+    var earlylistAPI = ArrayList<department_Earlyyears>()
+    var earlyyearslist = ArrayList<department_Earlyyears>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_secondary, container, false)
+        return inflater.inflate(R.layout.fragment_earlyyears, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialiseUI()
+
     }
 
     private fun initialiseUI() {
@@ -56,32 +60,32 @@ class SecondaryFragment : Fragment() {
         linearLayoutManager = LinearLayoutManager(mContext)
         titleTextView = view?.findViewById(R.id.titleTextView) as TextView
         bannerImagePager = view!!.findViewById(R.id.bannerImg) as ImageView
-        secondary_recycler = view!!.findViewById(R.id.secondaryRecycler) as RecyclerView
+        earlyyearsRecycler = view!!.findViewById(R.id.earlyyearsRecycler) as RecyclerView
         progress = view!!.findViewById(R.id.progress) as ProgressBar
-        secondary_recycler.layoutManager = linearLayoutManager
-        titleTextView.text = "Secondary"
+        earlyyearsRecycler.layoutManager = linearLayoutManager
+        titleTextView.text = getString(R.string.early_years)
 
 
         if (CommonMethods.isInternetAvailable(mContext)) {
-            getsecondarylist()
+            getearlyyearslist()
 
         } else {
             CommonMethods.showSuccessInternetAlert(mContext)
         }
 
-        secondary_recycler.addOnItemClickListener(object : OnItemClickListener {
+        earlyyearsRecycler.addOnItemClickListener(object : OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
 
                 if (position==0)
                 {
-                    val intent = Intent(activity, SecondaryComingUp::class.java)
+                    val intent = Intent(activity, Early_yearsComingUp::class.java)
                     activity?.startActivity(intent)
                 }
                 else
                 {
-                    val intent = Intent(activity, Secondarydetails::class.java)
-                    intent.putExtra("id", secondarylist[position].id.toString())
-                    intent.putExtra("title",secondarylist[position].submenu)
+                    val intent = Intent(activity, Early_yearsDetail::class.java)
+                    intent.putExtra("id", earlyyearslist[position].id.toString())
+                    intent.putExtra("title",earlyyearslist[position].submenu)
                     activity?.startActivity(intent)
                 }
 
@@ -90,38 +94,45 @@ class SecondaryFragment : Fragment() {
         })
     }
 
-    private fun getsecondarylist() {
-        secondarylist = ArrayList()
-        secondarylistAPI = ArrayList()
+    private fun getearlyyearslist() {
+        earlyyearslist = ArrayList()
+        earlylistAPI = ArrayList()
         progress.visibility = View.VISIBLE
-        val  call: Call<Secondaryresponse> = ApiClient.getClient.secondarylist()
-        call.enqueue(object  : Callback<Secondaryresponse>{
-            override fun onFailure(call: Call<Secondaryresponse>, t: Throwable) {
+        val  call:Call<Earlyyearsresponse> = ApiClient.getClient.earlyyearslist()
+        call.enqueue(object : Callback<Earlyyearsresponse>{
+            override fun onFailure(call: Call<Earlyyearsresponse>, t: Throwable) {
                 progress.visibility = View.GONE
 
             }
 
             override fun onResponse(
-                call: Call<Secondaryresponse>,
-                response: Response<Secondaryresponse>
+                call: Call<Earlyyearsresponse>,
+                response: Response<Earlyyearsresponse>
             ) {
                 progress.visibility = View.GONE
                 if (response.body()!!.status==100){
-                    secondarylistAPI.addAll(response.body()!!.data.departmentsecondary)
-                    for (i in 0.. secondarylistAPI.size)
+                    earlylistAPI.addAll(response.body()!!.data.department_early_years)
+                    for (i in 0.. earlylistAPI.size)
                     {
                         if (i==0)
                         {
-                            val model=Departmentsecondary(0,"Coming Up")
-                            secondarylist.add(model)
+                            val model=department_Earlyyears(0,"Coming Up")
+                            earlyyearslist.add(model)
                         }
                         else{
-                            val model=Departmentsecondary(secondarylistAPI[i-1].id,secondarylistAPI.get(i-1).submenu)
-                            secondarylist.add(model)
+                            val model=department_Earlyyears(earlylistAPI[i-1].id,earlylistAPI.get(i-1).submenu)
+                            earlyyearslist.add(model)
                         }
                     }
-                    val secondaryadapter = SecondaryAdapter(secondarylist)
-                    secondary_recycler.adapter = secondaryadapter
+                    if (earlylistAPI.size > 0) {
+                        earlyyearsRecycler.visibility = View.VISIBLE
+                        val early_yearsadapter = EarlyyearsAdapter(earlyyearslist)
+                        earlyyearsRecycler.adapter = early_yearsadapter
+                    } else {
+                        earlyyearsRecycler.visibility = View.GONE
+                        CommonMethods.NodataAlert(mContext, "No Data Available.", "Alert")
+                    }
+
 
                     val bannerstring = response.body()!!.data.banner_image
                     if (bannerstring.isNotEmpty()){
@@ -135,13 +146,9 @@ class SecondaryFragment : Fragment() {
 
                     }
                 }
-                else {
-                    if (response.body()!!.status == 101) {
-                        CommonMethods.showErrorAlert(mContext, "Some error occured", "Alert")
-                    }
-                }
             }
 
         })
     }
+
 }
