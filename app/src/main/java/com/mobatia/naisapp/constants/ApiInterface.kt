@@ -1,5 +1,6 @@
 package com.mobatia.naisapp.constants
 
+import com.mobatia.naisapp.activity.common.model.LoginResponse
 import com.mobatia.naisapp.fragment.ibprogramme.model.IBdetailsresponse
 import com.mobatia.naisapp.fragment.ibprogramme.model.ibprogrammeresponse
 import com.mobatia.naisapp.fragment.primary.model.Primarydetailsresponse
@@ -26,7 +27,7 @@ interface ApiInterface {
         @Field("devicetype") devicetype: Int,
         @Field("deviceid") fcmid: String,
         @Field("device_identifier") deviceid: String
-    ): Call<ResponseBody>
+    ): Call<LoginResponse>
 
     /*************FORGOT PASSWORD****************/
     @POST("api/v1/parent/auth/forgotpassword")

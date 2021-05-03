@@ -24,10 +24,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.common.api.Api
 import com.google.firebase.iid.FirebaseInstanceId
 import com.mobatia.naisapp.R
+import com.mobatia.naisapp.activity.common.model.LoginResponse
 import com.mobatia.naisapp.activity.home.HomeActivity
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
 import com.mobatia.naisapp.constants.JsonConstants
+import com.mobatia.naisapp.constants.PreferenceManager
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
@@ -452,31 +454,33 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, View.OnTouchLis
             Settings.Secure.ANDROID_ID
         )
         //   System.out.println("LOGINRESPONSE:"+"email:"+email+"pass:"+password+"devid:  "+androidID+" FCM ID : "+ FirebaseInstanceId.getInstance().token.toString())
-        val call: Call<ResponseBody> = ApiClient.getClient.login(
+        val call: Call<LoginResponse> = ApiClient.getClient.login(
             email, password, 2, "123456789", androidID
         )
 
-        call.enqueue(object : Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+        call.enqueue(object : Callback<LoginResponse> {
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 Log.e("Failed", t.localizedMessage)
             }
 
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 val responsedata = response.body()
                 Log.e("Response Signup", responsedata.toString())
                 if (responsedata != null) {
                     try {
+                        val status=responsedata.status
+                        if (status==100)
+                        {
+                            PreferenceManager.setUserCode(mContext,responsedata.token)
+                            PreferenceManager.setUserEmail(mContext,responsedata.data.email)
 
-                        val jsonObject = JSONObject(responsedata.string())
-                        if (jsonObject.has(JsonConstants.STATUS)) {
-                            val status: Int = jsonObject.optInt(JsonConstants.STATUS)
-                            if (status == 100) {
+                            dialogueWithOk(mContext,"Successfully Logged in","Alert")
 
-                            } else {
-
-                            }
                         }
+                        else
+                        {
 
+                        }
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
@@ -484,6 +488,31 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, View.OnTouchLis
             }
 
         })
+
+    }
+
+
+    fun dialogueWithOk(context: Context,title:String,description:String)
+    {
+        val dialog = Dialog(context)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(true)
+        dialog.setContentView(R.layout.dialogue_ok_layout)
+        dialog.getWindow()!!.setBackgroundDrawableResource(android.R.color.transparent)
+        val btn_Ok=dialog.findViewById<Button>(R.id.btn_Ok)
+        val descriptionTxt=dialog.findViewById<TextView>(R.id.descriptionTxt)
+        val titleTxt=dialog.findViewById<TextView>(R.id.titleTxt)
+        val iconImageView=dialog.findViewById<ImageView>(R.id.iconImageView)
+        titleTxt.text=description
+        descriptionTxt.text=title
+        iconImageView.setImageResource(R.drawable.exclamationicon)
+        btn_Ok.setOnClickListener(View.OnClickListener {
+            startActivity(Intent(context,HomeActivity::class.java))
+            dialog.dismiss()
+            finish()
+
+        })
+        dialog.show()
 
     }
 }

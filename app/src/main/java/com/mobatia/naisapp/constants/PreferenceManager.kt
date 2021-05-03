@@ -28,6 +28,24 @@ class PreferenceManager {
             return prefs.getString("user_code", "")
         }
 
+        /*SET USER CODE*/
+        fun setUserEmail(context: Context, id: String?) {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME, Context.MODE_PRIVATE
+            )
+            val editor = prefs.edit()
+            editor.putString("user_email", id)
+            editor.apply()
+        }
+
+        /*GET USER CODE*/
+        fun getUserEmail(context: Context): String? {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME,
+                Context.MODE_PRIVATE
+            )
+            return prefs.getString("user_email", "")
+        }
         /*SET FIRE BASE ID*/
         fun setFcmID(context: Context, id: String) {
             val prefs = context.getSharedPreferences(
