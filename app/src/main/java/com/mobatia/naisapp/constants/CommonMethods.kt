@@ -15,6 +15,9 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.mobatia.naisapp.R
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
 @Suppress("DEPRECATION")
 class CommonMethods {
@@ -167,6 +170,24 @@ class CommonMethods {
             }
             dialog.show()
         }
+        // Converting date to dd-MMM-yy format
+
+        fun dateParsingTo_dd_MMM_yyyy(date: String?): String? {
+            var strCurrentDate = ""
+            var format =
+                SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+            var newDate: Date? = null
+            try {
+                newDate = format.parse(date)
+            } catch (e: ParseException) {
+                e.printStackTrace()
+            }
+            format = SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH)
+            strCurrentDate = format.format(newDate)
+            return strCurrentDate
+        }
 
     }
+
+
 }

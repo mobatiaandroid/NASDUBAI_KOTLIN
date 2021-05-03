@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".fragment.ibprogramme.IBProgrammeFragment">
+    tools:context=".fragment.secondary.SecondaryFragment">
 
     <ProgressBar
         android:id="@+id/progress"
@@ -17,7 +17,7 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/ibProgrammeRecycler"
+        app:layout_constraintStart_toStartOf="@+id/secondaryRecycler"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
     <com.mobatia.naisapp.customviews.textview.CustomFontDJ5TextWhite
@@ -52,7 +52,7 @@
         app:layout_constraintGuide_percent="0.4" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/ibProgrammeRecycler"
+        android:id="@+id/secondaryRecycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginLeft="10dp"

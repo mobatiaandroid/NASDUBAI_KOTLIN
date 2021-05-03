@@ -1,4 +1,4 @@
-package com.mobatia.naisapp.activity.primary
+package com.mobatia.naisapp.activity.secondarydetail
 
 import android.content.Context
 import android.content.Intent
@@ -20,40 +20,34 @@ import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
 import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
 import com.mobatia.naisapp.fragment.primary.adapter.PrimaryDetailsAdapter
 import com.mobatia.naisapp.fragment.primary.model.PrimaryDetailData
-import com.mobatia.naisapp.fragment.primary.model.Primarydetailsresponse
+import com.mobatia.naisapp.fragment.secondary.adapter.SecondaryDetailsAdapter
+import com.mobatia.naisapp.fragment.secondary.model.SecondaryDetailData
+import com.mobatia.naisapp.fragment.secondary.model.Secondarydetailsresponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class PrimaryDetail : AppCompatActivity() {
+class Secondarydetails : AppCompatActivity() {
     lateinit var mContext: Context
     var id: String = ""
     var title: String = ""
     lateinit var titleTextView: TextView
-    lateinit var primaryRecyclerdetails: RecyclerView
+    lateinit var secondaryRecyclerdetails: RecyclerView
     lateinit var linearLayoutManager: LinearLayoutManager
     lateinit var progress: ProgressBar
     lateinit var back: ImageView
     lateinit var logoclick:ImageView
-    var primarydetaillist = ArrayList<PrimaryDetailData>()
-
+    var secondarydetaillist = ArrayList<SecondaryDetailData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_primary_detail)
+        setContentView(R.layout.activity_secondarydetails)
         InitUI()
         back.setOnClickListener {
             finish()
         }
-        logoclick.setOnClickListener {
-            val mIntent = Intent(mContext, HomeActivity::class.java)
-            mIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-
-            startActivity(mIntent)
-        }
     }
-
 
     private fun InitUI() {
         mContext = this
@@ -63,31 +57,37 @@ class PrimaryDetail : AppCompatActivity() {
         titleTextView = findViewById(R.id.titleTextView)
         back = findViewById(R.id.back)
         logoclick = findViewById(R.id.logoclick)
-        primaryRecyclerdetails = findViewById(R.id.primaryRecyclerdetails)
+        secondaryRecyclerdetails = findViewById(R.id.secondaryRecyclerdetails)
         progress = findViewById(R.id.progress)
-        primaryRecyclerdetails.layoutManager = linearLayoutManager
+        secondaryRecyclerdetails.layoutManager = linearLayoutManager
         titleTextView.text = title
 
         if (CommonMethods.isInternetAvailable(mContext)) {
-            primarydetailslist()
+            secondarydetailslist()
         } else {
             CommonMethods.showSuccessInternetAlert(mContext)
         }
+        logoclick.setOnClickListener {
+            val mIntent = Intent(mContext, HomeActivity::class.java)
+            mIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
+            startActivity(mIntent)
+        }
 
 
-        primaryRecyclerdetails.addOnItemClickListener(object : OnItemClickListener {
+        secondaryRecyclerdetails.addOnItemClickListener(object : OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
 
-                val urltype = primarydetaillist[position].file
+                val urltype = secondarydetaillist[position].file
                 if (urltype.contains("pdf")) {
-                    val intent = Intent(this@PrimaryDetail, PdfReaderActivity::class.java)
-                    intent.putExtra("pdf_url", primarydetaillist[position].file)
-                    intent.putExtra("pdf_title", primarydetaillist[position].title)
-                    this@PrimaryDetail.startActivity(intent)
+                    val intent = Intent(this@Secondarydetails, PdfReaderActivity::class.java)
+                    intent.putExtra("pdf_url", secondarydetaillist[position].file)
+                    intent.putExtra("pdf_title", secondarydetaillist[position].title)
+                    this@Secondarydetails.startActivity(intent)
                 } else {
-                    val intent = Intent(this@PrimaryDetail, WebviewLoader::class.java)
-                    intent.putExtra("webview_url", primarydetaillist[position].file)
-                    this@PrimaryDetail.startActivity(intent)
+                    val intent = Intent(this@Secondarydetails, WebviewLoader::class.java)
+                    intent.putExtra("webview_url", secondarydetaillist[position].file)
+                    this@Secondarydetails.startActivity(intent)
                 }
 
             }
@@ -95,24 +95,25 @@ class PrimaryDetail : AppCompatActivity() {
         })
     }
 
-    private fun primarydetailslist() {
-        primarydetaillist = ArrayList()
+    private fun secondarydetailslist() {
+        secondarydetaillist = ArrayList()
         progress.visibility = View.VISIBLE
-        val call: Call<Primarydetailsresponse> = ApiClient.getClient.primarydetails(id.toInt(), 1)
-        call.enqueue(object : Callback<Primarydetailsresponse> {
-            override fun onFailure(call: Call<Primarydetailsresponse>, t: Throwable) {
+        val  call:Call<Secondarydetailsresponse> = ApiClient.getClient.secondarydetails(id.toInt(),1)
+        call.enqueue(object :Callback<Secondarydetailsresponse>{
+            override fun onFailure(call: Call<Secondarydetailsresponse>, t: Throwable) {
                 progress.visibility = View.GONE
+
             }
 
             override fun onResponse(
-                call: Call<Primarydetailsresponse>,
-                response: Response<Primarydetailsresponse>
+                call: Call<Secondarydetailsresponse>,
+                response: Response<Secondarydetailsresponse>
             ) {
                 progress.visibility = View.GONE
                 if (response.body()!!.status == 100) {
-                    primarydetaillist.addAll(response.body()!!.data)
-                    val primaryadapter = PrimaryDetailsAdapter(primarydetaillist)
-                    primaryRecyclerdetails.adapter = primaryadapter
+                    secondarydetaillist.addAll(response.body()!!.data)
+                    val secondaryDetailsAdapter = SecondaryDetailsAdapter(secondarydetaillist)
+                    secondaryRecyclerdetails.adapter = secondaryDetailsAdapter
                 }
                 else {
                     if (response.body()!!.status == 101) {

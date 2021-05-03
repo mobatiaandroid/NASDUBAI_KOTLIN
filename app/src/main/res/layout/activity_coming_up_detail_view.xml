@@ -2,11 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/relMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".activity.primary.PrimaryDetail">
+    android:id="@+id/relMain"
+    android:background="@color/white">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -31,6 +30,7 @@
         app:layout_constraintBottom_toTopOf="@+id/titleTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
     <ImageView
         android:layout_width="150dp"
         android:layout_height="80dp"
@@ -39,14 +39,6 @@
         app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/logoclick"
         />
-    <!--    <ImageView-->
-    <!--        android:id="@+id/logoClickImgView"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_centerHorizontal="true"-->
-    <!--        android:layout_alignTop="@+id/relative_logo_header"-->
-    <!--        android:background="@drawable/logotransperent"-->
-    <!--        android:layout_above="@+id/titleTextView" />-->
 
     <ProgressBar
         android:id="@+id/progress"
@@ -54,11 +46,13 @@
         android:layout_height="40dp"
         android:layout_centerInParent="true"
         android:indeterminateDrawable="@anim/customspinner"
-        android:visibility="gone"
+        android:visibility="visible"
+        android:elevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="lollipop" />
 
     <com.mobatia.naisapp.customviews.textview.CustomFontDJ5TextWhite
         android:id="@+id/titleTextView"
@@ -73,8 +67,8 @@
         app:layout_constraintTop_toBottomOf="@+id/guideline3" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/primaryRecyclerdetails"
+    <WebView
+        android:id="@+id/comingsoonwebview"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginLeft="10dp"
@@ -94,5 +88,6 @@
         app:layout_constraintStart_toStartOf="@+id/relative_logo_header"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/back" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

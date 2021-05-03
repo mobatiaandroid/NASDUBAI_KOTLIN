@@ -1,7 +1,12 @@
 package com.mobatia.naisapp.constants
 
+import com.mobatia.naisapp.fragment.ibprogramme.model.IBdetailsresponse
+import com.mobatia.naisapp.fragment.ibprogramme.model.ibprogrammeresponse
 import com.mobatia.naisapp.fragment.primary.model.Primarydetailsresponse
 import com.mobatia.naisapp.fragment.primary.model.Primaryresponse
+import com.mobatia.naisapp.fragment.primary.model.comingup.Primarycomingupresponse
+import com.mobatia.naisapp.fragment.secondary.model.Secondarydetailsresponse
+import com.mobatia.naisapp.fragment.secondary.model.Secondaryresponse
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Field
@@ -48,4 +53,49 @@ interface ApiInterface {
         @Field("departmentprimary_id") departmentprimary_id: Int,
         @Field("page_number") page_number: Int
     ): Call<Primarydetailsresponse>
+
+    /*************PRIMARY COMING UP****************/
+    @POST("api/v1/parent/primary_coming_up")
+    @FormUrlEncoded
+    fun primarycomingup(
+        @Field("page_number") page_number: Int
+    ): Call<Primarycomingupresponse>
+
+    /*************SECONDARY****************/
+    @GET("api/v1/parent/departmentsecondary")
+    fun secondarylist(): Call<Secondaryresponse>
+
+    /*************SECONDARY DETAIL****************/
+    @POST("api/v1/parent/departmentsecondary/detail")
+    @FormUrlEncoded
+    fun secondarydetails(
+        @Field("departmentsecondary_id") departmentprimary_id: Int,
+        @Field("page_number") page_number: Int
+    ): Call<Secondarydetailsresponse>
+
+    /*************SECONDARY COMING UP****************/
+    @POST("api/v1/parent/secondary_coming_up")
+    @FormUrlEncoded
+    fun secondarycomingup(
+        @Field("page_number") page_number: Int
+    ): Call<Primarycomingupresponse>
+
+    /*************IB PROGRAMME****************/
+    @GET("api/v1/parent/department_ib_programmes")
+    fun ibprogrammelist(): Call<ibprogrammeresponse>
+
+    /*************IB PROGRAMME DETAIL****************/
+    @POST("api/v1/parent/department_ib_programme/detail")
+    @FormUrlEncoded
+    fun ibdetails(
+        @Field("department_ib_programme_id") department_ib_programme_id: Int,
+        @Field("page_number") page_number: Int
+    ): Call<IBdetailsresponse>
+
+    /*************IB PROGRAMME COMING UP****************/
+    @POST("api/v1/parent/ib_programmes_coming_up")
+    @FormUrlEncoded
+    fun ibprogrammecomingup(
+        @Field("page_number") page_number: Int
+    ): Call<Primarycomingupresponse>
 }

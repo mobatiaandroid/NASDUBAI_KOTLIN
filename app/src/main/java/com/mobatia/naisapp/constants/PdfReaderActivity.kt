@@ -26,15 +26,14 @@ import java.io.File
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "DEPRECATION")
 class PdfReaderActivity : AppCompatActivity() {
-    lateinit var back:ImageView
-    lateinit var downloadpdf:ImageView
-    lateinit var context:Context
+    lateinit var back: ImageView
+    lateinit var downloadpdf: ImageView
+    lateinit var context: Context
     lateinit var pdfviewer: PDFView
     var urltoshow: String = ""
     var title: String = ""
     private val STORAGE_PERMISSION_CODE: Int = 1000
-    lateinit var  pdfprogress:ProgressBar
-
+    lateinit var pdfprogress: ProgressBar
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +56,9 @@ class PdfReaderActivity : AppCompatActivity() {
             getRootDirPath(this),
             fileName
         )
+        back.setOnClickListener {
+            finish()
+        }
         downloadpdf.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
