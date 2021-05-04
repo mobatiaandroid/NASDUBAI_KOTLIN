@@ -5,8 +5,8 @@ import com.mobatia.naisapp.activity.common.studentlist.model.StudentListModel
 import com.mobatia.naisapp.fragment.early_years.model.Earlyyearsresponse
 import com.mobatia.naisapp.fragment.ibprogramme.model.IBdetailsresponse
 import com.mobatia.naisapp.fragment.ibprogramme.model.ibprogrammeresponse
-import com.mobatia.naisapp.fragment.parentsessentials.model.ParentsEssentialBannerResponse
 import com.mobatia.naisapp.fragment.performing_arts.model.Performingarts_bannerresponse
+import com.mobatia.naisapp.fragment.performing_arts.model.Performingartslistresponse
 import com.mobatia.naisapp.fragment.primary.model.Primarydetailsresponse
 import com.mobatia.naisapp.fragment.primary.model.Primaryresponse
 import com.mobatia.naisapp.fragment.primary.model.comingup.Primarycomingupresponse
@@ -141,9 +141,10 @@ interface ApiInterface {
     @GET("api/v1/parent/performing_arts/banner")
     fun performiong_arts(): Call<Performingarts_bannerresponse>
 
-
-    /*************PARENTS ESSENTIAL BANNER****************/
-    @GET("api/v1/parent/parent_essentials/banner")
-    fun parentsEssentialBanner(): Call<ParentsEssentialBannerResponse>
-
+    /*************PERFORMING ARTS LIST****************/
+    @POST("api/v1/parent/performing_arts")
+    @FormUrlEncoded
+    fun performingarts_list(
+        @Field("page_number") page_number: Int
+    ): Call<Performingartslistresponse>
 }

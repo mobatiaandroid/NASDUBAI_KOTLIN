@@ -20,6 +20,7 @@ import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
 import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
 import com.mobatia.naisapp.fragment.ibprogramme.adapter.IBDetailsAdapter
 import com.mobatia.naisapp.fragment.ibprogramme.model.IBDetailData
+import com.mobatia.naisapp.fragment.ibprogramme.model.IBDetailDataitems
 import com.mobatia.naisapp.fragment.ibprogramme.model.IBdetailsresponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,7 +37,7 @@ class Early_yearsDetail : AppCompatActivity() {
     lateinit var progress: ProgressBar
     lateinit var back: ImageView
     lateinit var logoclick:ImageView
-    var earlydetaillist = ArrayList<IBDetailData>()
+    var earlydetaillist = ArrayList<IBDetailDataitems>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,7 +111,7 @@ class Early_yearsDetail : AppCompatActivity() {
             ) {
                 progress.visibility = View.GONE
                 if (response.body()!!.status == 100) {
-                    earlydetaillist.addAll(response.body()!!.data)
+                    earlydetaillist.addAll(response.body()!!.data.details)
                     val ib_detailsadapter = IBDetailsAdapter(earlydetaillist)
                     earlyRecyclerdetails.adapter = ib_detailsadapter
                 }

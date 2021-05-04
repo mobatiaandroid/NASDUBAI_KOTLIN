@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.mobatia.naisapp.R
-import com.mobatia.naisapp.fragment.secondary.model.SecondaryDetailData
+import com.mobatia.naisapp.fragment.secondary.model.SecondaryDetailDataitems
 
-internal class SecondaryDetailsAdapter (private var secondarydetailslist: List<SecondaryDetailData>) :
+internal class SecondaryDetailsAdapter(private var secondarydetailslist: ArrayList<SecondaryDetailDataitems>) :
     RecyclerView.Adapter<SecondaryDetailsAdapter.MyViewHolder>() {
     internal inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var mTitleTxt: TextView = view.findViewById(R.id.listTxtTitle)

@@ -107,7 +107,7 @@ class PrimaryFragment : Fragment() {
                 progress.visibility = View.GONE
 
                 if (response.body()!!.status == 100) {
-                    primarylistAPI.addAll(response.body()!!.data.departmentprimary)
+                    primarylistAPI.addAll(response.body()!!.primarydata.sub_menus)
                     for (i in 0..primarylistAPI.size) {
                         if (i == 0) {
                             var model = Departmentprimary(0, "Coming Up")
@@ -131,7 +131,7 @@ class PrimaryFragment : Fragment() {
                     }
 
 
-                    val bannerstring = response.body()!!.data.banner_image
+                    val bannerstring = response.body()!!.primarydata.banner_image
                     if (bannerstring.isNotEmpty()) {
                         context?.let {
                             Glide.with(it)

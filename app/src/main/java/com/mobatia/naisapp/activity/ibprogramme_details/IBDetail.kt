@@ -19,7 +19,7 @@ import com.mobatia.naisapp.constants.WebviewLoader
 import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
 import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
 import com.mobatia.naisapp.fragment.ibprogramme.adapter.IBDetailsAdapter
-import com.mobatia.naisapp.fragment.ibprogramme.model.IBDetailData
+import com.mobatia.naisapp.fragment.ibprogramme.model.IBDetailDataitems
 import com.mobatia.naisapp.fragment.ibprogramme.model.IBdetailsresponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,7 +36,7 @@ class IBDetail : AppCompatActivity() {
     lateinit var progress: ProgressBar
     lateinit var back: ImageView
     lateinit var logoclick:ImageView
-    var ibdetaillist = ArrayList<IBDetailData>()
+    var ibdetaillist = ArrayList<IBDetailDataitems>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,7 +110,7 @@ class IBDetail : AppCompatActivity() {
             ) {
                 progress.visibility = View.GONE
                 if (response.body()!!.status == 100) {
-                    ibdetaillist.addAll(response.body()!!.data)
+                    ibdetaillist.addAll(response.body()!!.data.details)
                     val ib_detailsadapter = IBDetailsAdapter(ibdetaillist)
                     primaryRecyclerdetails.adapter = ib_detailsadapter
                 }

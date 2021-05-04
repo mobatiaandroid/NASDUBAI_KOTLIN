@@ -7,10 +7,9 @@ import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.mobatia.naisapp.R
-import com.mobatia.naisapp.fragment.ibprogramme.model.IBDetailData
-import com.mobatia.naisapp.fragment.primary.model.PrimaryDetailData
+import com.mobatia.naisapp.fragment.ibprogramme.model.IBDetailDataitems
 
-internal class IBDetailsAdapter (private var ibdetailslist: List<IBDetailData>) :
+internal class IBDetailsAdapter(private var ibdetailslist: ArrayList<IBDetailDataitems>) :
     RecyclerView.Adapter<IBDetailsAdapter.MyViewHolder>() {
     internal inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var mTitleTxt: TextView = view.findViewById(R.id.listTxtTitle)

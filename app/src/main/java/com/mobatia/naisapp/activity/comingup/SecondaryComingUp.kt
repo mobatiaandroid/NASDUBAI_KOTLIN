@@ -18,7 +18,7 @@ import com.mobatia.naisapp.constants.CommonMethods
 import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
 import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
 import com.mobatia.naisapp.fragment.primary.adapter.ComingupAdapter
-import com.mobatia.naisapp.fragment.primary.model.comingup.Primarycomingup
+import com.mobatia.naisapp.fragment.primary.model.comingup.PrimaryComingupitems
 import com.mobatia.naisapp.fragment.primary.model.comingup.Primarycomingupresponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,7 +33,7 @@ class SecondaryComingUp : AppCompatActivity() {
     lateinit var progress: ProgressBar
     lateinit var back: ImageView
     lateinit var logoclick:ImageView
-    var secondarycominguplist = ArrayList<Primarycomingup>()
+    var secondarycominguplist = ArrayList<PrimaryComingupitems>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -134,7 +134,7 @@ class SecondaryComingUp : AppCompatActivity() {
             ) {
                 progress.visibility = View.GONE
                 if (response.body()!!.status == 100) {
-                    secondarycominguplist.addAll(response.body()!!.data)
+                    secondarycominguplist.addAll(response.body()!!.data.coming_ups)
                     val secondarycomingupadapter = ComingupAdapter(secondarycominguplist)
                     comingsoonrecycler.adapter = secondarycomingupadapter
                 } else {
