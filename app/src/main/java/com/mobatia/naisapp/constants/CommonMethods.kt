@@ -208,6 +208,28 @@ class CommonMethods {
             return strCurrentDate
         }
 
+        //EMAIL POPUP !!!
+        fun emailalert(context: Context,message : String,email : String,title : String)
+        {
+            val dialog = Dialog(context)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.setCancelable(false)
+            dialog.setContentView(R.layout.email_popup)
+            val submit = dialog.findViewById(R.id.submitButton) as Button
+            val cancelButton = dialog.findViewById(R.id.cancelButton) as Button
+
+            submit.setOnClickListener()
+            {
+                dialog.dismiss()
+            }
+            cancelButton.setOnClickListener()
+            {
+                dialog.dismiss()
+            }
+            dialog.show()
+        }
+
     }
 
 
