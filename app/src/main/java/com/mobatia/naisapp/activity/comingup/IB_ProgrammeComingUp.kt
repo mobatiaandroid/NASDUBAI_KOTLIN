@@ -122,7 +122,7 @@ class IB_ProgrammeComingUp : AppCompatActivity() {
     private fun cominguplist() {
         ibprogrammecominguplist = ArrayList()
         progress.visibility = View.VISIBLE
-        val call: Call<Primarycomingupresponse> = ApiClient.getClient.ibprogrammecomingup(2)
+        val call: Call<Primarycomingupresponse> = ApiClient.getClient.ibprogrammecomingup(1)
         call.enqueue(object : Callback<Primarycomingupresponse> {
             override fun onFailure(call: Call<Primarycomingupresponse>, t: Throwable) {
                 progress.visibility = View.GONE

@@ -122,7 +122,7 @@ class SecondaryComingUp : AppCompatActivity() {
     private fun cominguplist() {
         secondarycominguplist = ArrayList()
         progress.visibility = View.VISIBLE
-        val call: Call<Primarycomingupresponse> = ApiClient.getClient.secondarycomingup(4)
+        val call: Call<Primarycomingupresponse> = ApiClient.getClient.secondarycomingup(1)
         call.enqueue(object : Callback<Primarycomingupresponse> {
             override fun onFailure(call: Call<Primarycomingupresponse>, t: Throwable) {
                 progress.visibility = View.GONE

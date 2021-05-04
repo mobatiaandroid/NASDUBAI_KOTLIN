@@ -21,6 +21,7 @@ import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
 import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
 import com.mobatia.naisapp.fragment.primary.adapter.PrimaryDetailsAdapter
 import com.mobatia.naisapp.fragment.primary.model.PrimaryDetailData
+import com.mobatia.naisapp.fragment.primary.model.PrimaryDetailDataitems
 import com.mobatia.naisapp.fragment.primary.model.Primarydetailsresponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,7 +38,7 @@ class PrimaryDetail : AppCompatActivity() {
     lateinit var progress: ProgressBar
     lateinit var back: ImageView
     lateinit var logoclick:ImageView
-    var primarydetaillist = ArrayList<PrimaryDetailData>()
+    var primarydetaillist = ArrayList<PrimaryDetailDataitems>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,15 +80,15 @@ class PrimaryDetail : AppCompatActivity() {
         primaryRecyclerdetails.addOnItemClickListener(object : OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
 
-                val urltype = primarydetaillist[position].detaillist[position].file
+                val urltype = primarydetaillist[position].file
                 if (urltype.contains("pdf")) {
                     val intent = Intent(this@PrimaryDetail, PdfReaderActivity::class.java)
-                    intent.putExtra("pdf_url", primarydetaillist[position].detaillist[position].title)
-                    intent.putExtra("pdf_title", primarydetaillist[position].detaillist[position].title)
+                    intent.putExtra("pdf_url", primarydetaillist[position].title)
+                    intent.putExtra("pdf_title", primarydetaillist[position].title)
                     this@PrimaryDetail.startActivity(intent)
                 } else {
                     val intent = Intent(this@PrimaryDetail, WebviewLoader::class.java)
-                    intent.putExtra("webview_url", primarydetaillist[position].detaillist[position].file)
+                    intent.putExtra("webview_url", primarydetaillist[position].file)
                     this@PrimaryDetail.startActivity(intent)
                 }
 
@@ -111,10 +112,7 @@ class PrimaryDetail : AppCompatActivity() {
             ) {
                 progress.visibility = View.GONE
                 if (response.body()!!.status == 100) {
-                    for (i in 0..primarydetaillist.size){
-                        primarydetaillist.addAll(response.body().data.detaillist.get(i))
-                    }
-                    primarydetaillist.addAll(response.body().data.detaillist)
+                    primarydetaillist.addAll(response.body()!!.data.detaillist)
                     Log.e("LISTSIZE:", primarydetaillist.size.toString())
                     val primaryadapter = PrimaryDetailsAdapter(primarydetaillist)
                     primaryRecyclerdetails.adapter = primaryadapter
