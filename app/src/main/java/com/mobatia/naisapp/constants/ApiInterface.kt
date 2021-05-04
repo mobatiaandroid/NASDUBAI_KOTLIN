@@ -193,4 +193,16 @@ interface ApiInterface {
     fun parentsEssentialInformation(
         @Field("page_number") page_number: Int
     ): Call<InformationResponse>
+
+    /*************NAE PROGRAMME****************/
+    @GET("api/v1/parent/nae_programmes")
+    fun nae_programmes(): Call<Primaryresponse>
+
+    /*************PRIMARY DETAIL****************/
+    @POST("api/v1/parent/nae_programme/detail")
+    @FormUrlEncoded
+    fun nae_programmesdetails(
+        @Field("nae_programme_id") nae_programme_id: Int,
+        @Field("page_number") page_number: Int
+    ): Call<Primarydetailsresponse>
 }
