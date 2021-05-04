@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -78,15 +79,15 @@ class PrimaryDetail : AppCompatActivity() {
         primaryRecyclerdetails.addOnItemClickListener(object : OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
 
-                val urltype = primarydetaillist[position].file
+                val urltype = primarydetaillist[position].detaillist[position].file
                 if (urltype.contains("pdf")) {
                     val intent = Intent(this@PrimaryDetail, PdfReaderActivity::class.java)
-                    intent.putExtra("pdf_url", primarydetaillist[position].file)
-                    intent.putExtra("pdf_title", primarydetaillist[position].title)
+                    intent.putExtra("pdf_url", primarydetaillist[position].detaillist[position].title)
+                    intent.putExtra("pdf_title", primarydetaillist[position].detaillist[position].title)
                     this@PrimaryDetail.startActivity(intent)
                 } else {
                     val intent = Intent(this@PrimaryDetail, WebviewLoader::class.java)
-                    intent.putExtra("webview_url", primarydetaillist[position].file)
+                    intent.putExtra("webview_url", primarydetaillist[position].detaillist[position].file)
                     this@PrimaryDetail.startActivity(intent)
                 }
 
@@ -110,7 +111,11 @@ class PrimaryDetail : AppCompatActivity() {
             ) {
                 progress.visibility = View.GONE
                 if (response.body()!!.status == 100) {
-                    primarydetaillist.addAll(response.body()!!.data)
+                    for (i in 0..primarydetaillist.size){
+                        primarydetaillist.addAll(response.body().data.detaillist.get(i))
+                    }
+                    primarydetaillist.addAll(response.body().data.detaillist)
+                    Log.e("LISTSIZE:", primarydetaillist.size.toString())
                     val primaryadapter = PrimaryDetailsAdapter(primarydetaillist)
                     primaryRecyclerdetails.adapter = primaryadapter
                 }

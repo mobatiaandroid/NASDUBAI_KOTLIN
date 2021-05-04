@@ -1,4 +1,4 @@
-package com.mobatia.naisapp.activity.Comingup
+package com.mobatia.naisapp.activity.comingup
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobatia.naisapp.R
-import com.mobatia.naisapp.activity.comingup.ComingUpDetailViewActivity
 import com.mobatia.naisapp.activity.home.HomeActivity
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
@@ -25,7 +24,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class Early_yearsComingUp : AppCompatActivity() {
+class PrimaryComingUp : AppCompatActivity() {
     lateinit var mContext: Context
 
     lateinit var titleTextView: TextView
@@ -34,7 +33,7 @@ class Early_yearsComingUp : AppCompatActivity() {
     lateinit var progress: ProgressBar
     lateinit var back: ImageView
     lateinit var logoclick:ImageView
-    var early_yearscominguplist = ArrayList<Primarycomingup>()
+    var primarycominguplist = ArrayList<Primarycomingup>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,14 +98,14 @@ class Early_yearsComingUp : AppCompatActivity() {
                         "}" +
                         "</style>\n" + "</head>" +
                         "<body>" +
-                        "<p class='title'>" + early_yearscominguplist[position].title + "</p>"
-                if (early_yearscominguplist[position].image.isNotEmpty()) {
+                        "<p class='title'>" + primarycominguplist[position].title + "</p>"
+                if (primarycominguplist[position].image.isNotEmpty()) {
                     webViewComingUpDetail =
-                        "$webViewComingUpDetail<center><img src='" + early_yearscominguplist[position].image + "'width='100%', height='auto'>"
+                        "$webViewComingUpDetail<center><img src='" + primarycominguplist[position].image + "'width='100%', height='auto'>"
 
                 }
                 webViewComingUpDetail =
-                    "$webViewComingUpDetail<p class='description'>" + early_yearscominguplist[position].description + "</p>" +
+                    "$webViewComingUpDetail<p class='description'>" + primarycominguplist[position].description + "</p>" +
                             "</body>\n</html>"
 
                 val mIntent = Intent(mContext, ComingUpDetailViewActivity::class.java)
@@ -121,9 +120,9 @@ class Early_yearsComingUp : AppCompatActivity() {
     }
 
     private fun cominguplist() {
-        early_yearscominguplist = ArrayList()
+        primarycominguplist = ArrayList()
         progress.visibility = View.VISIBLE
-        val call: Call<Primarycomingupresponse> = ApiClient.getClient.early_yearscomingup(1)
+        val call: Call<Primarycomingupresponse> = ApiClient.getClient.primarycomingup(1)
         call.enqueue(object : Callback<Primarycomingupresponse> {
             override fun onFailure(call: Call<Primarycomingupresponse>, t: Throwable) {
                 progress.visibility = View.GONE
@@ -135,9 +134,9 @@ class Early_yearsComingUp : AppCompatActivity() {
             ) {
                 progress.visibility = View.GONE
                 if (response.body()!!.status == 100) {
-                    early_yearscominguplist.addAll(response.body()!!.data)
-                    val Ibprogrammecomingupadapter = ComingupAdapter(early_yearscominguplist)
-                    comingsoonrecycler.adapter = Ibprogrammecomingupadapter
+                    primarycominguplist.addAll(response.body()!!.data)
+                    val primarycomingupadapter = ComingupAdapter(primarycominguplist)
+                    comingsoonrecycler.adapter = primarycomingupadapter
                 } else {
                     if (response.body()!!.status == 101) {
                         CommonMethods.showErrorAlert(mContext, "Some error occured", "Alert")
