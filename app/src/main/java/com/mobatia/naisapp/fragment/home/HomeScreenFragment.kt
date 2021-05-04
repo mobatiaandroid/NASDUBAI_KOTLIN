@@ -21,6 +21,7 @@ import com.mobatia.naisapp.activity.home.HomeActivity
 import com.mobatia.naisapp.constants.*
 import com.mobatia.naisapp.fragment.ibprogramme.IBProgrammeFragment
 import com.mobatia.naisapp.fragment.primary.PrimaryFragment
+import com.mobatia.naisapp.fragment.reports.ReportFragment
 import com.mobatia.naisapp.fragment.secondary.SecondaryFragment
 import java.util.*
 import kotlin.collections.ArrayList
@@ -925,6 +926,10 @@ class HomeScreenFragment : Fragment(), View.OnClickListener {
             }
             NasTabConstants.TAB_IB_PROGRAMME_REG -> {
                 mFragment = IBProgrammeFragment()
+                fragmentIntent(mFragment)
+            }
+            NasTabConstants.TAB_REPORT_REG -> {
+                mFragment = ReportFragment()
                 fragmentIntent(mFragment)
             }
         }

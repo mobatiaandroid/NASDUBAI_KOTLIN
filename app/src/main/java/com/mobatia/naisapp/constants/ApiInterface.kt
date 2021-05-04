@@ -130,7 +130,7 @@ interface ApiInterface {
     ): Call<ReportListModel>
 
     /*************STUDENT_LIST****************/
-    @POST("api/v1/parent/studentlist")
+    @GET("api/v1/parent/studentlist")
     @Headers("Content-Type: application/x-www-form-urlencode","Accept: application/json")
     fun studentList(
         @Header("Authorization") token:String

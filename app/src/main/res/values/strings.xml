@@ -123,9 +123,8 @@
 
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="early_years">Early Years</string>
-    <string name="cancel">Cancel</string>
     <string name="enter_your_subject_here">Enter your subject here...</string>
     <string name="enter_content">Enter content:</string>
-    <string name="submit">Submit</string>
     <string name="contact_form">Contact Form</string>
+    <string name="loading">Loading&#8230;</string>
 </resources>

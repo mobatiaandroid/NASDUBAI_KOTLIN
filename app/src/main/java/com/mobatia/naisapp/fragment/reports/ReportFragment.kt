@@ -26,7 +26,10 @@ import com.mobatia.naisapp.R
 import com.mobatia.naisapp.activity.common.studentlist.model.StudentListModel
 import com.mobatia.naisapp.activity.common.studentlist.model.StudentListResponse
 import com.mobatia.naisapp.constants.ApiClient
+import com.mobatia.naisapp.constants.CommonMethods
 import com.mobatia.naisapp.constants.PreferenceManager
+import com.mobatia.naisapp.fragment.reports.model.ReportApiModel
+import com.mobatia.naisapp.fragment.reports.model.ReportListModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -63,7 +66,11 @@ class ReportFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         mContext = requireContext()
         initializeUI()
-
+        if (CommonMethods.isInternetAvailable(mContext)) {
+            callStudentListApi()
+        } else {
+            CommonMethods.showSuccessInternetAlert(mContext)
+        }
     }
 
     private fun initializeUI() {
@@ -95,7 +102,8 @@ class ReportFragment : Fragment() {
                 call: Call<StudentListModel>,
                 response: Response<StudentListModel>
             ) {
-                if (response.body()!!.status == 100) {
+                if (response.body()!!.status == 100)
+                {
                     studentListArrayList.addAll(response.body()!!.dataArray)
                     if (PreferenceManager.getStudentID(mContext)==0)
                     {
@@ -141,18 +149,44 @@ class ReportFragment : Fragment() {
                         } else {
                             imagicon.setImageResource(R.drawable.boy)
                         }
-
-
                     }
 
 
+                    if (CommonMethods.isInternetAvailable(mContext)) {
+                        callReportList()
+                    } else {
+                        CommonMethods.showSuccessInternetAlert(mContext)
+                    }
                 }
+                else
+                {
 
+                }
+            }
+        })
+    }
+    private fun callReportList() {
+        progressDialog.visibility = View.VISIBLE
+        val token = PreferenceManager.getUserCode(mContext)
+        val studentid = ReportApiModel(PreferenceManager.getStudentID(mContext)!!.toString())
+        val call: Call<ReportListModel> =
+            ApiClient.getClient.reportList(studentid, "Bearer " + token)
+        call.enqueue(object : Callback<ReportListModel> {
+            override fun onFailure(call: Call<ReportListModel>, t: Throwable) {
+                progressDialog.visibility = View.GONE
+                Log.e("Error", t.localizedMessage)
+            }
 
+            override fun onResponse(
+                call: Call<ReportListModel>,
+                response: Response<ReportListModel>
+            ) {
+                progressDialog.visibility = View.GONE
+                when (response.body()!!.status) {
 
+                }
             }
 
         })
     }
-
 }
