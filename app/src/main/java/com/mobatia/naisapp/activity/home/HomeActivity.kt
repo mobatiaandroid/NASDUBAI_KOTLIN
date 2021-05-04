@@ -37,6 +37,7 @@ import com.mobatia.naisapp.constants.PreferenceManager
 import com.mobatia.naisapp.fragment.early_years.EarlyyearsFragment
 import com.mobatia.naisapp.fragment.home.HomeScreenFragment
 import com.mobatia.naisapp.fragment.ibprogramme.IBProgrammeFragment
+import com.mobatia.naisapp.fragment.nae_programme.NaeProgrammeFragment
 import com.mobatia.naisapp.fragment.performing_arts.PerformingArtsFragment
 import com.mobatia.naisapp.fragment.primary.PrimaryFragment
 import com.mobatia.naisapp.fragment.reports.ReportFragment
@@ -149,6 +150,11 @@ class HomeActivity : AppCompatActivity(), AdapterView.OnItemLongClickListener {
                 }
                 else  if (position == 15){
                     mFragment = ReportFragment()
+                    replaceFragmentsSelected(position)
+
+                }
+                else  if (position == 18){
+                    mFragment = NaeProgrammeFragment()
                     replaceFragmentsSelected(position)
 
                 }

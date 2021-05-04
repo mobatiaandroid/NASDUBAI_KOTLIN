@@ -6,12 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".constants.WebviewLoader">
 
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerInParent="true"
+        android:indeterminateDrawable="@anim/customspinner"
+        android:visibility="visible"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/webview"
+        app:layout_constraintTop_toBottomOf="@+id/guideline4"
+        tools:targetApi="lollipop" />
     <WebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </WebView>
 
+    </WebView>
 
     <ImageView
         android:id="@+id/back"

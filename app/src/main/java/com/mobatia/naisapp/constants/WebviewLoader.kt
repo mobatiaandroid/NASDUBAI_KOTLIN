@@ -11,11 +11,9 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebResourceError
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.github.barteksc.pdfviewer.PDFView
@@ -28,6 +26,7 @@ class WebviewLoader : AppCompatActivity() {
     //lateinit var downloadpdf: ImageView
     lateinit var context: Context
     lateinit var webview: WebView
+    lateinit var progressbar:ProgressBar
     var urltoshow: String = ""
 
 
@@ -40,7 +39,9 @@ class WebviewLoader : AppCompatActivity() {
         back = findViewById(R.id.back)
         // downloadpdf = findViewById(R.id.downloadpdf)
         webview = findViewById(R.id.webview)
+        progressbar = findViewById(R.id.progress)
         webview.webViewClient = MyWebViewClient(this)
+
 
         if (urltoshow.contains("http")) {
             urltoshow = urltoshow.replace("http", "https")
@@ -49,20 +50,17 @@ class WebviewLoader : AppCompatActivity() {
         webview.loadUrl(urltoshow)
         Log.e("LOADINGURL==>",urltoshow)
 
-        val li: LayoutInflater = layoutInflater
-        val layout: View = li.inflate(
-            R.layout.homecustom_progress,
-            findViewById<View>(R.id.customlayout) as? ViewGroup
-        )
+        webview.webChromeClient = object : WebChromeClient() {
 
-        val toast = Toast(applicationContext)
-        toast.duration = Toast.LENGTH_SHORT
-        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0)
-        toast.view = layout
+            override fun onProgressChanged(view: WebView, newProgress: Int) {
+                progressbar.progress = newProgress
+                if (newProgress == 100) {
+                    progressbar.visibility = View.GONE
+                    back.visibility = View.VISIBLE
 
-        toast.show()
-
-        back.visibility = View.VISIBLE
+                }
+            }
+        }
 
         back.setOnClickListener {
             finish()
