@@ -23,11 +23,15 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.mobatia.naisapp.R
+import com.mobatia.naisapp.activity.common.studentlist.adapter.StudentListAdapter
 import com.mobatia.naisapp.activity.common.studentlist.model.StudentListModel
 import com.mobatia.naisapp.activity.common.studentlist.model.StudentListResponse
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
 import com.mobatia.naisapp.constants.PreferenceManager
+import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
+import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
+import com.mobatia.naisapp.fragment.reports.adapter.StudentReportsAdapter
 import com.mobatia.naisapp.fragment.reports.model.ReportApiModel
 import com.mobatia.naisapp.fragment.reports.model.ReportListModel
 import com.mobatia.naisapp.fragment.reports.model.StudentReportsModel
@@ -85,6 +89,16 @@ class ReportFragment : Fragment() {
         linearLayoutManager = LinearLayoutManager(mContext)
         recycler_view_list.layoutManager = linearLayoutManager
         recycler_view_list.itemAnimator = DefaultItemAnimator()
+        val aniRotate: Animation =
+            AnimationUtils.loadAnimation(mContext, R.anim.linear_interpolator)
+        progressDialog.startAnimation(aniRotate)
+
+
+        studentSpinner.setOnClickListener(View.OnClickListener {
+
+            showStudentList(mContext,studentListArrayList)
+        })
+
 
     }
 
@@ -105,7 +119,7 @@ class ReportFragment : Fragment() {
             ) {
                 if (response.body()!!.status == 100)
                 {
-                    studentListArrayList.addAll(response.body()!!.dataArray)
+                    studentListArrayList.addAll(response.body()!!.dataArray.studentListArray)
                     if (PreferenceManager.getStudentID(mContext)==0)
                     {
                         Log.e("Empty Img", "Empty")
@@ -153,7 +167,8 @@ class ReportFragment : Fragment() {
                     }
 
 
-                    if (CommonMethods.isInternetAvailable(mContext)) {
+                    if (CommonMethods.isInternetAvailable(mContext))
+                    {
                         callReportList()
                     } else {
                         CommonMethods.showSuccessInternetAlert(mContext)
@@ -189,11 +204,83 @@ class ReportFragment : Fragment() {
                     if (response.body()!!.data.studentReportsArray.size>0)
                     {
                         reportsArrayList.addAll(response.body()!!.data.studentReportsArray)
+                        recycler_view_list.visibility=View.VISIBLE
+                        val rAdapter: StudentReportsAdapter = StudentReportsAdapter(mContext,reportsArrayList)
+                        recycler_view_list.adapter = rAdapter
+                    }
+                    else
+                    {
+                        recycler_view_list.visibility=View.GONE
+                        CommonMethods.NodataAlert(mContext, "No Data Available.", "Alert")
                     }
 
                 }
             }
 
         })
+    }
+
+
+
+    fun showStudentList(context: Context, mStudentList: ArrayList<StudentListResponse>) {
+        val dialog = Dialog(context)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialogue_student_list)
+        var iconImageView = dialog.findViewById(R.id.iconImageView) as ImageView
+        var btn_dismiss = dialog.findViewById(R.id.btn_dismiss) as Button
+        var studentListRecycler = dialog.findViewById(R.id.recycler_view_social_media) as RecyclerView
+        iconImageView.setImageResource(R.drawable.boy)
+        //if(mSocialMediaArray.get())
+        val sdk = Build.VERSION.SDK_INT
+        if (sdk < Build.VERSION_CODES.JELLY_BEAN) {
+            btn_dismiss.setBackgroundDrawable(
+                mContext.resources.getDrawable(R.drawable.button_new)
+            )
+        } else {
+            btn_dismiss.background = mContext.resources.getDrawable(R.drawable.button_new)
+        }
+
+        studentListRecycler.setHasFixedSize(true)
+        val llm = LinearLayoutManager(mContext)
+        llm.orientation = LinearLayoutManager.VERTICAL
+        studentListRecycler.layoutManager = llm
+        val studentAdapter = StudentListAdapter(mContext,mStudentList)
+        studentListRecycler.adapter = studentAdapter
+        btn_dismiss.setOnClickListener()
+        {
+            dialog.dismiss()
+        }
+        studentListRecycler.addOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClicked(position: Int, view: View) {
+                // Your logic
+                studentName = studentListArrayList[position].studentName
+                studentImg = studentListArrayList[position].photo
+                studentId = studentListArrayList[position].studentId
+                studentClass = studentListArrayList[position].section
+                PreferenceManager.setStudentID(mContext, studentId)
+                PreferenceManager.setStudentName(mContext, studentName)
+                PreferenceManager.setStudentPhoto(mContext, studentImg)
+                PreferenceManager.setStudentClass(mContext, studentClass)
+                studentNameTxt.text = studentName
+                if (studentImg != "") {
+                    Glide.with(mContext) //1
+                        .load(studentImg)
+                        .placeholder(R.drawable.boy)
+                        .error(R.drawable.boy)
+                        .skipMemoryCache(true) //2
+                        .diskCacheStrategy(DiskCacheStrategy.NONE) //3
+                        .transform(CircleCrop()) //4
+                        .into(imagicon)
+                } else {
+                    imagicon.setImageResource(R.drawable.boy)
+                }
+                progressDialog.visibility = View.VISIBLE
+                callReportList()
+                dialog.dismiss()
+            }
+        })
+        dialog.show()
     }
 }

@@ -19,7 +19,7 @@ class StudentReportsAdapter (private var mContext: Context, private var reportsl
     lateinit var linearLayoutManager: LinearLayoutManager
     lateinit var detailArray:ArrayList<ProgressReportModel>
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var accYrLinear: TextView = view.findViewById(R.id.accYrLinear)
+        var accYrLinear: TextView = view.findViewById(R.id.accYr)
         var reportRecycler: RecyclerView = view.findViewById(R.id.recycler_view_list)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
