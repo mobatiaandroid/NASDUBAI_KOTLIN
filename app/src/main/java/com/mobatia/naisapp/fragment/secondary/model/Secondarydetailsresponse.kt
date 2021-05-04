@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class Secondarydetailsresponse (
     @SerializedName("status") val status: Int,
     @SerializedName("message") val message: String,
-    @SerializedName("data") val data: List<SecondaryDetailData>)
+    @SerializedName("data") val data: SecondaryDetailData)
 
 
 //@SerializedName("validation_errors") val validation_errors: StudentInfoResponseArray)

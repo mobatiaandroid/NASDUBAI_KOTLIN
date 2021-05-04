@@ -17,10 +17,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mobatia.naisapp.R
 import com.mobatia.naisapp.activity.home.HomeActivity
 
-
-
-
-
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class ComingUpDetailViewActivity : AppCompatActivity() {
     var url: String = ""

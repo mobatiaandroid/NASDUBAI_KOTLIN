@@ -83,7 +83,7 @@ class PrimaryDetail : AppCompatActivity() {
                 val urltype = primarydetaillist[position].file
                 if (urltype.contains("pdf")) {
                     val intent = Intent(this@PrimaryDetail, PdfReaderActivity::class.java)
-                    intent.putExtra("pdf_url", primarydetaillist[position].title)
+                    intent.putExtra("pdf_url", primarydetaillist[position].file)
                     intent.putExtra("pdf_title", primarydetaillist[position].title)
                     this@PrimaryDetail.startActivity(intent)
                 } else {
@@ -112,7 +112,7 @@ class PrimaryDetail : AppCompatActivity() {
             ) {
                 progress.visibility = View.GONE
                 if (response.body()!!.status == 100) {
-                    primarydetaillist.addAll(response.body()!!.data.detaillist)
+                    primarydetaillist.addAll(response.body()!!.data.details)
                     Log.e("LISTSIZE:", primarydetaillist.size.toString())
                     val primaryadapter = PrimaryDetailsAdapter(primarydetaillist)
                     primaryRecyclerdetails.adapter = primaryadapter

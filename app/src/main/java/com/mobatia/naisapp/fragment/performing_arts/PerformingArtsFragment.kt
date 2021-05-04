@@ -1,6 +1,8 @@
 package com.mobatia.naisapp.fragment.performing_arts
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,7 +17,16 @@ import com.bumptech.glide.Glide
 import com.mobatia.naisapp.R
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
+import com.mobatia.naisapp.constants.PdfReaderActivity
+import com.mobatia.naisapp.constants.WebviewLoader
+import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
+import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
+import com.mobatia.naisapp.fragment.performing_arts.adapter.PerformingArtsAdapter
 import com.mobatia.naisapp.fragment.performing_arts.model.Performingarts_bannerresponse
+import com.mobatia.naisapp.fragment.performing_arts.model.Performingartsitems
+import com.mobatia.naisapp.fragment.performing_arts.model.Performingartslistresponse
+import com.mobatia.naisapp.fragment.primary.adapter.ComingupAdapter
+import com.mobatia.naisapp.fragment.primary.model.Departmentprimary
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,6 +41,7 @@ class PerformingArtsFragment : Fragment() {
     lateinit var mail_icon: ImageView
     lateinit var description: TextView
     private lateinit var linearLayoutManager: LinearLayoutManager
+    var performingartslist = ArrayList<Performingartsitems>()
 
 
     override fun onCreateView(
@@ -44,6 +56,7 @@ class PerformingArtsFragment : Fragment() {
         initialiseUI()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initialiseUI() {
         mContext = requireContext()
         linearLayoutManager = LinearLayoutManager(mContext)
@@ -62,10 +75,29 @@ class PerformingArtsFragment : Fragment() {
         } else {
             CommonMethods.showSuccessInternetAlert(mContext)
         }
+
+        performingartsRecycler.addOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClicked(position: Int, view: View) {
+
+                val urltype = performingartslist[position].file
+                if (urltype.contains("pdf")) {
+                    val intent = Intent(mContext, PdfReaderActivity::class.java)
+                    intent.putExtra("pdf_url", performingartslist[position].file)
+                    intent.putExtra("pdf_title", performingartslist[position].sub_menu)
+                    this@PerformingArtsFragment.startActivity(intent)
+                } else {
+                    val intent = Intent(mContext, WebviewLoader::class.java)
+                    intent.putExtra("webview_url", performingartslist[position].file)
+                    this@PerformingArtsFragment.startActivity(intent)
+                }
+
+            }
+
+        })
+
     }
 
-    private fun getperforminglist() {
-    }
+
 
     private fun getperformingbanner() {
         progress.visibility = View.VISIBLE
@@ -111,8 +143,7 @@ class PerformingArtsFragment : Fragment() {
 
                     }
 
-                }
-                else {
+                } else {
                     if (response.body()!!.status == 101) {
                         CommonMethods.showErrorAlert(mContext, "Some error occured", "Alert")
                     }
@@ -123,4 +154,40 @@ class PerformingArtsFragment : Fragment() {
         })
     }
 
+    private fun getperforminglist() {
+        performingartslist = ArrayList()
+        progress.visibility = View.VISIBLE
+        val call: Call<Performingartslistresponse> = ApiClient.getClient.performingarts_list(1)
+        call.enqueue(object : Callback<Performingartslistresponse> {
+            override fun onFailure(call: Call<Performingartslistresponse>, t: Throwable) {
+                progress.visibility = View.GONE
+
+            }
+
+            override fun onResponse(
+                call: Call<Performingartslistresponse>,
+                response: Response<Performingartslistresponse>
+            ) {
+                progress.visibility = View.GONE
+                if (response.body()!!.status == 100) {
+                    performingartslist.addAll(response.body()!!.data.performing_arts)
+
+                    if (performingartslist.size > 0) {
+                        performingartsRecycler.visibility = View.VISIBLE
+                    } else {
+                        performingartsRecycler.visibility = View.VISIBLE
+                        CommonMethods.NodataAlert(mContext, "No Data Available.", "Alert")
+                    }
+                    val performing_artsadapter = PerformingArtsAdapter(performingartslist)
+                    performingartsRecycler.adapter = performing_artsadapter
+                } else {
+                    if (response.body()!!.status == 101) {
+                        CommonMethods.showErrorAlert(mContext, "Some error occured", "Alert")
+                    }
+                }
+
+            }
+
+        })
+    }
 }

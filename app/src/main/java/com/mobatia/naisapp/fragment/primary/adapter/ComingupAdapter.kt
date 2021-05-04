@@ -8,9 +8,9 @@ import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.mobatia.naisapp.R
 import com.mobatia.naisapp.constants.CommonMethods
-import com.mobatia.naisapp.fragment.primary.model.comingup.Primarycomingup
+import com.mobatia.naisapp.fragment.primary.model.comingup.PrimaryComingupitems
 
-internal class ComingupAdapter (private var cominguplist: List<Primarycomingup>) :
+internal class ComingupAdapter(private var cominguplist: ArrayList<PrimaryComingupitems>) :
     RecyclerView.Adapter<ComingupAdapter.MyViewHolder>() {
     internal inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var mTitleTxt: TextView = view.findViewById(R.id.listTxtTitle)

@@ -106,7 +106,7 @@ class SecondaryFragment : Fragment() {
             ) {
                 progress.visibility = View.GONE
                 if (response.body()!!.status==100){
-                    secondarylistAPI.addAll(response.body()!!.data.departmentsecondary)
+                    secondarylistAPI.addAll(response.body()!!.data.sub_menus)
                     for (i in 0.. secondarylistAPI.size)
                     {
                         if (i==0)

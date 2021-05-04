@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mobatia.naisapp.R
-import com.mobatia.naisapp.activity.Comingup.Early_yearsComingUp
+import com.mobatia.naisapp.activity.comingup.Early_yearsComingUp
 import com.mobatia.naisapp.activity.early_yearsdetails.Early_yearsDetail
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
@@ -23,9 +23,6 @@ import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
 import com.mobatia.naisapp.fragment.early_years.adapter.EarlyyearsAdapter
 import com.mobatia.naisapp.fragment.early_years.model.Earlyyearsresponse
 import com.mobatia.naisapp.fragment.early_years.model.department_Earlyyears
-import com.mobatia.naisapp.fragment.primary.adapter.PrimaryAdapter
-import com.mobatia.naisapp.fragment.secondary.adapter.SecondaryAdapter
-import com.mobatia.naisapp.fragment.secondary.model.Departmentsecondary
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -109,7 +106,7 @@ class EarlyyearsFragment : Fragment() {
             ) {
                 progress.visibility = View.GONE
                 if (response.body()!!.status==100){
-                    earlylistAPI.addAll(response.body()!!.data.department_early_years)
+                    earlylistAPI.addAll(response.body()!!.data.sub_menus)
                     for (i in 0.. earlylistAPI.size)
                     {
                         if (i==0)

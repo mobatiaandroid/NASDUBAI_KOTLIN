@@ -18,10 +18,8 @@ import com.mobatia.naisapp.constants.PdfReaderActivity
 import com.mobatia.naisapp.constants.WebviewLoader
 import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
 import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
-import com.mobatia.naisapp.fragment.primary.adapter.PrimaryDetailsAdapter
-import com.mobatia.naisapp.fragment.primary.model.PrimaryDetailData
 import com.mobatia.naisapp.fragment.secondary.adapter.SecondaryDetailsAdapter
-import com.mobatia.naisapp.fragment.secondary.model.SecondaryDetailData
+import com.mobatia.naisapp.fragment.secondary.model.SecondaryDetailDataitems
 import com.mobatia.naisapp.fragment.secondary.model.Secondarydetailsresponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,7 +36,7 @@ class Secondarydetails : AppCompatActivity() {
     lateinit var progress: ProgressBar
     lateinit var back: ImageView
     lateinit var logoclick:ImageView
-    var secondarydetaillist = ArrayList<SecondaryDetailData>()
+    var secondarydetaillist = ArrayList<SecondaryDetailDataitems>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -111,7 +109,7 @@ class Secondarydetails : AppCompatActivity() {
             ) {
                 progress.visibility = View.GONE
                 if (response.body()!!.status == 100) {
-                    secondarydetaillist.addAll(response.body()!!.data)
+                    secondarydetaillist.addAll(response.body()!!.data.details)
                     val secondaryDetailsAdapter = SecondaryDetailsAdapter(secondarydetaillist)
                     secondaryRecyclerdetails.adapter = secondaryDetailsAdapter
                 }

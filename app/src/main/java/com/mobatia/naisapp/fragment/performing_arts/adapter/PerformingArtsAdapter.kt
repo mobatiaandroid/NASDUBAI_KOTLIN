@@ -1,4 +1,4 @@
-package com.mobatia.naisapp.fragment.early_years.adapter
+package com.mobatia.naisapp.fragment.performing_arts.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,26 +7,29 @@ import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.mobatia.naisapp.R
-import com.mobatia.naisapp.fragment.primary.model.PrimaryDetailDataitems
-import com.mobatia.naisapp.fragment.secondary.model.SecondaryDetailData
+import com.mobatia.naisapp.fragment.performing_arts.model.Performingartsitems
+import com.mobatia.naisapp.fragment.primary.model.Departmentprimary
 
-internal class EarlyDetailsAdapter (private var secondarydetailslist: List<PrimaryDetailDataitems>) :
-    RecyclerView.Adapter<EarlyDetailsAdapter.MyViewHolder>() {
+internal class PerformingArtsAdapter(private var performingartslist: List<Performingartsitems>) :
+    RecyclerView.Adapter<PerformingArtsAdapter.MyViewHolder>() {
     internal inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var mTitleTxt: TextView = view.findViewById(R.id.listTxtTitle)
     }
+
     @NonNull
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.primarydetails, parent, false)
+            .inflate(R.layout.primarylist, parent, false)
         return MyViewHolder(itemView)
     }
+
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val list = secondarydetailslist[position]
-        holder.mTitleTxt.text = list.title
+        val list = performingartslist[position]
+        holder.mTitleTxt.text = list.sub_menu
 
     }
+
     override fun getItemCount(): Int {
-        return secondarydetailslist.size
+        return performingartslist.size
     }
 }
