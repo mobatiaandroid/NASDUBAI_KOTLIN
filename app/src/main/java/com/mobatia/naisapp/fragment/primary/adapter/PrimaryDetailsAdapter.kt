@@ -22,7 +22,7 @@ internal class PrimaryDetailsAdapter (private var primarydetailslist: List<Prima
     }
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val list = primarydetailslist[position]
-        holder.mTitleTxt.text = list.title
+        holder.mTitleTxt.text = list.detaillist[position].title
 
     }
     override fun getItemCount(): Int {
