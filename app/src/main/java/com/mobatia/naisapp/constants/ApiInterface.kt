@@ -2,6 +2,9 @@ package com.mobatia.naisapp.constants
 
 import com.mobatia.naisapp.activity.common.model.LoginResponse
 import com.mobatia.naisapp.activity.common.studentlist.model.StudentListModel
+import com.mobatia.naisapp.activity.parentsessential.naslunchboxmenu.model.LunchBoxResponse
+import com.mobatia.naisapp.activity.parentsessential.termdates.model.TermDatesResponse
+import com.mobatia.naisapp.activity.parentsessential.uniform.model.UniformResponse
 import com.mobatia.naisapp.fragment.early_years.model.Earlyyearsresponse
 import com.mobatia.naisapp.fragment.ibprogramme.model.IBdetailsresponse
 import com.mobatia.naisapp.fragment.ibprogramme.model.ibprogrammeresponse
@@ -154,4 +157,31 @@ interface ApiInterface {
     @GET("api/v1/parent/parent_essentials/banner")
     fun parentsEssentialBanner(): Call<ParentsEssentialBannerResponse>
 
+    /*************TERM DATES****************/
+    @POST("api/v1/parent/term_dates")
+    @FormUrlEncoded
+    fun termDates(
+        @Field("page_number") page_number: Int
+    ): Call<TermDatesResponse>
+
+    /*************UNIFORM****************/
+    @POST("api/v1/parent/uniforms")
+    @FormUrlEncoded
+    fun uniform(
+        @Field("page_number") page_number: Int
+    ): Call<UniformResponse>
+
+    /*************LUNCH BOX****************/
+    @POST("api/v1/parent/lunch_box_menus")
+    @FormUrlEncoded
+    fun lunchbox(
+        @Field("page_number") page_number: Int
+    ): Call<LunchBoxResponse>
+
+    /*************BUS SERVICE****************/
+    @POST("api/v1/parent/bus_services")
+    @FormUrlEncoded
+    fun busservice(
+        @Field("page_number") page_number: Int
+    ): Call<LunchBoxResponse>
 }

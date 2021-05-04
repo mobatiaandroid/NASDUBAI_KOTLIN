@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
@@ -17,6 +19,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mobatia.naisapp.R
 import com.mobatia.naisapp.activity.comingup.PrimaryComingUp
+import com.mobatia.naisapp.activity.parentsessential.naslunchboxmenu.NasLunchBoxActivity
+import com.mobatia.naisapp.activity.parentsessential.termdates.TermDatesActivity
+import com.mobatia.naisapp.activity.parentsessential.uniform.UniformActivity
 import com.mobatia.naisapp.activity.primary.PrimaryDetail
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
@@ -25,6 +30,7 @@ import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
 import com.mobatia.naisapp.fragment.ibprogramme.adapter.IB_ProgrammeAdapter
 import com.mobatia.naisapp.fragment.ibprogramme.model.Department_Ibprogramme
 import com.mobatia.naisapp.fragment.ibprogramme.model.ibprogrammeresponse
+import com.mobatia.naisapp.fragment.parentsessentials.adapter.ParentsEssentialListAdapter
 import com.mobatia.naisapp.fragment.parentsessentials.model.ParentsEssentialBannerResponse
 import com.mobatia.naisapp.fragment.primary.adapter.PrimaryAdapter
 import com.mobatia.naisapp.fragment.primary.model.Departmentprimary
@@ -40,7 +46,8 @@ class ParentsEssentialsFragment : Fragment() {
     lateinit var descriptionTV:TextView
     lateinit var mListView:RecyclerView
     lateinit var progressDialog:RelativeLayout
-
+    lateinit var linearLayoutManager: LinearLayoutManager
+    lateinit var parentsEssentialArrayList : ArrayList<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,7 +75,40 @@ class ParentsEssentialsFragment : Fragment() {
         descriptionTV=view!!.findViewById(R.id.descriptionTV)
         mListView=view!!.findViewById(R.id.mListView)
         progressDialog=view!!.findViewById(R.id.progressDialog)
+        linearLayoutManager = LinearLayoutManager(mContext)
+        mListView.layoutManager = linearLayoutManager
+        val aniRotate: Animation =
+            AnimationUtils.loadAnimation(mContext, R.anim.linear_interpolator)
+        progressDialog.startAnimation(aniRotate)
+        parentsEssentialArrayList= ArrayList()
+        parentsEssentialArrayList.add("Term Dates")
+        parentsEssentialArrayList.add("Uniform")
+        parentsEssentialArrayList.add("NAS Lunch Box Menu")
+        parentsEssentialArrayList.add("Bus Service")
+        parentsEssentialArrayList.add("Information")
 
+        mListView.addOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClicked(position: Int, view: View) {
+
+                 if (position==0)
+                 {
+                     val intent = Intent(activity, TermDatesActivity::class.java)
+                     activity?.startActivity(intent)
+                 }
+                 else if (position==1)
+                 {
+                     val intent = Intent(activity, UniformActivity::class.java)
+                     activity?.startActivity(intent)
+                 }
+                else if (position==2)
+                 {
+                     val intent = Intent(activity, NasLunchBoxActivity::class.java)
+                     activity?.startActivity(intent)
+                 }
+
+            }
+
+        })
     }
 
     private fun callParentsEssentialBanner() {
@@ -118,11 +158,15 @@ class ParentsEssentialsFragment : Fragment() {
                         descriptionTV.setText(description)
                     }
 
-                } else {
+                }
+
+                else {
                     if (response.body()!!.status == 101) {
                         CommonMethods.showErrorAlert(mContext, "Some error occured", "Alert")
                     }
                 }
+                val parentsEssentialAdapter = ParentsEssentialListAdapter(mContext,parentsEssentialArrayList)
+                mListView.adapter = parentsEssentialAdapter
             }
 
         })
