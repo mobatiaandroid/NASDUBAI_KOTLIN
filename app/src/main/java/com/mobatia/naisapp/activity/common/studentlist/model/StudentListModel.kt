@@ -8,5 +8,5 @@ class StudentListModel (
     @SerializedName("status") val status: Int,
     @SerializedName("message") val message: String,
     @SerializedName("validation_errors") val validationErrorArray: List<ValidationError>,
-    @SerializedName("data") val dataArray: List<StudentListResponse>
+    @SerializedName("data") val dataArray:StudentDataModel
 )
