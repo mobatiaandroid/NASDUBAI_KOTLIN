@@ -38,6 +38,7 @@ import com.mobatia.naisapp.fragment.early_years.EarlyyearsFragment
 import com.mobatia.naisapp.fragment.home.HomeScreenFragment
 import com.mobatia.naisapp.fragment.ibprogramme.IBProgrammeFragment
 import com.mobatia.naisapp.fragment.primary.PrimaryFragment
+import com.mobatia.naisapp.fragment.reports.ReportFragment
 import com.mobatia.naisapp.fragment.secondary.SecondaryFragment
 import com.mobatia.naisapp.fragment.settings.SettingsFragment
 import okhttp3.ResponseBody
@@ -137,6 +138,11 @@ class HomeActivity : AppCompatActivity(), AdapterView.OnItemLongClickListener {
                 }
                 else  if (position == 11){
                     mFragment = IBProgrammeFragment()
+                    replaceFragmentsSelected(position)
+
+                }
+                else  if (position == 12){
+                    mFragment = ReportFragment()
                     replaceFragmentsSelected(position)
 
                 }

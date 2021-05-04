@@ -833,5 +833,102 @@ class PreferenceManager {
             )
         }
 
+        /*Student Data*/
+
+        /*SET STUDENT_ID*/
+        fun setStudentID(context: Context, id: Int) {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME, Context.MODE_PRIVATE
+            )
+            val editor = prefs.edit()
+            editor.putInt("student_id", id)
+            editor.apply()
+        }
+
+        /*GET STUDENT_ID*/
+        fun getStudentID(context: Context): Int {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME,
+                Context.MODE_PRIVATE
+            )
+            return prefs.getInt("student_id", 0)
+        }
+
+        /*SET STUDENT_ID*/
+        fun setStudentWallet(context: Context, id: Int) {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME, Context.MODE_PRIVATE
+            )
+            val editor = prefs.edit()
+            editor.putInt("student_wallet", id)
+            editor.apply()
+        }
+
+        /*GET STUDENT_ID*/
+        fun getStudentWallet(context: Context): Int {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME,
+                Context.MODE_PRIVATE
+            )
+            return prefs.getInt("student_wallet", 0)
+        }
+
+        /*SET STUDENT_NAME*/
+        fun setStudentName(context: Context, name: String?) {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME, Context.MODE_PRIVATE
+            )
+            val editor = prefs.edit()
+            editor.putString("student_name", name)
+            editor.apply()
+        }
+
+        /*GET STUDENT_NAME*/
+        fun getStudentName(context: Context): String? {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME,
+                Context.MODE_PRIVATE
+            )
+            return prefs.getString("student_name", "")
+        }
+
+           /*SET StudentPhoto*/
+        fun setStudentPhoto(context: Context, name: String?) {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME, Context.MODE_PRIVATE
+            )
+            val editor = prefs.edit()
+            editor.putString("student_photo", name)
+            editor.apply()
+        }
+
+        /*GET STUDENT_NAME*/
+        fun getStudentPhoto(context: Context): String? {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME,
+                Context.MODE_PRIVATE
+            )
+            return prefs.getString("student_photo", "")
+        }
+           /*SET StudentClass*/
+        fun setStudentClass(context: Context, name: String?) {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME, Context.MODE_PRIVATE
+            )
+            val editor = prefs.edit()
+            editor.putString("student_class", name)
+            editor.apply()
+        }
+
+        /*GET STUDENT_NAME*/
+        fun getStudentClass(context: Context): String? {
+            val prefs = context.getSharedPreferences(
+                PREFSNAME,
+                Context.MODE_PRIVATE
+            )
+            return prefs.getString("student_class", "")
+        }
+
+
     }
 }
