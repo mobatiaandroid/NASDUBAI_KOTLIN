@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.mobatia.naisapp.R
 import com.mobatia.naisapp.activity.home.HomeActivity
 import com.mobatia.naisapp.activity.parentsessential.adapter.SubmenuAdapter
+import com.mobatia.naisapp.activity.parentsessential.busservice.model.BusServiceResponse
 import com.mobatia.naisapp.activity.parentsessential.model.CommonSubMenuModel
 import com.mobatia.naisapp.activity.parentsessential.naslunchboxmenu.model.LunchBoxResponse
 import com.mobatia.naisapp.constants.ApiClient
@@ -29,12 +30,14 @@ import retrofit2.Response
 class BusServiceActivity : AppCompatActivity() {
     lateinit var mContext: Context
     lateinit var titleTextView: TextView
+    lateinit var descriptionTV: TextView
     lateinit var TermDatesRecycler: RecyclerView
     lateinit var linearLayoutManager: LinearLayoutManager
     lateinit var progress: RelativeLayout
     lateinit var backRelative: RelativeLayout
     lateinit var bannerImagePager: ImageView
     lateinit var logoclick: ImageView
+    lateinit var mailImageView: ImageView
     var termDatesArrayList = ArrayList<CommonSubMenuModel>()
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -63,6 +66,8 @@ class BusServiceActivity : AppCompatActivity() {
         TermDatesRecycler = findViewById(R.id.mListView)
         bannerImagePager = findViewById(R.id.bannerImagePager)
         progress = findViewById(R.id.progressDialog)
+        mailImageView = findViewById(R.id.mailImageView)
+        descriptionTV = findViewById(R.id.descriptionTV)
         TermDatesRecycler.layoutManager = linearLayoutManager
         titleTextView.text = "Term Dates"
 
@@ -96,20 +101,37 @@ class BusServiceActivity : AppCompatActivity() {
     private fun callTermDatesDetailAPI() {
         termDatesArrayList = ArrayList()
         progress.visibility = View.VISIBLE
-        val call: Call<LunchBoxResponse> = ApiClient.getClient.busservice( 1)
-        call.enqueue(object : Callback<LunchBoxResponse> {
-            override fun onFailure(call: Call<LunchBoxResponse>, t: Throwable) {
+        val call: Call<BusServiceResponse> = ApiClient.getClient.busservice( 1)
+        call.enqueue(object : Callback<BusServiceResponse> {
+            override fun onFailure(call: Call<BusServiceResponse>, t: Throwable) {
                 progress.visibility = View.GONE
             }
 
             override fun onResponse(
-                call: Call<LunchBoxResponse>,
-                response: Response<LunchBoxResponse>
+                call: Call<BusServiceResponse>,
+                response: Response<BusServiceResponse>
             ) {
                 progress.visibility = View.GONE
                 if (response.body()!!.status == 100) {
-                    val bannerImg:String=response.body()!!.data.banner_image
-                    termDatesArrayList.addAll(response.body()!!.data.lunchBoxList)
+                    val bannerImg:String=response.body()!!.data.banner_detail.banner_image
+                    val contactMail:String=response.body()!!.data.banner_detail.contact_email
+                    val description:String=response.body()!!.data.banner_detail.description
+                    if(contactMail.equals(""))
+                    {
+                        mailImageView.visibility=View.GONE
+                    }
+                    else{
+                        mailImageView.visibility=View.VISIBLE
+                    }
+                    if(description.equals(""))
+                    {
+                        descriptionTV.visibility=View.GONE
+                    }
+                    else{
+                        descriptionTV.visibility=View.VISIBLE
+                        descriptionTV.setText(description)
+                    }
+                    termDatesArrayList.addAll(response.body()!!.data.busService)
                     if (bannerImg.isNotEmpty()){
                         mContext?.let {
                             Glide.with(it)

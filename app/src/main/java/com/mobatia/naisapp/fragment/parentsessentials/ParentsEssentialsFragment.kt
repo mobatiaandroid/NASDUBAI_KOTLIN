@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mobatia.naisapp.R
 import com.mobatia.naisapp.activity.comingup.PrimaryComingUp
+import com.mobatia.naisapp.activity.parentsessential.busservice.BusServiceActivity
+import com.mobatia.naisapp.activity.parentsessential.information.InformationActivity
 import com.mobatia.naisapp.activity.parentsessential.naslunchboxmenu.NasLunchBoxActivity
 import com.mobatia.naisapp.activity.parentsessential.termdates.TermDatesActivity
 import com.mobatia.naisapp.activity.parentsessential.uniform.UniformActivity
@@ -103,6 +105,15 @@ class ParentsEssentialsFragment : Fragment() {
                 else if (position==2)
                  {
                      val intent = Intent(activity, NasLunchBoxActivity::class.java)
+                     activity?.startActivity(intent)
+                 }
+                 else if (position==3)
+                 {
+                     val intent = Intent(activity, BusServiceActivity::class.java)
+                     activity?.startActivity(intent)
+                 }  else if (position==4)
+                 {
+                     val intent = Intent(activity, InformationActivity::class.java)
                      activity?.startActivity(intent)
                  }
 

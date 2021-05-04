@@ -2,6 +2,8 @@ package com.mobatia.naisapp.constants
 
 import com.mobatia.naisapp.activity.common.model.LoginResponse
 import com.mobatia.naisapp.activity.common.studentlist.model.StudentListModel
+import com.mobatia.naisapp.activity.parentsessential.busservice.model.BusServiceResponse
+import com.mobatia.naisapp.activity.parentsessential.information.model.InformationResponse
 import com.mobatia.naisapp.activity.parentsessential.naslunchboxmenu.model.LunchBoxResponse
 import com.mobatia.naisapp.activity.parentsessential.termdates.model.TermDatesResponse
 import com.mobatia.naisapp.activity.parentsessential.uniform.model.UniformResponse
@@ -183,5 +185,12 @@ interface ApiInterface {
     @FormUrlEncoded
     fun busservice(
         @Field("page_number") page_number: Int
-    ): Call<LunchBoxResponse>
+    ): Call<BusServiceResponse>
+
+    /*************PARENTS ESSENTIAL INFORMATION****************/
+    @POST("api/v1/parent/informations")
+    @FormUrlEncoded
+    fun parentsEssentialInformation(
+        @Field("page_number") page_number: Int
+    ): Call<InformationResponse>
 }

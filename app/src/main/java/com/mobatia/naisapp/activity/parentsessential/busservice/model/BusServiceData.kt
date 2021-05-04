@@ -5,5 +5,5 @@ import com.mobatia.naisapp.activity.parentsessential.model.CommonSubMenuModel
 
 class BusServiceData (
     @SerializedName("banner_detail") val banner_detail: BannerDetailModel,
-    @SerializedName("lunch_box_menus") val busService: List<CommonSubMenuModel>
+    @SerializedName("bus_services") val busService: List<CommonSubMenuModel>
 )
