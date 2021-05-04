@@ -20,6 +20,7 @@ import com.mobatia.naisapp.R
 import com.mobatia.naisapp.activity.home.HomeActivity
 import com.mobatia.naisapp.constants.*
 import com.mobatia.naisapp.fragment.ibprogramme.IBProgrammeFragment
+import com.mobatia.naisapp.fragment.parentsessentials.ParentsEssentialsFragment
 import com.mobatia.naisapp.fragment.primary.PrimaryFragment
 import com.mobatia.naisapp.fragment.reports.ReportFragment
 import com.mobatia.naisapp.fragment.secondary.SecondaryFragment
@@ -932,8 +933,11 @@ class HomeScreenFragment : Fragment(), View.OnClickListener {
                 mFragment = ReportFragment()
                 fragmentIntent(mFragment)
             }
+            NasTabConstants.TAB_PARENT_ESSENTIALS_REG -> {
+                mFragment = ParentsEssentialsFragment()
+                fragmentIntent(mFragment)
+            }
         }
-
     }
 
 

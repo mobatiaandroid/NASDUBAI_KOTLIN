@@ -2,9 +2,15 @@ package com.mobatia.naisapp.constants
 
 import com.mobatia.naisapp.activity.common.model.LoginResponse
 import com.mobatia.naisapp.activity.common.studentlist.model.StudentListModel
+import com.mobatia.naisapp.activity.parentsessential.busservice.model.BusServiceResponse
+import com.mobatia.naisapp.activity.parentsessential.information.model.InformationResponse
+import com.mobatia.naisapp.activity.parentsessential.naslunchboxmenu.model.LunchBoxResponse
+import com.mobatia.naisapp.activity.parentsessential.termdates.model.TermDatesResponse
+import com.mobatia.naisapp.activity.parentsessential.uniform.model.UniformResponse
 import com.mobatia.naisapp.fragment.early_years.model.Earlyyearsresponse
 import com.mobatia.naisapp.fragment.ibprogramme.model.IBdetailsresponse
 import com.mobatia.naisapp.fragment.ibprogramme.model.ibprogrammeresponse
+import com.mobatia.naisapp.fragment.parentsessentials.model.ParentsEssentialBannerResponse
 import com.mobatia.naisapp.fragment.performing_arts.model.Performingarts_bannerresponse
 import com.mobatia.naisapp.fragment.performing_arts.model.Performingartslistresponse
 import com.mobatia.naisapp.fragment.primary.model.Primarydetailsresponse
@@ -148,15 +154,43 @@ interface ApiInterface {
         @Field("page_number") page_number: Int
     ): Call<Performingartslistresponse>
 
-    /*************NAE PROGRAMMES****************/
-    @GET("api/v1/parent/nae_programmes")
-    fun nae_programmes(): Call<Primaryresponse>
 
-    /*************PRIMARY DETAIL****************/
-    @POST("api/v1/parent/nae_programme/detail")
+    /*************PARENTS ESSENTIAL BANNER****************/
+    @GET("api/v1/parent/parent_essentials/banner")
+    fun parentsEssentialBanner(): Call<ParentsEssentialBannerResponse>
+
+    /*************TERM DATES****************/
+    @POST("api/v1/parent/term_dates")
     @FormUrlEncoded
-    fun nae_programmesdetails(
-        @Field("nae_programme_id") departmentprimary_id: Int,
+    fun termDates(
         @Field("page_number") page_number: Int
-    ): Call<Primarydetailsresponse>
+    ): Call<TermDatesResponse>
+
+    /*************UNIFORM****************/
+    @POST("api/v1/parent/uniforms")
+    @FormUrlEncoded
+    fun uniform(
+        @Field("page_number") page_number: Int
+    ): Call<UniformResponse>
+
+    /*************LUNCH BOX****************/
+    @POST("api/v1/parent/lunch_box_menus")
+    @FormUrlEncoded
+    fun lunchbox(
+        @Field("page_number") page_number: Int
+    ): Call<LunchBoxResponse>
+
+    /*************BUS SERVICE****************/
+    @POST("api/v1/parent/bus_services")
+    @FormUrlEncoded
+    fun busservice(
+        @Field("page_number") page_number: Int
+    ): Call<BusServiceResponse>
+
+    /*************PARENTS ESSENTIAL INFORMATION****************/
+    @POST("api/v1/parent/informations")
+    @FormUrlEncoded
+    fun parentsEssentialInformation(
+        @Field("page_number") page_number: Int
+    ): Call<InformationResponse>
 }
