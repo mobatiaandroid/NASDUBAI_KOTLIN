@@ -25,4 +25,5 @@
     <color name="term_button_bg">#71C7D8</color>
     <color name="list_bg">#002D4C</color>
     <color name="light_grey">#d8d8d8</color>
+    <color name="cal_row_4">#1B3354</color>
 </resources>

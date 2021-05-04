@@ -30,6 +30,7 @@ import com.mobatia.naisapp.constants.CommonMethods
 import com.mobatia.naisapp.constants.PreferenceManager
 import com.mobatia.naisapp.fragment.reports.model.ReportApiModel
 import com.mobatia.naisapp.fragment.reports.model.ReportListModel
+import com.mobatia.naisapp.fragment.reports.model.StudentReportsModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,7 +46,7 @@ class ReportFragment : Fragment() {
     lateinit var linearLayoutManager: LinearLayoutManager
 
     var studentListArrayList = ArrayList<StudentListResponse>()
-
+    lateinit var reportsArrayList:ArrayList<StudentReportsModel>
     lateinit var studentName: String
      var studentId: Int=0
     lateinit var studentImg: String
@@ -166,6 +167,7 @@ class ReportFragment : Fragment() {
         })
     }
     private fun callReportList() {
+        reportsArrayList= ArrayList()
         progressDialog.visibility = View.VISIBLE
         val token = PreferenceManager.getUserCode(mContext)
         val studentid = ReportApiModel(PreferenceManager.getStudentID(mContext)!!.toString())
@@ -182,7 +184,12 @@ class ReportFragment : Fragment() {
                 response: Response<ReportListModel>
             ) {
                 progressDialog.visibility = View.GONE
-                when (response.body()!!.status) {
+                if (response.body()!!.status==100)
+                {
+                    if (response.body()!!.data.studentReportsArray.size>0)
+                    {
+                        reportsArrayList.addAll(response.body()!!.data.studentReportsArray)
+                    }
 
                 }
             }

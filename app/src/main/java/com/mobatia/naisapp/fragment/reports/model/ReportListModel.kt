@@ -7,6 +7,7 @@ import com.mobatia.naisapp.activity.common.model.ValidationError
 class ReportListModel (
     @SerializedName("status") val status: Int,
     @SerializedName("message") val message: String,
-    @SerializedName("validation_errors") val validationErrorArray: List<ValidationError>
+    @SerializedName("validation_errors") val validationErrorArray: List<ValidationError>,
+    @SerializedName("data") val data: ReportResponse
 
 )
