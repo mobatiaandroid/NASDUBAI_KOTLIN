@@ -13,6 +13,10 @@ import com.mobatia.naisapp.fragment.ibprogramme.model.ibprogrammeresponse
 import com.mobatia.naisapp.fragment.parentsessentials.model.ParentsEssentialBannerResponse
 import com.mobatia.naisapp.fragment.performing_arts.model.Performingarts_bannerresponse
 import com.mobatia.naisapp.fragment.performing_arts.model.Performingartslistresponse
+import com.mobatia.naisapp.fragment.permissionslips.model.PermissionFormStatusApiModel
+import com.mobatia.naisapp.fragment.permissionslips.model.PermissionFormsApiModel
+import com.mobatia.naisapp.fragment.permissionslips.model.PermissionFormsResponse
+import com.mobatia.naisapp.fragment.permissionslips.model.PermissionFormsStatusResponse
 import com.mobatia.naisapp.fragment.primary.model.Primarydetailsresponse
 import com.mobatia.naisapp.fragment.primary.model.Primaryresponse
 import com.mobatia.naisapp.fragment.primary.model.comingup.Primarycomingupresponse
@@ -205,4 +209,21 @@ interface ApiInterface {
         @Field("nae_programme_id") nae_programme_id: Int,
         @Field("page_number") page_number: Int
     ): Call<Primarydetailsresponse>
+
+
+    /*************PERMISSION FORMS LIST****************/
+    @POST("api/v1/parent/permission_slips")
+    @Headers("Content-Type: application/json")
+    fun permissionFormsList(
+        @Body permissionApi: PermissionFormsApiModel,
+        @Header("Authorization") token:String
+    ): Call<PermissionFormsResponse>
+
+    /*************PERMISSION FORMS STATUS****************/
+    @POST("api/v1/parent/permission_slip_status_change")
+    @Headers("Content-Type: application/json")
+    fun permissionFormStatus(
+        @Body permissionStatusApi: PermissionFormStatusApiModel,
+        @Header("Authorization") token:String
+    ): Call<PermissionFormsStatusResponse>
 }

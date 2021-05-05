@@ -22,7 +22,7 @@ class NasTabConstants {
         var TAB_PARENTS_MEETING_REG = "17"
         var TAB_NAE_PROGRAMMES_REG = "18"
         var TAB_REPORT_REG = "19"
-        var TAB_PERMISSION_SLIP_REG = "20"
+        var TAB_PERMISSION_FORM_REG = "20"
         var TAB_GALLERY_REG = "21"
         var TAB_ABOUT_US_REG = "22"
         var TAB_CONTACT_US_REG = "23"

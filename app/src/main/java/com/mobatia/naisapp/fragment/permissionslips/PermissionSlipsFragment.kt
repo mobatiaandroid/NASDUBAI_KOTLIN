@@ -2,6 +2,7 @@ package com.mobatia.naisapp.fragment.permissionslips
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
@@ -22,14 +23,21 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.mobatia.naisapp.R
+import com.mobatia.naisapp.activity.comingup.IB_ProgrammeComingUp
 import com.mobatia.naisapp.activity.common.studentlist.adapter.StudentListAdapter
 import com.mobatia.naisapp.activity.common.studentlist.model.StudentListModel
 import com.mobatia.naisapp.activity.common.studentlist.model.StudentListResponse
+import com.mobatia.naisapp.activity.ibprogramme_details.IBDetail
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
+import com.mobatia.naisapp.constants.PdfReaderActivity
 import com.mobatia.naisapp.constants.PreferenceManager
 import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
 import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
+import com.mobatia.naisapp.fragment.permissionslips.adapter.PermissionFormListAdapter
+import com.mobatia.naisapp.fragment.permissionslips.model.PermissionFormsApiModel
+import com.mobatia.naisapp.fragment.permissionslips.model.PermissionFormsResponse
+import com.mobatia.naisapp.fragment.permissionslips.model.PermissionSlipsDetailModel
 import com.mobatia.naisapp.fragment.reports.adapter.StudentReportsAdapter
 import com.mobatia.naisapp.fragment.reports.model.ReportApiModel
 import com.mobatia.naisapp.fragment.reports.model.ReportListModel
@@ -49,7 +57,7 @@ class PermissionSlipsFragment : Fragment() {
     lateinit var linearLayoutManager: LinearLayoutManager
 
     var studentListArrayList = ArrayList<StudentListResponse>()
-    lateinit var reportsArrayList:ArrayList<StudentReportsModel>
+    lateinit var permissionFormsArrayList:ArrayList<PermissionSlipsDetailModel>
     lateinit var studentName: String
     var studentId: Int=0
     lateinit var studentImg: String
@@ -98,6 +106,19 @@ class PermissionSlipsFragment : Fragment() {
             showStudentList(mContext,studentListArrayList)
         })
 
+        recycler_view_list.addOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClicked(position: Int, view: View) {
+
+                val intent = Intent(mContext, PermissionFormsDetailActivity::class.java)
+                intent.putExtra("pdf_url", permissionFormsArrayList[position].file)
+                intent.putExtra("pdf_title", permissionFormsArrayList[position].title)
+                intent.putExtra("permission_slip_id", permissionFormsArrayList[position].id.toString())
+                intent.putExtra("status", permissionFormsArrayList[position].status.toString())
+                startActivity(intent)
+
+            }
+
+        })
 
     }
 
@@ -164,7 +185,7 @@ class PermissionSlipsFragment : Fragment() {
                             imagicon.setImageResource(R.drawable.boy)
                         }
                     }
-
+                    callPermissionFormsListApi()
 
 
                 }
@@ -233,10 +254,50 @@ class PermissionSlipsFragment : Fragment() {
                     imagicon.setImageResource(R.drawable.boy)
                 }
                 progressDialog.visibility = View.VISIBLE
-              //  callReportList()
+                callPermissionFormsListApi()
                 dialog.dismiss()
             }
         })
         dialog.show()
+    }
+
+
+    private fun callPermissionFormsListApi() {
+        permissionFormsArrayList= ArrayList()
+        progressDialog.visibility = View.VISIBLE
+        val token = PreferenceManager.getUserCode(mContext)
+        val studentid = PermissionFormsApiModel(PreferenceManager.getStudentID(mContext)!!.toString())
+        val call: Call<PermissionFormsResponse> =
+            ApiClient.getClient.permissionFormsList(studentid, "Bearer " + token)
+        call.enqueue(object : Callback<PermissionFormsResponse> {
+            override fun onFailure(call: Call<PermissionFormsResponse>, t: Throwable) {
+                progressDialog.visibility = View.GONE
+                Log.e("Error", t.localizedMessage)
+            }
+
+            override fun onResponse(
+                call: Call<PermissionFormsResponse>,
+                response: Response<PermissionFormsResponse>
+            ) {
+                progressDialog.visibility = View.GONE
+                if (response.body()!!.status==100)
+                {
+                    if (response.body()!!.data.permissionsSlips.size>0)
+                    {
+                        permissionFormsArrayList.addAll(response.body()!!.data.permissionsSlips)
+                        recycler_view_list.visibility=View.VISIBLE
+                        val rAdapter: PermissionFormListAdapter = PermissionFormListAdapter(mContext,permissionFormsArrayList)
+                        recycler_view_list.adapter = rAdapter
+                    }
+                    else
+                    {
+                        recycler_view_list.visibility=View.GONE
+                        CommonMethods.NodataAlert(mContext, "No Data Available.", "Alert")
+                    }
+
+                }
+            }
+
+        })
     }
 }

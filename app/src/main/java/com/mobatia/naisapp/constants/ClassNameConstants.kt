@@ -28,7 +28,7 @@ class ClassNameConstants {
         var NAS_TODAY = "NAS Today"
         var COMING_UP = "Coming Up"
         var REPORT = "Reports"
-        var PERMISSSION_SLIPS = "Permission Slips"
+        var PERMISSION_FORMS = "Permission Forms"
         var UNIVERSITY_GUIDANCE = "University Guidance"
         var CANTEEN = "Lunch Box"
     }

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/pdfview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomRel">
+
+        <ProgressBar
+            android:id="@+id/pdfprogress"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:indeterminateDrawable="@anim/customspinner"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/backbuttonprev" />
+        <ImageView
+            android:id="@+id/downloadpdf"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:src="@drawable/pdfdownloadbutton"/>
+    </com.github.barteksc.pdfviewer.PDFView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bottomRel"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:id="@+id/acceptRelative"
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:weightSum="100"
+            android:visibility="gone"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/accept"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="50"
+                android:layout_margin="5dp"
+                android:text="Accept"
+                android:textColor="@color/white"
+                android:background="@drawable/button"/>
+            <Button
+                android:id="@+id/notAccept"
+                android:layout_toRightOf="@+id/accept"
+                android:layout_width="0dp"
+                android:layout_weight="50"
+                android:layout_margin="5dp"
+                android:text="Not Accept"
+                android:textColor="@color/white"
+                android:background="@drawable/buttonred_new"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/statusLinear"
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:visibility="visible"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/acceptImg"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                />
+            <com.mobatia.naisapp.customviews.textview.CustomFontTextViewBoldNoColor
+                android:id="@+id/statusTxt"
+                android:layout_toRightOf="@+id/accept"
+                android:layout_width="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>
+
+<!-- <ImageView
+        android:id="@+id/downloadpdf"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/guideline3"
+        app:layout_constraintBottom_toBottomOf="@id/pdfview"
+        app:layout_constraintEnd_toEndOf="@id/pdfview"
+        app:layout_constraintTop_toBottomOf="@id/guideline3"
+        app:srcCompat="@drawable/pdfdownloadbutton" />-->
+
+<!--    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/pdfview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/pdfprogress"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:indeterminateDrawable="@anim/customspinner"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_toStartOf="@id/guideline4"
+            android:layout_toLeftOf="@id/guideline4"
+            app:srcCompat="@drawable/backbuttonprev" />
+    </com.github.barteksc.pdfviewer.PDFView>-->

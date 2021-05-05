@@ -21,6 +21,7 @@ import com.mobatia.naisapp.activity.home.HomeActivity
 import com.mobatia.naisapp.constants.*
 import com.mobatia.naisapp.fragment.ibprogramme.IBProgrammeFragment
 import com.mobatia.naisapp.fragment.parentsessentials.ParentsEssentialsFragment
+import com.mobatia.naisapp.fragment.permissionslips.PermissionSlipsFragment
 import com.mobatia.naisapp.fragment.primary.PrimaryFragment
 import com.mobatia.naisapp.fragment.reports.ReportFragment
 import com.mobatia.naisapp.fragment.secondary.SecondaryFragment
@@ -753,8 +754,8 @@ class HomeScreenFragment : Fragment(), View.OnClickListener {
                 textdata.equals(ClassNameConstants.REPORT, ignoreCase = true) -> {
                 TAB_ID = NasTabConstants.TAB_REPORT_REG
                 }
-                textdata.equals(ClassNameConstants.PERMISSSION_SLIPS, ignoreCase = true) -> {
-                TAB_ID = NasTabConstants.TAB_PERMISSION_SLIP_REG
+                textdata.equals(ClassNameConstants.PERMISSION_FORMS, ignoreCase = true) -> {
+                TAB_ID = NasTabConstants.TAB_PERMISSION_FORM_REG
                 }
                 textdata.equals(ClassNameConstants.GALLERY, ignoreCase = true) -> {
                 TAB_ID = NasTabConstants.TAB_GALLERY_REG
@@ -916,6 +917,8 @@ class HomeScreenFragment : Fragment(), View.OnClickListener {
     private fun CHECKINTENTVALUE(intentTabId: String) {
         TAB_ID = intentTabId
         var mFragment: Fragment? = null
+        Log.e("Click",intentTabId)
+
         when (intentTabId) {
             NasTabConstants.TAB_PRIMARY_REG -> {
                 mFragment = PrimaryFragment()
@@ -935,6 +938,10 @@ class HomeScreenFragment : Fragment(), View.OnClickListener {
             }
             NasTabConstants.TAB_PARENT_ESSENTIALS_REG -> {
                 mFragment = ParentsEssentialsFragment()
+                fragmentIntent(mFragment)
+            }
+            NasTabConstants.TAB_PERMISSION_FORM_REG -> {
+                mFragment = PermissionSlipsFragment()
                 fragmentIntent(mFragment)
             }
         }
