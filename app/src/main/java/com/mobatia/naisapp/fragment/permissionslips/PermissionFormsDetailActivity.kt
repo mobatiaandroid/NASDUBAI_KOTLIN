@@ -257,7 +257,7 @@ class PermissionFormsDetailActivity : AppCompatActivity() {
                     }
                 }
                 else {
-
+                    CommonMethods.NodataAlert(context, "Something went wrong.", "Alert")
                 }
             }
 

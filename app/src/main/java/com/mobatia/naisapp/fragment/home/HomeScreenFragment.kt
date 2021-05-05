@@ -19,6 +19,7 @@ import androidx.viewpager.widget.ViewPager
 import com.mobatia.naisapp.R
 import com.mobatia.naisapp.activity.home.HomeActivity
 import com.mobatia.naisapp.constants.*
+import com.mobatia.naisapp.fragment.absence.AbsenceFragment
 import com.mobatia.naisapp.fragment.ibprogramme.IBProgrammeFragment
 import com.mobatia.naisapp.fragment.parentsessentials.ParentsEssentialsFragment
 import com.mobatia.naisapp.fragment.permissionslips.PermissionSlipsFragment
@@ -704,8 +705,8 @@ class HomeScreenFragment : Fragment(), View.OnClickListener {
                     TAB_ID = NasTabConstants.TAB_COMMUNICATIONS_REG
 
                 }
-                textdata.equals(ClassNameConstants.ABSENCE, ignoreCase = true) -> {
-                    TAB_ID = NasTabConstants.TAB_ABSENSE_REG
+                textdata.equals(ClassNameConstants.ABSENCES, ignoreCase = true) -> {
+                    TAB_ID = NasTabConstants.TAB_ABSENCES_REG
                 }
                 textdata.equals(ClassNameConstants.PAYMENT, ignoreCase = true) -> {
                     TAB_ID = NasTabConstants.TAB_TRIPS_REG
@@ -942,6 +943,10 @@ class HomeScreenFragment : Fragment(), View.OnClickListener {
             }
             NasTabConstants.TAB_PERMISSION_FORM_REG -> {
                 mFragment = PermissionSlipsFragment()
+                fragmentIntent(mFragment)
+            }
+            NasTabConstants.TAB_ABSENCES_REG -> {
+                mFragment = AbsenceFragment()
                 fragmentIntent(mFragment)
             }
         }

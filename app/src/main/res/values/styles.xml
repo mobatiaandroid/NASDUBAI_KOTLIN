@@ -92,4 +92,14 @@
         <item name="android:cacheColorHint">@color/transparent</item>
     </style>
 
+    <style name="ListStyleBlackTextTransparentSelector" parent="@android:style/Widget.ListView">
+        <item name="android:textColor">@color/split_bg</item>
+        <item name="android:divider">@drawable/list_divider</item>
+        <item name="android:overScrollMode">never</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:listSelector">@color/transparent</item>
+        <item name="android:cacheColorHint">@color/transparent</item>
+
+    </style>
 </resources>

@@ -128,4 +128,7 @@
     <string name="contact_form">Contact Form</string>
     <string name="loading">Loading&#8230;</string>
     <string name="introduction">Introduction:</string>
+    <string name="regNewAbsence">Register New Absence</string>
+    <string name="appregisteredHint">App Registered Absences</string>
+    <string name="requestHint">If you need to cancel a registered absence please contact Reception +971 (0)42199999</string>
 </resources>

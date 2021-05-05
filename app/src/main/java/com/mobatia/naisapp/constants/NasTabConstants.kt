@@ -6,7 +6,7 @@ class NasTabConstants {
         var TAB_CALENDAR_REG = "1"
         var TAB_NOTIFICATIONS_REG = "2"
         var TAB_COMMUNICATIONS_REG = "3"
-        var TAB_ABSENSE_REG = "4"
+        var TAB_ABSENCES_REG = "4"
         var TAB_TRIPS_REG = "5"
         var TAB_CANTEEN_REG = "6"
         var TAB_PARENT_ESSENTIALS_REG = "7"

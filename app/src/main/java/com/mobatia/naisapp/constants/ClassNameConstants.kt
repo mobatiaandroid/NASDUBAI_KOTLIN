@@ -22,7 +22,7 @@ class ClassNameConstants {
         var SOCIAL_MEDIA = "Social Media"
         var GALLERY = "Gallery"
         var ABOUT_US = "About Us"
-        var ABSENCE = "Absences"
+        var ABSENCES = "Absences"
         var SETTINGS = "Settings"
         var CONTACT_US = "Contact Us"
         var NAS_TODAY = "NAS Today"
