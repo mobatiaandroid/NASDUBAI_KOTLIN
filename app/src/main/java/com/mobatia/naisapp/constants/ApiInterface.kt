@@ -7,6 +7,7 @@ import com.mobatia.naisapp.activity.parentsessential.information.model.Informati
 import com.mobatia.naisapp.activity.parentsessential.naslunchboxmenu.model.LunchBoxResponse
 import com.mobatia.naisapp.activity.parentsessential.termdates.model.TermDatesResponse
 import com.mobatia.naisapp.activity.parentsessential.uniform.model.UniformResponse
+import com.mobatia.naisapp.fragment.contact_us.model.Contactusresponse
 import com.mobatia.naisapp.fragment.early_years.model.Earlyyearsresponse
 import com.mobatia.naisapp.fragment.ibprogramme.model.IBdetailsresponse
 import com.mobatia.naisapp.fragment.ibprogramme.model.ibprogrammeresponse
@@ -202,7 +203,7 @@ interface ApiInterface {
     @GET("api/v1/parent/nae_programmes")
     fun nae_programmes(): Call<Primaryresponse>
 
-    /*************PRIMARY DETAIL****************/
+    /*************NAE PROGRAMME DETAIL****************/
     @POST("api/v1/parent/nae_programme/detail")
     @FormUrlEncoded
     fun nae_programmesdetails(
@@ -226,4 +227,8 @@ interface ApiInterface {
         @Body permissionStatusApi: PermissionFormStatusApiModel,
         @Header("Authorization") token:String
     ): Call<PermissionFormsStatusResponse>
+
+    /*************CONTACT US****************/
+    @GET("api/v1/parent/contact_us")
+    fun contact_us(): Call<Contactusresponse>
 }

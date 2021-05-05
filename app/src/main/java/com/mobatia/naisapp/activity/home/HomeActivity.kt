@@ -34,6 +34,7 @@ import com.mobatia.naisapp.activity.home.adapter.HomeListAdapter
 import com.mobatia.naisapp.constants.AppController
 import com.mobatia.naisapp.constants.MyDragShadowBuilder
 import com.mobatia.naisapp.constants.PreferenceManager
+import com.mobatia.naisapp.fragment.contact_us.ContactUsFragment
 import com.mobatia.naisapp.fragment.early_years.EarlyyearsFragment
 import com.mobatia.naisapp.fragment.home.HomeScreenFragment
 import com.mobatia.naisapp.fragment.ibprogramme.IBProgrammeFragment
@@ -156,6 +157,32 @@ class HomeActivity : AppCompatActivity(), AdapterView.OnItemLongClickListener {
                 else  if (position == 18){
                     mFragment = NaeProgrammeFragment()
                     replaceFragmentsSelected(position)
+
+                }
+                else  if (position == 23){
+                    if (ActivityCompat.checkSelfPermission(
+                            context,
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                        ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                            context,
+                            Manifest.permission.ACCESS_COARSE_LOCATION
+                        ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                            context,
+                            Manifest.permission.CALL_PHONE
+                        ) != PackageManager.PERMISSION_GRANTED
+                    ) {
+                        checkpermission()
+
+
+                    } else {
+                        if (drawer_layout.isDrawerOpen(linear_layout)) {
+                            drawer_layout.closeDrawer(linear_layout)
+                        } else {
+                            drawer_layout.openDrawer(linear_layout)
+                        }
+                        mFragment = ContactUsFragment()
+                        fragmentIntent(mFragment)
+                    }
 
                 }
             }

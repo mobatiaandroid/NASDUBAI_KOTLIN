@@ -175,7 +175,7 @@ class PerformingArtsFragment : Fragment() {
                     if (performingartslist.size > 0) {
                         performingartsRecycler.visibility = View.VISIBLE
                     } else {
-                        performingartsRecycler.visibility = View.VISIBLE
+                        performingartsRecycler.visibility = View.GONE
                         CommonMethods.NodataAlert(mContext, "No Data Available.", "Alert")
                     }
                     val performing_artsadapter = PerformingArtsAdapter(performingartslist)

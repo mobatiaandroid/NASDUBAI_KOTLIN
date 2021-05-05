@@ -3,6 +3,7 @@ package com.mobatia.naisapp.constants
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -16,32 +17,36 @@ import android.view.ViewGroup
 import android.webkit.*
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.github.barteksc.pdfviewer.PDFView
 import com.mobatia.naisapp.R
+import com.mobatia.naisapp.activity.home.HomeActivity
+import com.mobatia.naisapp.fragment.home.mContext
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class WebviewLoader : AppCompatActivity() {
+class CustomwebviewMaps : AppCompatActivity() {
     lateinit var back: ImageView
-
-    //lateinit var downloadpdf: ImageView
+    lateinit var titleTextView:TextView
     lateinit var context: Context
     lateinit var webview: WebView
     lateinit var progressbar:ProgressBar
     var urltoshow: String = ""
+    lateinit var logoclick:ImageView
 
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_webview_loader)
+        setContentView(R.layout.activity_customwebviewmaps)
         context = this
 
         urltoshow = intent.getStringExtra("webview_url")
         back = findViewById(R.id.back)
-        // downloadpdf = findViewById(R.id.downloadpdf)
-        webview = findViewById(R.id.webview)
+        titleTextView=findViewById(R.id.titleTextView)
+        webview = findViewById(R.id.webviewmaps)
+        logoclick = findViewById(R.id.logoclick)
         webview.settings.javaScriptEnabled = true
         webview.settings.setAppCacheEnabled(true)
         webview.settings.javaScriptCanOpenWindowsAutomatically = true
@@ -57,7 +62,6 @@ class WebviewLoader : AppCompatActivity() {
         }
 
         webview.loadUrl(urltoshow)
-        Log.e("LOADINGURL==>",urltoshow)
 
         webview.webChromeClient = object : WebChromeClient() {
 
@@ -69,6 +73,12 @@ class WebviewLoader : AppCompatActivity() {
 
                 }
             }
+        }
+        logoclick.setOnClickListener {
+            val mIntent = Intent(context, HomeActivity::class.java)
+            mIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
+            startActivity(mIntent)
         }
 
         back.setOnClickListener {
