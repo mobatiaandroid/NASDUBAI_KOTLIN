@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white"
     android:orientation="vertical"
     android:weightSum="100">
@@ -11,7 +12,7 @@
         android:layout_height="0dp"
         android:layout_weight="40">
 
-        <androidx.viewpager.widget.ViewPager
+        <com.mobatia.naisapp.activity.common.banner.CustomViewPager
             android:id="@+id/bannerImagePager"
             android:layout_width="match_parent"
             android:background="@drawable/default_banner"
@@ -22,7 +23,7 @@
         android:id="@+id/rlHome"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_below="@+id/bannerImage"
+        android:layout_below="@+id/bannerImagePager"
         android:layout_weight="60"
         android:gravity="center">
 

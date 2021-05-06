@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.TypedArray
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.DragEvent
 import android.view.LayoutInflater
@@ -17,6 +18,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.mobatia.naisapp.R
+import com.mobatia.naisapp.activity.common.banner.adapter.CustomPagerAdapter
+import com.mobatia.naisapp.activity.common.banner.model.Bannerresponse
 import com.mobatia.naisapp.activity.home.HomeActivity
 import com.mobatia.naisapp.constants.*
 import com.mobatia.naisapp.fragment.absence.AbsenceFragment
@@ -26,6 +29,9 @@ import com.mobatia.naisapp.fragment.permissionslips.PermissionSlipsFragment
 import com.mobatia.naisapp.fragment.primary.PrimaryFragment
 import com.mobatia.naisapp.fragment.reports.ReportFragment
 import com.mobatia.naisapp.fragment.secondary.SecondaryFragment
+import kotlinx.android.synthetic.main.fragment_homescreen.*
+import retrofit2.Call
+import retrofit2.Response
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -102,7 +108,6 @@ class HomeScreenFragment : Fragment(), View.OnClickListener {
     @SuppressLint("UseRequireInsteadOfGet", "Recycle")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bannerarray = ArrayList()
         mContext = requireContext()
         homeActivity = activity as HomeActivity
         appController = AppController()
@@ -110,10 +115,57 @@ class HomeScreenFragment : Fragment(), View.OnClickListener {
         listitems = resources.getStringArray(R.array.navigation_item_reg)
         mListImgArrays = context!!.resources.obtainTypedArray(R.array.navigation_item_reg_icons)
         initializeUI()
+        getbannerimages()
+
         var internetCheck = CommonMethods.isInternetAvailable(mContext)
         setListeners()
         setdraglisteners()
         getButtonBgAndTextImages()
+
+    }
+
+    private fun getbannerimages() {
+        bannerarray = ArrayList()
+        val  call: Call<Bannerresponse> = ApiClient.getClient.bannerimages()
+        call.enqueue(object :retrofit2.Callback<Bannerresponse>{
+            override fun onFailure(call: Call<Bannerresponse>, t: Throwable) {
+            }
+
+            override fun onResponse(
+                call: Call<Bannerresponse>,
+                response: Response<Bannerresponse>
+            ) {
+                if (response.body()!!.status==100){
+                    bannerarray.addAll(response.body()!!.data.banner_images)
+
+                    val handler = Handler()
+                    val update = Runnable {
+                        if (currentPage == bannerarray.size
+                        ) {
+                            currentPage = 0
+                            pager.setCurrentItem(
+                                currentPage,
+                                false
+                            )
+                        } else {
+                            pager
+                                .setCurrentItem(currentPage++, true)
+                        }
+                    }
+                    val swipeTimer = Timer()
+                    swipeTimer.schedule(object : TimerTask() {
+                        override fun run() {
+                            handler.post(update)
+                        }
+                    }, 100, 3000)
+
+                    val pageradapter = CustomPagerAdapter(mContext,bannerarray)
+                    pager.adapter = pageradapter
+
+                }
+            }
+
+        })
 
     }
 
@@ -862,7 +914,7 @@ class HomeScreenFragment : Fragment(), View.OnClickListener {
 
     @SuppressLint("UseRequireInsteadOfGet")
     private fun initializeUI() {
-        pager = view!!.findViewById<ViewPager>(R.id.bannerImagePager)
+        pager = view!!.findViewById(R.id.bannerImagePager)
         relone = view!!.findViewById(R.id.relOne) as RelativeLayout
         reltwo = view!!.findViewById(R.id.relTwo) as RelativeLayout
         relthree = view!!.findViewById(R.id.relThree) as RelativeLayout
@@ -894,21 +946,22 @@ class HomeScreenFragment : Fragment(), View.OnClickListener {
         relImgnine = view!!.findViewById(R.id.relImgNine) as ImageView
         mSectionText = arrayOfNulls(9)
 
-        pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {
-
-            }
-
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int)
-            {
-
-            }
-
-            override fun onPageSelected(position: Int) {
-                currentPage = position
-            }
-
-        })
+//
+//        pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+//            override fun onPageScrollStateChanged(state: Int) {
+//
+//            }
+//
+//            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int)
+//            {
+//
+//            }
+//
+//            override fun onPageSelected(position: Int) {
+//                currentPage = position
+//            }
+//
+//        })
 
     }
 

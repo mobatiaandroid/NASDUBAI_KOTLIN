@@ -1,5 +1,6 @@
 package com.mobatia.naisapp.constants
 
+import com.mobatia.naisapp.activity.common.banner.model.Bannerresponse
 import com.mobatia.naisapp.activity.common.model.LoginResponse
 import com.mobatia.naisapp.activity.common.studentlist.model.StudentListModel
 import com.mobatia.naisapp.activity.parentsessential.busservice.model.BusServiceResponse
@@ -231,4 +232,9 @@ interface ApiInterface {
     /*************CONTACT US****************/
     @GET("api/v1/parent/contact_us")
     fun contact_us(): Call<Contactusresponse>
+
+    /*************HOME BANNER****************/
+
+    @GET("api/v1/parent/home_banner_images")
+    fun bannerimages(): Call<Bannerresponse>
 }
