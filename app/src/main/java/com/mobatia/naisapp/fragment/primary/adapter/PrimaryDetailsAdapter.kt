@@ -7,10 +7,10 @@ import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.mobatia.naisapp.R
-import com.mobatia.naisapp.fragment.primary.model.PrimaryDetailData
-import com.mobatia.naisapp.fragment.primary.model.PrimaryDetailDataitems
+import com.mobatia.naisapp.activity.common_model.DetailListitems
 
-internal class PrimaryDetailsAdapter (private var primarydetailslist: List<PrimaryDetailDataitems>) :
+
+internal class PrimaryDetailsAdapter (private var primarydetailslist: List<DetailListitems>) :
     RecyclerView.Adapter<PrimaryDetailsAdapter.MyViewHolder>() {
     internal inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var mTitleTxt: TextView = view.findViewById(R.id.listTxtTitle)

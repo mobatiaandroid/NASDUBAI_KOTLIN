@@ -12,14 +12,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobatia.naisapp.R
+import com.mobatia.naisapp.activity.common_model.ComingUpListitems
+import com.mobatia.naisapp.activity.common_model.Comingupresponse
 import com.mobatia.naisapp.activity.home.HomeActivity
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
 import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
 import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
 import com.mobatia.naisapp.fragment.primary.adapter.ComingupAdapter
-import com.mobatia.naisapp.fragment.primary.model.comingup.PrimaryComingupitems
-import com.mobatia.naisapp.fragment.primary.model.comingup.Primarycomingupresponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,7 +33,7 @@ class PrimaryComingUp : AppCompatActivity() {
     lateinit var progress: ProgressBar
     lateinit var back: ImageView
     lateinit var logoclick:ImageView
-    var primarycominguplist = ArrayList<PrimaryComingupitems>()
+    var primarycominguplist = ArrayList<ComingUpListitems>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,9 +99,9 @@ class PrimaryComingUp : AppCompatActivity() {
                         "</style>\n" + "</head>" +
                         "<body>" +
                         "<p class='title'>" + primarycominguplist[position].title + "</p>"
-                if (primarycominguplist[position].image.isNotEmpty()) {
+                if (primarycominguplist[position].url.isNotEmpty()) {
                     webViewComingUpDetail =
-                        "$webViewComingUpDetail<center><img src='" + primarycominguplist[position].image + "'width='100%', height='auto'>"
+                        "$webViewComingUpDetail<center><img src='" + primarycominguplist[position].url + "'width='100%', height='auto'>"
 
                 }
                 webViewComingUpDetail =
@@ -122,19 +122,19 @@ class PrimaryComingUp : AppCompatActivity() {
     private fun cominguplist() {
         primarycominguplist = ArrayList()
         progress.visibility = View.VISIBLE
-        val call: Call<Primarycomingupresponse> = ApiClient.getClient.primarycomingup(1)
-        call.enqueue(object : Callback<Primarycomingupresponse> {
-            override fun onFailure(call: Call<Primarycomingupresponse>, t: Throwable) {
+        val call: Call<Comingupresponse> = ApiClient.getClient.primarycomingup(1)
+        call.enqueue(object : Callback<Comingupresponse> {
+            override fun onFailure(call: Call<Comingupresponse>, t: Throwable) {
                 progress.visibility = View.GONE
             }
 
             override fun onResponse(
-                call: Call<Primarycomingupresponse>,
-                response: Response<Primarycomingupresponse>
+                call: Call<Comingupresponse>,
+                response: Response<Comingupresponse>
             ) {
                 progress.visibility = View.GONE
                 if (response.body()!!.status == 100) {
-                    primarycominguplist.addAll(response.body()!!.data.coming_ups)
+                    primarycominguplist.addAll(response.body()!!.data.cominguplists)
                     val primarycomingupadapter = ComingupAdapter(primarycominguplist)
                     comingsoonrecycler.adapter = primarycomingupadapter
                 } else {

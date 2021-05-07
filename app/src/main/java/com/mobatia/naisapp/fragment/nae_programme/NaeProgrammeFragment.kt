@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mobatia.naisapp.R
 import com.mobatia.naisapp.activity.comingup.PrimaryComingUp
+import com.mobatia.naisapp.activity.common_model.CommonResponse
+import com.mobatia.naisapp.activity.common_model.Listitems
 import com.mobatia.naisapp.activity.nae_detail.NaeProgrammesDetail
 import com.mobatia.naisapp.activity.primary.PrimaryDetail
 import com.mobatia.naisapp.constants.ApiClient
@@ -23,8 +25,6 @@ import com.mobatia.naisapp.constants.CommonMethods
 import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
 import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
 import com.mobatia.naisapp.fragment.primary.adapter.PrimaryAdapter
-import com.mobatia.naisapp.fragment.primary.model.Departmentprimary
-import com.mobatia.naisapp.fragment.primary.model.Primaryresponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,7 +38,7 @@ class NaeProgrammeFragment : Fragment() {
     lateinit var nae_recycler: RecyclerView
     lateinit var progress: ProgressBar
     private lateinit var linearLayoutManager: LinearLayoutManager
-    var naelist = ArrayList<Departmentprimary>()
+    var naelist = ArrayList<Listitems>()
 
 
     override fun onCreateView(
@@ -76,7 +76,7 @@ class NaeProgrammeFragment : Fragment() {
 
                     val intent = Intent(activity, NaeProgrammesDetail::class.java)
                     intent.putExtra("id", naelist[position].id.toString())
-                    intent.putExtra("title", naelist[position].submenu)
+                    intent.putExtra("title", naelist[position].title)
                     activity?.startActivity(intent)
 //                }
 
@@ -88,19 +88,19 @@ class NaeProgrammeFragment : Fragment() {
     private fun getnaelist() {
         progress.visibility = View.VISIBLE
         naelist = ArrayList()
-        val call: Call<Primaryresponse> = ApiClient.getClient.nae_programmes()
-        call.enqueue(object : Callback<Primaryresponse> {
-            override fun onFailure(call: Call<Primaryresponse>, t: Throwable) {
+        val call: Call<CommonResponse> = ApiClient.getClient.nae_programmes()
+        call.enqueue(object : Callback<CommonResponse> {
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
                 progress.visibility = View.GONE
             }
 
             override fun onResponse(
-                call: Call<Primaryresponse>,
-                response: Response<Primaryresponse>
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
             ) {
                 progress.visibility = View.GONE
                 if (response.body()!!.status == 100) {
-                    naelist.addAll(response.body()!!.primarydata.sub_menus)
+                    naelist.addAll(response.body()!!.data.lists)
                     if (naelist.size > 0) {
                         nae_recycler.visibility = View.VISIBLE
                     } else {
@@ -110,7 +110,7 @@ class NaeProgrammeFragment : Fragment() {
                     val primaryadapter = PrimaryAdapter(naelist)
                     nae_recycler.adapter = primaryadapter
 
-                    val bannerstring = response.body()!!.primarydata.banner_image
+                    val bannerstring = response.body()!!.data.banner_image
                     if (bannerstring.isNotEmpty()) {
                         context?.let {
                             Glide.with(it)

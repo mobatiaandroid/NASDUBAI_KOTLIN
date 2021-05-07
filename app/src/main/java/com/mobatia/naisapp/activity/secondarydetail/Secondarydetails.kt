@@ -11,6 +11,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobatia.naisapp.R
+import com.mobatia.naisapp.activity.common_model.CommonDetailResponse
+import com.mobatia.naisapp.activity.common_model.DetailListitems
 import com.mobatia.naisapp.activity.home.HomeActivity
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
@@ -18,9 +20,7 @@ import com.mobatia.naisapp.constants.PdfReaderActivity
 import com.mobatia.naisapp.constants.WebviewLoader
 import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
 import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
-import com.mobatia.naisapp.fragment.secondary.adapter.SecondaryDetailsAdapter
-import com.mobatia.naisapp.fragment.secondary.model.SecondaryDetailDataitems
-import com.mobatia.naisapp.fragment.secondary.model.Secondarydetailsresponse
+import com.mobatia.naisapp.fragment.primary.adapter.PrimaryDetailsAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,7 +36,7 @@ class Secondarydetails : AppCompatActivity() {
     lateinit var progress: ProgressBar
     lateinit var back: ImageView
     lateinit var logoclick:ImageView
-    var secondarydetaillist = ArrayList<SecondaryDetailDataitems>()
+    var secondarydetaillist = ArrayList<DetailListitems>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,15 +76,15 @@ class Secondarydetails : AppCompatActivity() {
         secondaryRecyclerdetails.addOnItemClickListener(object : OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
 
-                val urltype = secondarydetaillist[position].file
+                val urltype = secondarydetaillist[position].url
                 if (urltype.contains("pdf")) {
                     val intent = Intent(this@Secondarydetails, PdfReaderActivity::class.java)
-                    intent.putExtra("pdf_url", secondarydetaillist[position].file)
+                    intent.putExtra("pdf_url", secondarydetaillist[position].url)
                     intent.putExtra("pdf_title", secondarydetaillist[position].title)
                     this@Secondarydetails.startActivity(intent)
                 } else {
                     val intent = Intent(this@Secondarydetails, WebviewLoader::class.java)
-                    intent.putExtra("webview_url", secondarydetaillist[position].file)
+                    intent.putExtra("webview_url", secondarydetaillist[position].url)
                     this@Secondarydetails.startActivity(intent)
                 }
 
@@ -96,21 +96,21 @@ class Secondarydetails : AppCompatActivity() {
     private fun secondarydetailslist() {
         secondarydetaillist = ArrayList()
         progress.visibility = View.VISIBLE
-        val  call:Call<Secondarydetailsresponse> = ApiClient.getClient.secondarydetails(id.toInt(),1)
-        call.enqueue(object :Callback<Secondarydetailsresponse>{
-            override fun onFailure(call: Call<Secondarydetailsresponse>, t: Throwable) {
+        val  call:Call<CommonDetailResponse> = ApiClient.getClient.secondarydetails(id.toInt(),1)
+        call.enqueue(object :Callback<CommonDetailResponse>{
+            override fun onFailure(call: Call<CommonDetailResponse>, t: Throwable) {
                 progress.visibility = View.GONE
 
             }
 
             override fun onResponse(
-                call: Call<Secondarydetailsresponse>,
-                response: Response<Secondarydetailsresponse>
+                call: Call<CommonDetailResponse>,
+                response: Response<CommonDetailResponse>
             ) {
                 progress.visibility = View.GONE
                 if (response.body()!!.status == 100) {
-                    secondarydetaillist.addAll(response.body()!!.data.details)
-                    val secondaryDetailsAdapter = SecondaryDetailsAdapter(secondarydetaillist)
+                    secondarydetaillist.addAll(response.body()!!.data.detaillists)
+                    val secondaryDetailsAdapter = PrimaryDetailsAdapter(secondarydetaillist)
                     secondaryRecyclerdetails.adapter = secondaryDetailsAdapter
                 }
                 else {

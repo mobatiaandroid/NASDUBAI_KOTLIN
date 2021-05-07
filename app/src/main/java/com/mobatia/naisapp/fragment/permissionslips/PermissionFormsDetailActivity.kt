@@ -23,11 +23,8 @@ import com.mobatia.naisapp.R
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
 import com.mobatia.naisapp.constants.PreferenceManager
-import com.mobatia.naisapp.fragment.ibprogramme.adapter.IBDetailsAdapter
-import com.mobatia.naisapp.fragment.ibprogramme.model.IBdetailsresponse
 import com.mobatia.naisapp.fragment.permissionslips.model.PermissionFormStatusApiModel
 import com.mobatia.naisapp.fragment.permissionslips.model.PermissionFormsStatusResponse
-import com.mobatia.naisapp.fragment.reports.model.ReportApiModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

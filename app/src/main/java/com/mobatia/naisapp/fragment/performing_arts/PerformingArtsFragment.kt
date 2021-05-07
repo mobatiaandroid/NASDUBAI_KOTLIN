@@ -15,18 +15,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mobatia.naisapp.R
+import com.mobatia.naisapp.activity.common_model.CommonResponse
+import com.mobatia.naisapp.activity.common_model.Listitems
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
 import com.mobatia.naisapp.constants.PdfReaderActivity
 import com.mobatia.naisapp.constants.WebviewLoader
 import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
 import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
-import com.mobatia.naisapp.fragment.performing_arts.adapter.PerformingArtsAdapter
 import com.mobatia.naisapp.fragment.performing_arts.model.Performingarts_bannerresponse
-import com.mobatia.naisapp.fragment.performing_arts.model.Performingartsitems
-import com.mobatia.naisapp.fragment.performing_arts.model.Performingartslistresponse
-import com.mobatia.naisapp.fragment.primary.adapter.ComingupAdapter
-import com.mobatia.naisapp.fragment.primary.model.Departmentprimary
+import com.mobatia.naisapp.fragment.primary.adapter.PrimaryAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,7 +39,7 @@ class PerformingArtsFragment : Fragment() {
     lateinit var mail_icon: ImageView
     lateinit var description: TextView
     private lateinit var linearLayoutManager: LinearLayoutManager
-    var performingartslist = ArrayList<Performingartsitems>()
+    var performingartslist = ArrayList<Listitems>()
 
 
     override fun onCreateView(
@@ -79,15 +77,15 @@ class PerformingArtsFragment : Fragment() {
         performingartsRecycler.addOnItemClickListener(object : OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
 
-                val urltype = performingartslist[position].file
+                val urltype = performingartslist[position].url
                 if (urltype.contains("pdf")) {
                     val intent = Intent(mContext, PdfReaderActivity::class.java)
-                    intent.putExtra("pdf_url", performingartslist[position].file)
-                    intent.putExtra("pdf_title", performingartslist[position].sub_menu)
+                    intent.putExtra("pdf_url", performingartslist[position].url)
+                    intent.putExtra("pdf_title", performingartslist[position].title)
                     this@PerformingArtsFragment.startActivity(intent)
                 } else {
                     val intent = Intent(mContext, WebviewLoader::class.java)
-                    intent.putExtra("webview_url", performingartslist[position].file)
+                    intent.putExtra("webview_url", performingartslist[position].url)
                     this@PerformingArtsFragment.startActivity(intent)
                 }
 
@@ -157,20 +155,20 @@ class PerformingArtsFragment : Fragment() {
     private fun getperforminglist() {
         performingartslist = ArrayList()
         progress.visibility = View.VISIBLE
-        val call: Call<Performingartslistresponse> = ApiClient.getClient.performingarts_list(1)
-        call.enqueue(object : Callback<Performingartslistresponse> {
-            override fun onFailure(call: Call<Performingartslistresponse>, t: Throwable) {
+        val call: Call<CommonResponse> = ApiClient.getClient.performingarts_list(1)
+        call.enqueue(object : Callback<CommonResponse> {
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
                 progress.visibility = View.GONE
 
             }
 
             override fun onResponse(
-                call: Call<Performingartslistresponse>,
-                response: Response<Performingartslistresponse>
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
             ) {
                 progress.visibility = View.GONE
                 if (response.body()!!.status == 100) {
-                    performingartslist.addAll(response.body()!!.data.performing_arts)
+                    performingartslist.addAll(response.body()!!.data.lists)
 
                     if (performingartslist.size > 0) {
                         performingartsRecycler.visibility = View.VISIBLE
@@ -178,7 +176,7 @@ class PerformingArtsFragment : Fragment() {
                         performingartsRecycler.visibility = View.GONE
                         CommonMethods.NodataAlert(mContext, "No Data Available.", "Alert")
                     }
-                    val performing_artsadapter = PerformingArtsAdapter(performingartslist)
+                    val performing_artsadapter = PrimaryAdapter(performingartslist)
                     performingartsRecycler.adapter = performing_artsadapter
                 } else {
                     if (response.body()!!.status == 101) {

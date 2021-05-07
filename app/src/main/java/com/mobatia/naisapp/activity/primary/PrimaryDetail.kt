@@ -12,6 +12,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobatia.naisapp.R
+import com.mobatia.naisapp.activity.common_model.CommonDetailResponse
+import com.mobatia.naisapp.activity.common_model.DetailListitems
 import com.mobatia.naisapp.activity.home.HomeActivity
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
@@ -20,9 +22,7 @@ import com.mobatia.naisapp.constants.WebviewLoader
 import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
 import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
 import com.mobatia.naisapp.fragment.primary.adapter.PrimaryDetailsAdapter
-import com.mobatia.naisapp.fragment.primary.model.PrimaryDetailData
-import com.mobatia.naisapp.fragment.primary.model.PrimaryDetailDataitems
-import com.mobatia.naisapp.fragment.primary.model.Primarydetailsresponse
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,7 +38,7 @@ class PrimaryDetail : AppCompatActivity() {
     lateinit var progress: ProgressBar
     lateinit var back: ImageView
     lateinit var logoclick:ImageView
-    var primarydetaillist = ArrayList<PrimaryDetailDataitems>()
+    var primarydetaillist = ArrayList<DetailListitems>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,15 +80,15 @@ class PrimaryDetail : AppCompatActivity() {
         primaryRecyclerdetails.addOnItemClickListener(object : OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
 
-                val urltype = primarydetaillist[position].file
+                val urltype = primarydetaillist[position].url
                 if (urltype.contains("pdf")) {
                     val intent = Intent(this@PrimaryDetail, PdfReaderActivity::class.java)
-                    intent.putExtra("pdf_url", primarydetaillist[position].file)
+                    intent.putExtra("pdf_url", primarydetaillist[position].url)
                     intent.putExtra("pdf_title", primarydetaillist[position].title)
                     this@PrimaryDetail.startActivity(intent)
                 } else {
                     val intent = Intent(this@PrimaryDetail, WebviewLoader::class.java)
-                    intent.putExtra("webview_url", primarydetaillist[position].file)
+                    intent.putExtra("webview_url", primarydetaillist[position].url)
                     this@PrimaryDetail.startActivity(intent)
                 }
 
@@ -100,19 +100,19 @@ class PrimaryDetail : AppCompatActivity() {
     private fun primarydetailslist() {
         primarydetaillist = ArrayList()
         progress.visibility = View.VISIBLE
-        val call: Call<Primarydetailsresponse> = ApiClient.getClient.primarydetails(id.toInt(), 1)
-        call.enqueue(object : Callback<Primarydetailsresponse> {
-            override fun onFailure(call: Call<Primarydetailsresponse>, t: Throwable) {
+        val call: Call<CommonDetailResponse> = ApiClient.getClient.primarydetails(id.toInt(), 1)
+        call.enqueue(object : Callback<CommonDetailResponse> {
+            override fun onFailure(call: Call<CommonDetailResponse>, t: Throwable) {
                 progress.visibility = View.GONE
             }
 
             override fun onResponse(
-                call: Call<Primarydetailsresponse>,
-                response: Response<Primarydetailsresponse>
+                call: Call<CommonDetailResponse>,
+                response: Response<CommonDetailResponse>
             ) {
                 progress.visibility = View.GONE
                 if (response.body()!!.status == 100) {
-                    primarydetaillist.addAll(response.body()!!.data.details)
+                    primarydetaillist.addAll(response.body()!!.data.detaillists)
                     Log.e("LISTSIZE:", primarydetaillist.size.toString())
                     val primaryadapter = PrimaryDetailsAdapter(primarydetaillist)
                     primaryRecyclerdetails.adapter = primaryadapter

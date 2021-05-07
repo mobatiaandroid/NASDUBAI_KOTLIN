@@ -16,14 +16,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mobatia.naisapp.R
 import com.mobatia.naisapp.activity.comingup.PrimaryComingUp
+import com.mobatia.naisapp.activity.common_model.CommonResponse
+import com.mobatia.naisapp.activity.common_model.Listitems
 import com.mobatia.naisapp.activity.primary.PrimaryDetail
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
 import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
 import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
 import com.mobatia.naisapp.fragment.primary.adapter.PrimaryAdapter
-import com.mobatia.naisapp.fragment.primary.model.Departmentprimary
-import com.mobatia.naisapp.fragment.primary.model.Primaryresponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,8 +37,8 @@ class PrimaryFragment : Fragment() {
     lateinit var primary_recycler: RecyclerView
     lateinit var progress: ProgressBar
     private lateinit var linearLayoutManager: LinearLayoutManager
-    var primarylistAPI = ArrayList<Departmentprimary>()
-    var primarylist = ArrayList<Departmentprimary>()
+    var primarylistAPI = ArrayList<Listitems>()
+    var primarylist = ArrayList<Listitems>()
 
 
     override fun onCreateView(
@@ -80,7 +80,7 @@ class PrimaryFragment : Fragment() {
                 } else {
                     val intent = Intent(activity, PrimaryDetail::class.java)
                     intent.putExtra("id", primarylist[position].id.toString())
-                    intent.putExtra("title", primarylist[position].submenu)
+                    intent.putExtra("title", primarylist[position].title)
                     activity?.startActivity(intent)
                 }
 
@@ -93,29 +93,29 @@ class PrimaryFragment : Fragment() {
         primarylist = ArrayList()
         primarylistAPI = ArrayList()
         progress.visibility = View.VISIBLE
-        val call: Call<Primaryresponse> = ApiClient.getClient.primarylist()
-        call.enqueue(object : Callback<Primaryresponse> {
-            override fun onFailure(call: Call<Primaryresponse>, t: Throwable) {
+        val call: Call<CommonResponse> = ApiClient.getClient.primarylist()
+        call.enqueue(object : Callback<CommonResponse> {
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
                 progress.visibility = View.GONE
 
             }
 
             override fun onResponse(
-                call: Call<Primaryresponse>,
-                response: Response<Primaryresponse>
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
             ) {
                 progress.visibility = View.GONE
 
                 if (response.body()!!.status == 100) {
-                    primarylistAPI.addAll(response.body()!!.primarydata.sub_menus)
+                    primarylistAPI.addAll(response.body()!!.data.lists)
                     for (i in 0..primarylistAPI.size) {
                         if (i == 0) {
-                            var model = Departmentprimary(0, "Coming Up")
+                            var model = Listitems(0, "Coming Up")
                             primarylist.add(model)
                         } else {
-                            var model = Departmentprimary(
-                                primarylistAPI.get(i - 1).id,
-                                primarylistAPI.get(i - 1).submenu
+                            var model = Listitems(
+                                primarylistAPI[i - 1].id,
+                                primarylistAPI[i - 1].title
                             )
                             primarylist.add(model)
                         }
@@ -131,7 +131,7 @@ class PrimaryFragment : Fragment() {
                     }
 
 
-                    val bannerstring = response.body()!!.primarydata.banner_image
+                    val bannerstring = response.body()!!.data.banner_image
                     if (bannerstring.isNotEmpty()) {
                         context?.let {
                             Glide.with(it)

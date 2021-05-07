@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.mobatia.naisapp.R
-import com.mobatia.naisapp.fragment.primary.model.Departmentprimary
+import com.mobatia.naisapp.activity.common_model.Listitems
 
-internal class PrimaryAdapter (private var primarylist: List<Departmentprimary>) :
+internal class PrimaryAdapter (private var primarylist: List<Listitems>) :
     RecyclerView.Adapter<PrimaryAdapter.MyViewHolder>() {
     internal inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var mTitleTxt: TextView = view.findViewById(R.id.listTxtTitle)
@@ -22,7 +22,7 @@ internal class PrimaryAdapter (private var primarylist: List<Departmentprimary>)
     }
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val list = primarylist[position]
-        holder.mTitleTxt.text = list.submenu
+        holder.mTitleTxt.text = list.title
 
     }
     override fun getItemCount(): Int {

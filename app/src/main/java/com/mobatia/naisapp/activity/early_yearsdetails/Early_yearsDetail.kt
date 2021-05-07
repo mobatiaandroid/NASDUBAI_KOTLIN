@@ -11,6 +11,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobatia.naisapp.R
+import com.mobatia.naisapp.activity.common_model.CommonDetailResponse
+import com.mobatia.naisapp.activity.common_model.DetailListitems
 import com.mobatia.naisapp.activity.home.HomeActivity
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
@@ -18,10 +20,7 @@ import com.mobatia.naisapp.constants.PdfReaderActivity
 import com.mobatia.naisapp.constants.WebviewLoader
 import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
 import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
-import com.mobatia.naisapp.fragment.ibprogramme.adapter.IBDetailsAdapter
-import com.mobatia.naisapp.fragment.ibprogramme.model.IBDetailData
-import com.mobatia.naisapp.fragment.ibprogramme.model.IBDetailDataitems
-import com.mobatia.naisapp.fragment.ibprogramme.model.IBdetailsresponse
+import com.mobatia.naisapp.fragment.primary.adapter.PrimaryDetailsAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,7 +36,7 @@ class Early_yearsDetail : AppCompatActivity() {
     lateinit var progress: ProgressBar
     lateinit var back: ImageView
     lateinit var logoclick:ImageView
-    var earlydetaillist = ArrayList<IBDetailDataitems>()
+    var earlydetaillist = ArrayList<DetailListitems>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,15 +78,15 @@ class Early_yearsDetail : AppCompatActivity() {
         earlyRecyclerdetails.addOnItemClickListener(object : OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
 
-                val urltype = earlydetaillist[position].file
+                val urltype = earlydetaillist[position].url
                 if (urltype.contains("pdf")) {
                     val intent = Intent(this@Early_yearsDetail, PdfReaderActivity::class.java)
-                    intent.putExtra("pdf_url", earlydetaillist[position].file)
+                    intent.putExtra("pdf_url", earlydetaillist[position].url)
                     intent.putExtra("pdf_title", earlydetaillist[position].title)
                     this@Early_yearsDetail.startActivity(intent)
                 } else {
                     val intent = Intent(this@Early_yearsDetail, WebviewLoader::class.java)
-                    intent.putExtra("webview_url", earlydetaillist[position].file)
+                    intent.putExtra("webview_url", earlydetaillist[position].url)
                     this@Early_yearsDetail.startActivity(intent)
                 }
 
@@ -99,20 +98,20 @@ class Early_yearsDetail : AppCompatActivity() {
     private fun ibdetailslist() {
         earlydetaillist = ArrayList()
         progress.visibility = View.VISIBLE
-        val call: Call<IBdetailsresponse> = ApiClient.getClient.earlydetails(id.toInt(), 1)
-        call.enqueue(object : Callback<IBdetailsresponse> {
-            override fun onFailure(call: Call<IBdetailsresponse>, t: Throwable) {
+        val call: Call<CommonDetailResponse> = ApiClient.getClient.earlydetails(id.toInt(), 1)
+        call.enqueue(object : Callback<CommonDetailResponse> {
+            override fun onFailure(call: Call<CommonDetailResponse>, t: Throwable) {
                 progress.visibility = View.GONE
             }
 
             override fun onResponse(
-                call: Call<IBdetailsresponse>,
-                response: Response<IBdetailsresponse>
+                call: Call<CommonDetailResponse>,
+                response: Response<CommonDetailResponse>
             ) {
                 progress.visibility = View.GONE
                 if (response.body()!!.status == 100) {
-                    earlydetaillist.addAll(response.body()!!.data.details)
-                    val ib_detailsadapter = IBDetailsAdapter(earlydetaillist)
+                    earlydetaillist.addAll(response.body()!!.data.detaillists)
+                    val ib_detailsadapter = PrimaryDetailsAdapter(earlydetaillist)
                     earlyRecyclerdetails.adapter = ib_detailsadapter
                 }
                 else {

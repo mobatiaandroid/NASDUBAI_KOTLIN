@@ -16,14 +16,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mobatia.naisapp.R
 import com.mobatia.naisapp.activity.comingup.IB_ProgrammeComingUp
+import com.mobatia.naisapp.activity.common_model.CommonResponse
+import com.mobatia.naisapp.activity.common_model.Listitems
 import com.mobatia.naisapp.activity.ibprogramme_details.IBDetail
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
 import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
 import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
-import com.mobatia.naisapp.fragment.ibprogramme.adapter.IB_ProgrammeAdapter
-import com.mobatia.naisapp.fragment.ibprogramme.model.Department_Ibprogramme
-import com.mobatia.naisapp.fragment.ibprogramme.model.ibprogrammeresponse
+import com.mobatia.naisapp.fragment.primary.adapter.PrimaryAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,8 +35,8 @@ class IBProgrammeFragment : Fragment() {
     lateinit var ibProgrammeRecycler: RecyclerView
     lateinit var progress: ProgressBar
     private lateinit var linearLayoutManager: LinearLayoutManager
-    var ibProgrammeListAPI = ArrayList<Department_Ibprogramme>()
-    var ibProgrammelist = ArrayList<Department_Ibprogramme>()
+    var ibProgrammeListAPI = ArrayList<Listitems>()
+    var ibProgrammelist = ArrayList<Listitems>()
 
 
     override fun onCreateView(
@@ -78,7 +78,7 @@ class IBProgrammeFragment : Fragment() {
                 } else {
                     val intent = Intent(activity, IBDetail::class.java)
                     intent.putExtra("id", ibProgrammelist[position].id.toString())
-                    intent.putExtra("title", ibProgrammelist[position].submenu)
+                    intent.putExtra("title", ibProgrammelist[position].title)
                     activity?.startActivity(intent)
                 }
 
@@ -91,36 +91,36 @@ class IBProgrammeFragment : Fragment() {
         ibProgrammelist = ArrayList()
         ibProgrammeListAPI = ArrayList()
         progress.visibility = View.VISIBLE
-        val call: Call<ibprogrammeresponse> = ApiClient.getClient.ibprogrammelist()
-        call.enqueue(object : Callback<ibprogrammeresponse> {
-            override fun onFailure(call: Call<ibprogrammeresponse>, t: Throwable) {
+        val call: Call<CommonResponse> = ApiClient.getClient.ibprogrammelist()
+        call.enqueue(object : Callback<CommonResponse> {
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
                 progress.visibility = View.GONE
 
             }
 
             override fun onResponse(
-                call: Call<ibprogrammeresponse>,
-                response: Response<ibprogrammeresponse>
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
             ) {
                 progress.visibility = View.GONE
 
                 if (response.body()!!.status == 100) {
-                    ibProgrammeListAPI.addAll(response.body()!!.data.department_ib_programms)
+                    ibProgrammeListAPI.addAll(response.body()!!.data.lists)
                     for (i in 0.. ibProgrammeListAPI.size)
                     {
                         if (i==0)
                         {
-                            val model= Department_Ibprogramme(0,"Coming Up")
+                            val model= Listitems(0,"Coming Up")
                             ibProgrammelist.add(model)
                         }
                         else{
-                            var model= Department_Ibprogramme(
+                            var model= Listitems(
                                 ibProgrammeListAPI[i-1].id,
-                                ibProgrammeListAPI[i-1].submenu)
+                                ibProgrammeListAPI[i-1].title)
                             ibProgrammelist.add(model)
                         }
                     }
-                    val ibadapter = IB_ProgrammeAdapter(ibProgrammelist)
+                    val ibadapter = PrimaryAdapter(ibProgrammelist)
                     ibProgrammeRecycler.adapter = ibadapter
 
                     val bannerstring = response.body()!!.data.banner_image

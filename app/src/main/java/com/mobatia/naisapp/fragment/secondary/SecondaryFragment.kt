@@ -15,14 +15,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mobatia.naisapp.R
 import com.mobatia.naisapp.activity.comingup.SecondaryComingUp
+import com.mobatia.naisapp.activity.common_model.CommonResponse
+import com.mobatia.naisapp.activity.common_model.Listitems
 import com.mobatia.naisapp.activity.secondarydetail.Secondarydetails
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
 import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
 import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
-import com.mobatia.naisapp.fragment.secondary.adapter.SecondaryAdapter
-import com.mobatia.naisapp.fragment.secondary.model.Departmentsecondary
-import com.mobatia.naisapp.fragment.secondary.model.Secondaryresponse
+import com.mobatia.naisapp.fragment.primary.adapter.PrimaryAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,8 +34,8 @@ class SecondaryFragment : Fragment() {
     lateinit var secondary_recycler: RecyclerView
     lateinit var progress: ProgressBar
     private lateinit var linearLayoutManager: LinearLayoutManager
-    var secondarylistAPI = ArrayList<Departmentsecondary>()
-    var secondarylist = ArrayList<Departmentsecondary>()
+    var secondarylistAPI = ArrayList<Listitems>()
+    var secondarylist = ArrayList<Listitems>()
 
 
     override fun onCreateView(
@@ -80,7 +80,7 @@ class SecondaryFragment : Fragment() {
                 {
                     val intent = Intent(activity, Secondarydetails::class.java)
                     intent.putExtra("id", secondarylist[position].id.toString())
-                    intent.putExtra("title",secondarylist[position].submenu)
+                    intent.putExtra("title",secondarylist[position].title)
                     activity?.startActivity(intent)
                 }
 
@@ -93,33 +93,33 @@ class SecondaryFragment : Fragment() {
         secondarylist = ArrayList()
         secondarylistAPI = ArrayList()
         progress.visibility = View.VISIBLE
-        val  call: Call<Secondaryresponse> = ApiClient.getClient.secondarylist()
-        call.enqueue(object  : Callback<Secondaryresponse>{
-            override fun onFailure(call: Call<Secondaryresponse>, t: Throwable) {
+        val  call: Call<CommonResponse> = ApiClient.getClient.secondarylist()
+        call.enqueue(object  : Callback<CommonResponse>{
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
                 progress.visibility = View.GONE
 
             }
 
             override fun onResponse(
-                call: Call<Secondaryresponse>,
-                response: Response<Secondaryresponse>
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
             ) {
                 progress.visibility = View.GONE
                 if (response.body()!!.status==100){
-                    secondarylistAPI.addAll(response.body()!!.data.sub_menus)
+                    secondarylistAPI.addAll(response.body()!!.data.lists)
                     for (i in 0.. secondarylistAPI.size)
                     {
                         if (i==0)
                         {
-                            val model=Departmentsecondary(0,"Coming Up")
+                            val model=Listitems(0,"Coming Up")
                             secondarylist.add(model)
                         }
                         else{
-                            val model=Departmentsecondary(secondarylistAPI[i-1].id,secondarylistAPI.get(i-1).submenu)
+                            val model=Listitems(secondarylistAPI[i-1].id, secondarylistAPI[i-1].title)
                             secondarylist.add(model)
                         }
                     }
-                    val secondaryadapter = SecondaryAdapter(secondarylist)
+                    val secondaryadapter = PrimaryAdapter(secondarylist)
                     secondary_recycler.adapter = secondaryadapter
 
                     val bannerstring = response.body()!!.data.banner_image

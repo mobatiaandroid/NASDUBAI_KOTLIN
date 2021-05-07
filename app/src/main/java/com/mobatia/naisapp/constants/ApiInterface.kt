@@ -3,29 +3,23 @@ package com.mobatia.naisapp.constants
 import com.mobatia.naisapp.activity.common.banner.model.Bannerresponse
 import com.mobatia.naisapp.activity.common.model.LoginResponse
 import com.mobatia.naisapp.activity.common.studentlist.model.StudentListModel
+import com.mobatia.naisapp.activity.common_model.Comingupresponse
+import com.mobatia.naisapp.activity.common_model.CommonDetailResponse
+import com.mobatia.naisapp.activity.common_model.CommonResponse
 import com.mobatia.naisapp.activity.parentsessential.busservice.model.BusServiceResponse
 import com.mobatia.naisapp.activity.parentsessential.information.model.InformationResponse
 import com.mobatia.naisapp.activity.parentsessential.naslunchboxmenu.model.LunchBoxResponse
 import com.mobatia.naisapp.activity.parentsessential.termdates.model.TermDatesResponse
 import com.mobatia.naisapp.activity.parentsessential.uniform.model.UniformResponse
 import com.mobatia.naisapp.fragment.contact_us.model.Contactusresponse
-import com.mobatia.naisapp.fragment.early_years.model.Earlyyearsresponse
-import com.mobatia.naisapp.fragment.ibprogramme.model.IBdetailsresponse
-import com.mobatia.naisapp.fragment.ibprogramme.model.ibprogrammeresponse
 import com.mobatia.naisapp.fragment.parentsessentials.model.ParentsEssentialBannerResponse
 import com.mobatia.naisapp.fragment.performing_arts.model.Performingarts_bannerresponse
-import com.mobatia.naisapp.fragment.performing_arts.model.Performingartslistresponse
 import com.mobatia.naisapp.fragment.permissionslips.model.PermissionFormStatusApiModel
 import com.mobatia.naisapp.fragment.permissionslips.model.PermissionFormsApiModel
 import com.mobatia.naisapp.fragment.permissionslips.model.PermissionFormsResponse
 import com.mobatia.naisapp.fragment.permissionslips.model.PermissionFormsStatusResponse
-import com.mobatia.naisapp.fragment.primary.model.Primarydetailsresponse
-import com.mobatia.naisapp.fragment.primary.model.Primaryresponse
-import com.mobatia.naisapp.fragment.primary.model.comingup.Primarycomingupresponse
 import com.mobatia.naisapp.fragment.reports.model.ReportApiModel
 import com.mobatia.naisapp.fragment.reports.model.ReportListModel
-import com.mobatia.naisapp.fragment.secondary.model.Secondarydetailsresponse
-import com.mobatia.naisapp.fragment.secondary.model.Secondaryresponse
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -60,7 +54,7 @@ interface ApiInterface {
 
     /*************PRIMARY****************/
     @GET("api/v1/parent/departmentprimary")
-    fun primarylist(): Call<Primaryresponse>
+    fun primarylist(): Call<CommonResponse>
 
     /*************PRIMARY DETAIL****************/
     @POST("api/v1/parent/departmentprimary/detail")
@@ -68,18 +62,18 @@ interface ApiInterface {
     fun primarydetails(
         @Field("departmentprimary_id") departmentprimary_id: Int,
         @Field("page_number") page_number: Int
-    ): Call<Primarydetailsresponse>
+    ): Call<CommonDetailResponse>
 
     /*************PRIMARY COMING UP****************/
     @POST("api/v1/parent/primary_coming_up")
     @FormUrlEncoded
     fun primarycomingup(
         @Field("page_number") page_number: Int
-    ): Call<Primarycomingupresponse>
+    ): Call<Comingupresponse>
 
     /*************SECONDARY****************/
     @GET("api/v1/parent/departmentsecondary")
-    fun secondarylist(): Call<Secondaryresponse>
+    fun secondarylist(): Call<CommonResponse>
 
     /*************SECONDARY DETAIL****************/
     @POST("api/v1/parent/departmentsecondary/detail")
@@ -87,18 +81,18 @@ interface ApiInterface {
     fun secondarydetails(
         @Field("departmentsecondary_id") departmentprimary_id: Int,
         @Field("page_number") page_number: Int
-    ): Call<Secondarydetailsresponse>
+    ): Call<CommonDetailResponse>
 
     /*************SECONDARY COMING UP****************/
     @POST("api/v1/parent/secondary_coming_up")
     @FormUrlEncoded
     fun secondarycomingup(
         @Field("page_number") page_number: Int
-    ): Call<Primarycomingupresponse>
+    ): Call<Comingupresponse>
 
     /*************IB PROGRAMME****************/
     @GET("api/v1/parent/department_ib_programmes")
-    fun ibprogrammelist(): Call<ibprogrammeresponse>
+    fun ibprogrammelist(): Call<CommonResponse>
 
     /*************IB PROGRAMME DETAIL****************/
     @POST("api/v1/parent/department_ib_programme/detail")
@@ -106,18 +100,18 @@ interface ApiInterface {
     fun ibdetails(
         @Field("department_ib_programme_id") department_ib_programme_id: Int,
         @Field("page_number") page_number: Int
-    ): Call<IBdetailsresponse>
+    ): Call<CommonDetailResponse>
 
     /*************IB PROGRAMME COMING UP****************/
     @POST("api/v1/parent/ib_programmes_coming_up")
     @FormUrlEncoded
     fun ibprogrammecomingup(
         @Field("page_number") page_number: Int
-    ): Call<Primarycomingupresponse>
+    ): Call<Comingupresponse>
 
     /*************EARLY YEARS****************/
     @GET("api/v1/parent/department_early_years")
-    fun earlyyearslist(): Call<Earlyyearsresponse>
+    fun earlyyearslist(): Call<CommonResponse>
 
     /*************IB PROGRAMME DETAIL****************/
     @POST("api/v1/parent/department_early_year/detail")
@@ -125,14 +119,14 @@ interface ApiInterface {
     fun earlydetails(
         @Field("department_early_year_id") department_early_year_id: Int,
         @Field("page_number") page_number: Int
-    ): Call<IBdetailsresponse>
+    ): Call<CommonDetailResponse>
 
     /*************EARLY YEARS COMING UP****************/
     @POST("api/v1/parent/early_years_coming_up")
     @FormUrlEncoded
     fun early_yearscomingup(
         @Field("page_number") page_number: Int
-    ): Call<Primarycomingupresponse>
+    ): Call<Comingupresponse>
 
     /*************Report List****************/
     @POST("api/v1/parent/student_reports")
@@ -158,7 +152,7 @@ interface ApiInterface {
     @FormUrlEncoded
     fun performingarts_list(
         @Field("page_number") page_number: Int
-    ): Call<Performingartslistresponse>
+    ): Call<CommonResponse>
 
 
     /*************PARENTS ESSENTIAL BANNER****************/
@@ -202,7 +196,7 @@ interface ApiInterface {
 
     /*************NAE PROGRAMME****************/
     @GET("api/v1/parent/nae_programmes")
-    fun nae_programmes(): Call<Primaryresponse>
+    fun nae_programmes(): Call<CommonResponse>
 
     /*************NAE PROGRAMME DETAIL****************/
     @POST("api/v1/parent/nae_programme/detail")
@@ -210,7 +204,7 @@ interface ApiInterface {
     fun nae_programmesdetails(
         @Field("nae_programme_id") nae_programme_id: Int,
         @Field("page_number") page_number: Int
-    ): Call<Primarydetailsresponse>
+    ): Call<CommonDetailResponse>
 
 
     /*************PERMISSION FORMS LIST****************/
