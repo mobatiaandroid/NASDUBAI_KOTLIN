@@ -34,6 +34,7 @@ import com.mobatia.naisapp.activity.home.adapter.HomeListAdapter
 import com.mobatia.naisapp.constants.AppController
 import com.mobatia.naisapp.constants.MyDragShadowBuilder
 import com.mobatia.naisapp.constants.PreferenceManager
+import com.mobatia.naisapp.fragment.about_us.AboutUsFragment
 import com.mobatia.naisapp.fragment.contact_us.ContactUsFragment
 import com.mobatia.naisapp.fragment.early_years.EarlyyearsFragment
 import com.mobatia.naisapp.fragment.home.HomeScreenFragment
@@ -156,6 +157,11 @@ class HomeActivity : AppCompatActivity(), AdapterView.OnItemLongClickListener {
                 }
                 else  if (position == 18){
                     mFragment = NaeProgrammeFragment()
+                    replaceFragmentsSelected(position)
+
+                }
+                else  if (position == 22){
+                    mFragment = AboutUsFragment()
                     replaceFragmentsSelected(position)
 
                 }

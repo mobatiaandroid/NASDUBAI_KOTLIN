@@ -11,6 +11,7 @@ import com.mobatia.naisapp.activity.parentsessential.information.model.Informati
 import com.mobatia.naisapp.activity.parentsessential.naslunchboxmenu.model.LunchBoxResponse
 import com.mobatia.naisapp.activity.parentsessential.termdates.model.TermDatesResponse
 import com.mobatia.naisapp.activity.parentsessential.uniform.model.UniformResponse
+import com.mobatia.naisapp.fragment.about_us.model.AboutUsresponse
 import com.mobatia.naisapp.fragment.contact_us.model.Contactusresponse
 import com.mobatia.naisapp.fragment.parentsessentials.model.ParentsEssentialBannerResponse
 import com.mobatia.naisapp.fragment.performing_arts.model.Performingarts_bannerresponse
@@ -231,4 +232,8 @@ interface ApiInterface {
 
     @GET("api/v1/parent/home_banner_images")
     fun bannerimages(): Call<Bannerresponse>
+
+    /*************ABOUT US****************/
+    @GET("api/v1/parent/about_us")
+    fun aboutuslist(): Call<AboutUsresponse>
 }
