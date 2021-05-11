@@ -11,6 +11,7 @@ import com.mobatia.naisapp.activity.parentsessential.information.model.Informati
 import com.mobatia.naisapp.activity.parentsessential.naslunchboxmenu.model.LunchBoxResponse
 import com.mobatia.naisapp.activity.parentsessential.termdates.model.TermDatesResponse
 import com.mobatia.naisapp.activity.parentsessential.uniform.model.UniformResponse
+import com.mobatia.naisapp.activity.staff_departments.model.StaffListresponse
 import com.mobatia.naisapp.fragment.about_us.model.AboutUsresponse
 import com.mobatia.naisapp.fragment.contact_us.model.Contactusresponse
 import com.mobatia.naisapp.fragment.parentsessentials.model.ParentsEssentialBannerResponse
@@ -236,4 +237,18 @@ interface ApiInterface {
     /*************ABOUT US****************/
     @GET("api/v1/parent/about_us")
     fun aboutuslist(): Call<AboutUsresponse>
+
+    /*************STAFF CATEGORIES****************/
+    @POST("api/v1/parent/staff_categories")
+    @FormUrlEncoded
+    fun staff_categories(
+        @Field("page_number") page_number: Int
+    ): Call<CommonResponse>
+
+    /*************STAFF DEPARTMENTS****************/
+    @POST("api/v1/parent/staff_departments")
+    @FormUrlEncoded
+    fun staff_departments(
+        @Field("staff_category_id") staff_category_id: Int
+    ): Call<StaffListresponse>
 }

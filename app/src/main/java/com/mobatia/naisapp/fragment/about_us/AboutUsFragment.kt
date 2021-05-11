@@ -1,6 +1,7 @@
 package com.mobatia.naisapp.fragment.about_us
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,8 +14,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mobatia.naisapp.R
+import com.mobatia.naisapp.activity.comingup.PrimaryComingUp
+import com.mobatia.naisapp.activity.primary.PrimaryDetail
+import com.mobatia.naisapp.activity.staff_directory.StaffDirectory
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
+import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
+import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
 import com.mobatia.naisapp.fragment.about_us.adapter.AboutUsAdapter
 import com.mobatia.naisapp.fragment.about_us.model.AboutU
 import com.mobatia.naisapp.fragment.about_us.model.AboutUsresponse
@@ -66,6 +72,17 @@ class AboutUsFragment : Fragment() {
         } else {
             CommonMethods.showSuccessInternetAlert(mContext)
         }
+
+        aboutusRecycler.addOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClicked(position: Int, view: View) {
+
+                if (position == 0) {
+                    val intent = Intent(activity, StaffDirectory::class.java)
+                    activity?.startActivity(intent)
+                }
+            }
+
+        })
     }
 
     private fun AboutusList() {
