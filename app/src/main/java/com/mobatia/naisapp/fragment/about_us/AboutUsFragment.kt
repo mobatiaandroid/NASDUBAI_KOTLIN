@@ -3,6 +3,7 @@ package com.mobatia.naisapp.fragment.about_us
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -19,6 +21,7 @@ import com.mobatia.naisapp.activity.primary.PrimaryDetail
 import com.mobatia.naisapp.activity.staff_directory.StaffDirectory
 import com.mobatia.naisapp.constants.ApiClient
 import com.mobatia.naisapp.constants.CommonMethods
+import com.mobatia.naisapp.constants.CustomwebviewMaps
 import com.mobatia.naisapp.constants.recyclermanager.OnItemClickListener
 import com.mobatia.naisapp.constants.recyclermanager.addOnItemClickListener
 import com.mobatia.naisapp.fragment.about_us.adapter.AboutUsAdapter
@@ -76,9 +79,40 @@ class AboutUsFragment : Fragment() {
         aboutusRecycler.addOnItemClickListener(object : OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
 
+
                 if (position == 0) {
                     val intent = Intent(activity, StaffDirectory::class.java)
                     activity?.startActivity(intent)
+                } else if (about_uslist[position].tab_type.equals(
+                        "Facilities",
+                        ignoreCase = true
+                    )
+                ) {
+                    val intent = Intent(activity, FacilityActivity::class.java)
+                    intent.putExtra("array", about_uslistAPI[position - 1].items)
+                    Log.e("FacilityActivity==>",about_uslistAPI[position - 1].items.toString())
+
+                    intent.putExtra("desc", about_uslist[position].description)
+                    intent.putExtra("title", about_uslist[position].tab_type)
+                    intent.putExtra("image", about_uslist[position].banner_image)
+                    activity?.startActivity(intent)
+
+                }else if (about_uslist[position].tab_type.equals("Accreditations & Examinations",ignoreCase = true)){
+
+                    val intent = Intent(activity, AccreditionsActivity::class.java)
+                    Log.e("ACCREDITITONS==>",about_uslistAPI[position].items.toString())
+                    intent.putExtra("array", about_uslistAPI[position - 1].items)
+                    intent.putExtra("image", about_uslist[position].banner_image)
+                    activity?.startActivity(intent)
+                }
+
+                else {
+                    val intent = Intent(mContext, CustomwebviewMaps::class.java)
+                    Log.e("URLPASSING==>", about_uslist[position].url)
+                    intent.putExtra("webview_url", about_uslist[position].url)
+                    intent.putExtra("title", about_uslist[position].tab_type)
+
+                    this@AboutUsFragment.startActivity(intent)
                 }
             }
 
@@ -140,15 +174,30 @@ class AboutUsFragment : Fragment() {
                     }
 
                     about_uslistAPI.addAll(response.body()!!.data.about_us)
+
+
                     for (i in 0..about_uslistAPI.size) {
+
                         if (i == 0) {
-                            val model = AboutU(0, "Staff Directory")
+                            val model = AboutU()
+
+                            model.id = 0
+                            model.tab_type = "Staff Directory"
+                            model.description = about_uslistAPI[i].description
+                            model.banner_image = about_uslistAPI[i].banner_image
+                            model.url = about_uslistAPI[i].url
+
+                            // model.description = about_uslistAPI[i].url
+
                             about_uslist.add(model)
                         } else {
-                            var model = AboutU(
-                                about_uslistAPI[i - 1].id,
-                                about_uslistAPI[i - 1].tab_type
-                            )
+                            val model = AboutU()
+                            model.id = about_uslistAPI[i - 1].id
+                            model.tab_type = about_uslistAPI[i - 1].tab_type
+                            model.description = about_uslistAPI[i - 1].description
+                            model.banner_image = about_uslistAPI[i - 1].banner_image
+                            model.url = about_uslistAPI[i - 1].url
+
                             about_uslist.add(model)
                         }
                     }

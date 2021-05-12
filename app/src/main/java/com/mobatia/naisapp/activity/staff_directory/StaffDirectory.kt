@@ -73,17 +73,19 @@ class StaffDirectory : AppCompatActivity() {
         subjectlistrecycler.addOnItemClickListener(object : OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
 
-                if (filteredlist.size > 0) {
+                if (filteredlist.size>0){
                     val intent = Intent(mContext, StaffListActivity::class.java)
                     intent.putExtra("category_id", filteredlist[position].id.toString())
                     intent.putExtra("title", filteredlist[position].title)
                     mContext.startActivity(intent)
-                } else {
+                }
+                else{
                     val intent = Intent(mContext, StaffListActivity::class.java)
                     intent.putExtra("category_id", subjectlistAPI[position].id.toString())
                     intent.putExtra("title", subjectlistAPI[position].title)
                     mContext.startActivity(intent)
                 }
+
             }
 
         })

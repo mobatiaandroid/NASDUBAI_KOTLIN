@@ -33,6 +33,7 @@ class CustomwebviewMaps : AppCompatActivity() {
     lateinit var webview: WebView
     lateinit var progressbar:ProgressBar
     var urltoshow: String = ""
+    var title:String = ""
     lateinit var logoclick:ImageView
 
 
@@ -43,6 +44,8 @@ class CustomwebviewMaps : AppCompatActivity() {
         context = this
 
         urltoshow = intent.getStringExtra("webview_url")
+        title = intent.getStringExtra("title")
+
         back = findViewById(R.id.back)
         titleTextView=findViewById(R.id.titleTextView)
         webview = findViewById(R.id.webviewmaps)
@@ -55,6 +58,8 @@ class CustomwebviewMaps : AppCompatActivity() {
         webview.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null)
         progressbar = findViewById(R.id.progress)
         webview.webViewClient = MyWebViewClient(this)
+
+        titleTextView.text = title
 
 
         if (urltoshow.contains("http")) {
