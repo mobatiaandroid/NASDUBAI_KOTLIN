@@ -453,7 +453,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, View.OnTouchLis
             this.contentResolver,
             Settings.Secure.ANDROID_ID
         )
-        //   System.out.println("LOGINRESPONSE:"+"email:"+email+"pass:"+password+"devid:  "+androidID+" FCM ID : "+ FirebaseInstanceId.getInstance().token.toString())
+           System.out.println("LOGINRESPONSE:"+"email:"+email+"pass:"+password+"devid:  "+androidID+" FCM ID : "+ FirebaseInstanceId.getInstance().token.toString())
         val call: Call<LoginResponse> = ApiClient.getClient.login(
             email, password, 2, "123456789", androidID
         )

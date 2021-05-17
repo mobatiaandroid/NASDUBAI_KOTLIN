@@ -10,7 +10,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     defaultConfig {
-        applicationId "com.mobatia.nasdubai_kotlin"
+        applicationId "com.mobatia.naisapp"
         minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
@@ -65,3 +65,4 @@ dependencies {
 
 
 }
+apply plugin: 'com.google.gms.google-services'
